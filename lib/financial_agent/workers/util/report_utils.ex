@@ -1,4 +1,4 @@
-defmodule FinincialTool.Workers.Util.ReportUtils do
+defmodule FinincialAgent.Workers.Util.ReportUtils do
   def prep_results(results) do
     total_entries = total_entries(results)
     display(results, total_entries)

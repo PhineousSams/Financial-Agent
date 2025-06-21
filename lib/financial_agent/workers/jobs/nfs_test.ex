@@ -1,8 +1,8 @@
-defmodule FinincialTool.Workers.Jobs.NFSTest do
+defmodule FinincialAgent.Workers.Jobs.NFSTest do
   require Logger
 
 
-  # FinincialTool.Workers.Jobs.NFSTest.datetime(:seven)
+  # FinincialAgent.Workers.Jobs.NFSTest.datetime(:seven)
   def datetime(:seven),
     do: Timex.format!(Timex.local() |> Timex.shift(hours: -2), new_date() <> "{h24}{m}{s}")
 
@@ -38,7 +38,7 @@ defmodule FinincialTool.Workers.Jobs.NFSTest do
     }
   end
 
-  # FinincialTool.Workers.Jobs.NFSTest.perform(10)
+  # FinincialAgent.Workers.Jobs.NFSTest.perform(10)
   def perform(times) do
     url = "https://102.23.122.222:8090/emoney/outward/transfer/v1"
     try do

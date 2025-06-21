@@ -1,8 +1,8 @@
-defmodule FinincialToolWeb.ConfigsLive.FormComponent do
+defmodule FinincialAgentWeb.ConfigsLive.FormComponent do
   @moduledoc false
-  use FinincialToolWeb, :live_component
+  use FinincialAgentWeb, :live_component
 
-  alias FinincialTool.Settings
+  alias FinincialAgent.Settings
 
   @impl true
   def update(%{settings: settings} = assigns, socket) do

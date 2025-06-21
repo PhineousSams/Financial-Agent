@@ -1,8 +1,8 @@
-defmodule FinincialTool.AI.Message do
+defmodule FinincialAgent.AI.Message do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialTool.AI.Conversation
+  alias FinincialAgent.AI.Conversation
 
   schema "messages" do
     field :role, :string

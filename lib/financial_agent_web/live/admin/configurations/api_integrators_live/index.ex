@@ -1,16 +1,16 @@
-defmodule FinincialToolWeb.ApiIntegratorsLive.Index do
-  use FinincialToolWeb, :live_view
+defmodule FinincialAgentWeb.ApiIntegratorsLive.Index do
+  use FinincialAgentWeb, :live_view
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs
-  alias FinincialTool.Settings
-  alias FinincialTool.Settings.ApiIntegrator
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Workers.Helpers.UserLog
-  alias FinincialToolWeb.Components.Custom.Table
-  alias FinincialToolWeb.Helps.PaginationControl, as: Control
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs
+  alias FinincialAgent.Settings
+  alias FinincialAgent.Settings.ApiIntegrator
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Workers.Helpers.UserLog
+  alias FinincialAgentWeb.Components.Custom.Table
+  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
 
-  alias FinincialToolWeb.NotificationLive.{
+  alias FinincialAgentWeb.NotificationLive.{
     ErrorModalLive,
     InfoModalLive,
     SuccessModalLive

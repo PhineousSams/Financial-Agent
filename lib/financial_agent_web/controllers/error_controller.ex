@@ -1,5 +1,5 @@
-defmodule FinincialToolWeb.ErrorController do
-  use FinincialToolWeb, :controller
+defmodule FinincialAgentWeb.ErrorController do
+  use FinincialAgentWeb, :controller
 
   @doc """
   Handles requests to invalid endpoints.

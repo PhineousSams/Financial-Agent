@@ -1,13 +1,13 @@
-defmodule FinincialTool.Roles do
+defmodule FinincialAgent.Roles do
   import Ecto.Query, warn: false
   @pagination [page_size: 10]
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs
-  alias FinincialTool.Roles.UserRole
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Roles.Permissions
-  alias FinincialTool.Roles.PermissionGroups
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs
+  alias FinincialAgent.Roles.UserRole
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Roles.Permissions
+  alias FinincialAgent.Roles.PermissionGroups
 
   # ============================ USER ROLES ===========================
   def get_user_role_name_by_id_with_permissions(data) do

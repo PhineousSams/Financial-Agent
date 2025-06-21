@@ -1,5 +1,5 @@
 defmodule CertificatePdfGenerator do
-  use FinincialToolWeb, :controller
+  use FinincialAgentWeb, :controller
   import Plug.Conn
 
   @green "#2ecc71"

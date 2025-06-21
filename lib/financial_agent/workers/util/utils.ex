@@ -1,4 +1,4 @@
-defmodule FinincialTool.Workers.Util.Utils do
+defmodule FinincialAgent.Workers.Util.Utils do
 
 
   def sanitize_term(term), do: "%#{String.replace(term, "%", "\\%")}%"
@@ -19,7 +19,7 @@ defmodule FinincialTool.Workers.Util.Utils do
     :os.system_time(:seconds)
   end
 
-  # FinincialTool.Workers.Util.Utils.date_format("28/03/2024")
+  # FinincialAgent.Workers.Util.Utils.date_format("28/03/2024")
   def date_format(nil), do: nil
 
   def date_format(date) do
@@ -203,4 +203,4 @@ defmodule FinincialTool.Workers.Util.Utils do
   end
 end
 
-# FinincialTool.Workers.Util.Utils.gen_ref()
+# FinincialAgent.Workers.Util.Utils.gen_ref()

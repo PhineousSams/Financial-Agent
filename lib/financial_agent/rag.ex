@@ -1,11 +1,11 @@
-defmodule FinincialTool.RAG do
+defmodule FinincialAgent.RAG do
   @moduledoc """
   RAG (Retrieval Augmented Generation) module for document search and embeddings.
   """
 
   import Ecto.Query, warn: false
-  alias FinincialTool.Repo
-  alias FinincialTool.RAG.{Document, Embedding}
+  alias FinincialAgent.Repo
+  alias FinincialAgent.RAG.{Document, Embedding}
 
   @doc """
   Searches for documents using text similarity (fallback without pgvector).

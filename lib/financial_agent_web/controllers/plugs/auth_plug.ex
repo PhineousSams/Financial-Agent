@@ -1,8 +1,8 @@
-defmodule FinincialToolWeb.Plugs.AuthPlug do
+defmodule FinincialAgentWeb.Plugs.AuthPlug do
   import Plug.Conn
-  alias FinincialTool.Workers.Helpers.ApiAuth
-  alias FinincialTool.Logs.ApiLogs
-  alias FinincialTool.Repo
+  alias FinincialAgent.Workers.Helpers.ApiAuth
+  alias FinincialAgent.Logs.ApiLogs
+  alias FinincialAgent.Repo
 
   def init(default), do: default
 
@@ -26,7 +26,7 @@ defmodule FinincialToolWeb.Plugs.AuthPlug do
             log_auth_failure(conn, ref_id, start_time, "Integrator not Active", 403, integrator)
             conn
             |> put_status(:forbidden)
-            |> Phoenix.Controller.put_view(FinincialToolWeb.ErrorView)
+            |> Phoenix.Controller.put_view(FinincialAgentWeb.ErrorView)
             |> Phoenix.Controller.json(%{
               "message" => "Integrator not Active",
               "status" => false,
@@ -38,7 +38,7 @@ defmodule FinincialToolWeb.Plugs.AuthPlug do
           log_auth_failure(conn, ref_id, start_time, "Unauthorized API Access", 401, %{error: error_info})
           conn
           |> put_status(:unauthorized)
-          |> Phoenix.Controller.put_view(FinincialToolWeb.ErrorView)
+          |> Phoenix.Controller.put_view(FinincialAgentWeb.ErrorView)
           |> Phoenix.Controller.json(%{
             "message" => "Unauthorized API Access",
             "status" => false,
@@ -51,7 +51,7 @@ defmodule FinincialToolWeb.Plugs.AuthPlug do
       log_auth_failure(conn, ref_id, start_time, "Access token is missing", 400, nil)
       conn
       |> put_status(:bad_request)
-      |> Phoenix.Controller.put_view(FinincialToolWeb.ErrorView)
+      |> Phoenix.Controller.put_view(FinincialAgentWeb.ErrorView)
       |> Phoenix.Controller.json(%{
         "message" => "Access token is missing",
         "status" => false,

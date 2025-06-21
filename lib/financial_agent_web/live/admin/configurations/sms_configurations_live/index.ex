@@ -1,18 +1,18 @@
-defmodule FinincialToolWeb.SmsConfigurationsLive.Index do
-  use FinincialToolWeb, :live_view
+defmodule FinincialAgentWeb.SmsConfigurationsLive.Index do
+  use FinincialAgentWeb, :live_view
 
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs
-  alias FinincialTool.Settings
-  alias FinincialTool.Settings.SmsConfigs
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialToolWeb.Helps.ErrorHelper
-  alias FinincialTool.Workers.Helpers.UserLog
-  alias FinincialTool.Workers.Helpers.PermissionsCheck
-  alias FinincialToolWeb.Helps.PaginationControl, as: Control
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs
+  alias FinincialAgent.Settings
+  alias FinincialAgent.Settings.SmsConfigs
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgentWeb.Helps.ErrorHelper
+  alias FinincialAgent.Workers.Helpers.UserLog
+  alias FinincialAgent.Workers.Helpers.PermissionsCheck
+  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
 
-  alias FinincialToolWeb.NotificationLive.{
+  alias FinincialAgentWeb.NotificationLive.{
     ErrorModalLive,
     InfoModalLive,
     SuccessModalLive

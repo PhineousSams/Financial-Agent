@@ -1,4 +1,4 @@
-defmodule FinincialTool.Notifications.Sms do
+defmodule FinincialAgent.Notifications.Sms do
   use Ecto.Schema
   import Ecto.Changeset
 

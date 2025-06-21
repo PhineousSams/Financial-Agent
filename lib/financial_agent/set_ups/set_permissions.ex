@@ -1,11 +1,11 @@
-defmodule FinincialTool.SetUps.Permissions do
+defmodule FinincialAgent.SetUps.Permissions do
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Roles
-  alias FinincialTool.Roles.UserRole
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Roles.UserRole
 
 
-  # FinincialTool.SetUps.Permissions.setup_permissions()
+  # FinincialAgent.SetUps.Permissions.setup_permissions()
   def setup_permissions() do
     role = Repo.get_by(UserRole, id: 1)
     Roles.update_user_role(role, %{permissions: permissions()})

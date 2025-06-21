@@ -1,13 +1,13 @@
-defmodule FinincialToolWeb.ClientUserLive.FormComponent do
+defmodule FinincialAgentWeb.ClientUserLive.FormComponent do
   @moduledoc false
-  use FinincialToolWeb, :live_component
+  use FinincialAgentWeb, :live_component
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Roles
-  alias FinincialTool.Accounts
-  alias FinincialTool.Accounts.User
-  alias FinincialTool.Workers.Helpers.UserLog
-  alias FinincialTool.Workers.Util.Utils
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Accounts
+  alias FinincialAgent.Accounts.User
+  alias FinincialAgent.Workers.Helpers.UserLog
+  alias FinincialAgent.Workers.Util.Utils
 
   @impl true
   def update(%{user: user, title: title} = assigns, socket) do

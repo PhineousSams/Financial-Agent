@@ -1,12 +1,12 @@
-defmodule FinincialTool.AI.Agent do
+defmodule FinincialAgent.AI.Agent do
   @moduledoc """
   The AI Agent module that handles conversations with OpenAI and function calling.
   """
 
-  alias FinincialTool.AI
-  alias FinincialTool.AI.{Conversation, Message}
-  alias FinincialTool.Integrations.{Gmail, Calendar, HubSpot}
-  alias FinincialTool.RAG
+  alias FinincialAgent.AI
+  alias FinincialAgent.AI.{Conversation, Message}
+  alias FinincialAgent.Integrations.{Gmail, Calendar, HubSpot}
+  alias FinincialAgent.RAG
 
   @system_prompt """
   You are an AI assistant for financial advisors. You help manage client relationships,

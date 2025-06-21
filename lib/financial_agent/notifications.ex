@@ -1,14 +1,14 @@
-defmodule FinincialTool.Notifications do
+defmodule FinincialAgent.Notifications do
   import Ecto.Query, warn: false
   @pagination [page_size: 10]
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Notifications.Sms
-  alias FinincialTool.Notifications.Email
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Notifications.Alerts
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Notifications.Sms
+  alias FinincialAgent.Notifications.Email
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Notifications.Alerts
 
-  # alias FinincialTool.Notifications.Announcement
+  # alias FinincialAgent.Notifications.Announcement
 
   def list_tbl_email_logs do
     Repo.all(Email)

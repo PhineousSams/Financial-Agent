@@ -1,9 +1,9 @@
-defmodule FinincialToolWeb.Plugs.BasicAuth do
+defmodule FinincialAgentWeb.Plugs.BasicAuth do
   @behaviour Plug
   import Plug.Conn
 
-  alias FinincialTool.Settings
-  alias FinincialTool.Workers.Util.AuthDecoder
+  alias FinincialAgent.Settings
+  alias FinincialAgent.Workers.Util.AuthDecoder
 
   def init(default), do: default
 

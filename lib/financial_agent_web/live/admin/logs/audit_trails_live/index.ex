@@ -1,8 +1,8 @@
-defmodule FinincialToolWeb.AuditTrailsLive.Index do
-  use FinincialToolWeb, :live_view
+defmodule FinincialAgentWeb.AuditTrailsLive.Index do
+  use FinincialAgentWeb, :live_view
 
-  alias FinincialTool.Logs
-  alias FinincialToolWeb.Helps.PaginationControl, as: Control
+  alias FinincialAgent.Logs
+  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
 
   @impl true
   def mount(_params, _session, socket) do

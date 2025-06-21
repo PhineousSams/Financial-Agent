@@ -1,6 +1,6 @@
-defmodule FinincialToolWeb.Helps.PaginationControl do
+defmodule FinincialAgentWeb.Helps.PaginationControl do
   @moduledoc false
-  use FinincialToolWeb, :live_view
+  use FinincialAgentWeb, :live_view
 
   @impl true
   def render(assigns) do

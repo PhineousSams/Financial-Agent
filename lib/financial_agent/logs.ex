@@ -1,15 +1,15 @@
-defmodule FinincialTool.Logs do
+defmodule FinincialAgent.Logs do
   import Ecto.Query, warn: false
   @pagination [page_size: 10]
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs.UserLogs
-  alias FinincialTool.Logs.SessionLogs
-  alias FinincialTool.Logs.AuditLogs
-  alias FinincialTool.Accounts.User
-  alias FinincialTool.Logs.ApiLogs
-  alias FinincialTool.Logs.ServiceLogs
-  alias FinincialTool.Workers.Util.Utils
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs.UserLogs
+  alias FinincialAgent.Logs.SessionLogs
+  alias FinincialAgent.Logs.AuditLogs
+  alias FinincialAgent.Accounts.User
+  alias FinincialAgent.Logs.ApiLogs
+  alias FinincialAgent.Logs.ServiceLogs
+  alias FinincialAgent.Workers.Util.Utils
 
   def get_user_logs(search_params) do
     UserLogs
@@ -125,7 +125,7 @@ defmodule FinincialTool.Logs do
         service,
         _user_id \\ 1
       ) do
-    data = FinincialTool.Workers.Util.Cache.get(:assigns)
+    data = FinincialAgent.Workers.Util.Cache.get(:assigns)
 
     Ecto.Multi.insert(
       multi,
@@ -152,7 +152,7 @@ defmodule FinincialTool.Logs do
   end
 
   def log_session(%{assigns: _assigns}, description, action, attrs, service) do
-    data = FinincialTool.Workers.Util.Cache.get(:assigns)
+    data = FinincialAgent.Workers.Util.Cache.get(:assigns)
 
     changeset =
       SessionLogs.changeset(

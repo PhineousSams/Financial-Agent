@@ -1,5 +1,5 @@
-defmodule FinincialToolWeb.SessionHTML do
-  use FinincialToolWeb, :html
+defmodule FinincialAgentWeb.SessionHTML do
+  use FinincialAgentWeb, :html
 
   embed_templates "session_html/*"
 end

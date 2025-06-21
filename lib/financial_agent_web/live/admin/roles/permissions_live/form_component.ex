@@ -1,13 +1,13 @@
-defmodule FinincialToolWeb.PermissionsLive.FormComponent do
+defmodule FinincialAgentWeb.PermissionsLive.FormComponent do
   @moduledoc false
-  use FinincialToolWeb, :live_component
+  use FinincialAgentWeb, :live_component
 
-  alias FinincialTool.Logs
-  alias FinincialTool.Repo
-  alias FinincialTool.Roles
-  alias FinincialTool.Roles.Permissions
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Workers.Util.Cache
+  alias FinincialAgent.Logs
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Roles.Permissions
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Workers.Util.Cache
 
   @impl true
   def update(%{permission: permission, title: title} = assigns, socket) do

@@ -1,9 +1,9 @@
-defmodule FinincialTool.AI.Conversation do
+defmodule FinincialAgent.AI.Conversation do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialTool.Accounts.User
-  alias FinincialTool.AI.Message
+  alias FinincialAgent.Accounts.User
+  alias FinincialAgent.AI.Message
 
   schema "conversations" do
     field :title, :string

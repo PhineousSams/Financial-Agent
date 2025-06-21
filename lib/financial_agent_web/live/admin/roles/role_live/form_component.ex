@@ -1,13 +1,13 @@
-defmodule FinincialToolWeb.RoleLive.FormComponent do
+defmodule FinincialAgentWeb.RoleLive.FormComponent do
   @moduledoc false
-  use FinincialToolWeb, :live_component
+  use FinincialAgentWeb, :live_component
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs
-  alias FinincialTool.Roles
-  alias FinincialTool.Roles.UserRole
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Workers.Util.Cache
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Roles.UserRole
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Workers.Util.Cache
 
   @impl true
   def update(%{user_role: user_role, title: title} = assigns, socket) do

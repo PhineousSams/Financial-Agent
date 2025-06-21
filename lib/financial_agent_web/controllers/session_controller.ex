@@ -1,11 +1,11 @@
-defmodule FinincialToolWeb.SessionController do
-  use FinincialToolWeb, :controller
+defmodule FinincialAgentWeb.SessionController do
+  use FinincialAgentWeb, :controller
   import Plug.Conn
 
-  alias FinincialTool.Logs
-  alias FinincialTool.Accounts
-  alias FinincialToolWeb.Plugs.UserAuth
-  alias FinincialTool.Workers.Util.Cache
+  alias FinincialAgent.Logs
+  alias FinincialAgent.Accounts
+  alias FinincialAgentWeb.Plugs.UserAuth
+  alias FinincialAgent.Workers.Util.Cache
 
   def new(conn, _params) do
 

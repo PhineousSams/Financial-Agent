@@ -1,11 +1,11 @@
-defmodule FinincialToolWeb.PasswordFormatLive.Index do
-  use FinincialToolWeb, :live_view
+defmodule FinincialAgentWeb.PasswordFormatLive.Index do
+  use FinincialAgentWeb, :live_view
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Configs
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Configs.PasswordConfig
-  alias FinincialTool.Workers.Helpers.UserLog
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Configs
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Configs.PasswordConfig
+  alias FinincialAgent.Workers.Helpers.UserLog
 
   @impl true
   def mount(_params, _session, %{assigns: _assigns} = socket) do

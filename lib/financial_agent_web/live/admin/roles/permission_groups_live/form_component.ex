@@ -1,7 +1,7 @@
-defmodule FinincialToolWeb.PermissionGroupsLive.FormComponent do
-  use FinincialToolWeb, :live_component
+defmodule FinincialAgentWeb.PermissionGroupsLive.FormComponent do
+  use FinincialAgentWeb, :live_component
 
-  alias FinincialTool.Roles
+  alias FinincialAgent.Roles
 
   @impl true
   def render(assigns) do

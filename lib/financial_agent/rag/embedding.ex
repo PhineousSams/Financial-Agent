@@ -1,8 +1,8 @@
-defmodule FinincialTool.RAG.Embedding do
+defmodule FinincialAgent.RAG.Embedding do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialTool.RAG.Document
+  alias FinincialAgent.RAG.Document
 
   schema "embeddings" do
     field :content_chunk, :string

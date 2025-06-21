@@ -1,4 +1,4 @@
-defmodule FinincialToolWeb.Helps.DataTable do
+defmodule FinincialAgentWeb.Helps.DataTable do
   @moduledoc false
   import Phoenix.LiveView.Helpers
 

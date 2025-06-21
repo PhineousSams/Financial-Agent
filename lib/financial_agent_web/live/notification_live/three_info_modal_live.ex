@@ -1,6 +1,6 @@
-defmodule FinincialToolWeb.NotificationLive.ThreeInfoModalLive do
+defmodule FinincialAgentWeb.NotificationLive.ThreeInfoModalLive do
   @moduledoc false
-  use FinincialToolWeb, :live_component
+  use FinincialAgentWeb, :live_component
 
   def render(assigns) do
     ~H"""

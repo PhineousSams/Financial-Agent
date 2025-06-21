@@ -1,4 +1,4 @@
-defmodule FinincialTool.Logs.AuditLogs do
+defmodule FinincialAgent.Logs.AuditLogs do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -11,7 +11,7 @@ defmodule FinincialTool.Logs.AuditLogs do
     field :post_data, :map
     field :metadata, :map
 
-    belongs_to :user, FinincialTool.Accounts.User, foreign_key: :user_id, type: :id
+    belongs_to :user, FinincialAgent.Accounts.User, foreign_key: :user_id, type: :id
 
     timestamps(inserted_at: :created_at, type: :utc_datetime)
   end

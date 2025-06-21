@@ -347,7 +347,7 @@ Hooks.GeneratePDF = {
     };
 
     // Try to load the image, but generate PDF even if it fails
-    this.loadImage('D:/financial_tool/priv/static/images/ceec-logo-white.png')
+    this.loadImage('D:/financial_agent/priv/static/images/ceec-logo-white.png')
       .then((logo) => {
         generatePDFContent(logo);
       })

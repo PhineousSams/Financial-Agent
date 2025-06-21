@@ -1,10 +1,10 @@
-defmodule FinincialTool.Logs.SessionLogs do
+defmodule FinincialAgent.Logs.SessionLogs do
   use Ecto.Schema
   import Ecto.Changeset
   use Endon
 
-  alias FinincialTool.Accounts.User
-  # alias FinincialTool.Repo
+  alias FinincialAgent.Accounts.User
+  # alias FinincialAgent.Repo
 
   @columns [
     :session_id,

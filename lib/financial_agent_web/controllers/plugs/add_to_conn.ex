@@ -1,7 +1,7 @@
-defmodule FinincialToolWeb.Plugs.AddToConn do
+defmodule FinincialAgentWeb.Plugs.AddToConn do
   @moduledoc false
   import Plug.Conn
-  alias FinincialTool.Logs
+  alias FinincialAgent.Logs
 
   def put_client_ip(conn, _),
     do:

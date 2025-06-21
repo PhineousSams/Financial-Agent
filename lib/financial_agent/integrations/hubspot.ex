@@ -1,10 +1,10 @@
-defmodule FinincialTool.Integrations.HubSpot do
+defmodule FinincialAgent.Integrations.HubSpot do
   @moduledoc """
   HubSpot CRM API integration for managing contacts, deals, and notes.
   """
 
-  alias FinincialTool.Auth
-  alias FinincialTool.RAG
+  alias FinincialAgent.Auth
+  alias FinincialAgent.RAG
 
   @hubspot_api_base "https://api.hubapi.com"
 

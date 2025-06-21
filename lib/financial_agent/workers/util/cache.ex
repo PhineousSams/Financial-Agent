@@ -1,4 +1,4 @@
-defmodule FinincialTool.Workers.Util.Cache do
+defmodule FinincialAgent.Workers.Util.Cache do
   # ================= PUT FUNCTIONS ================
 
   def put(data, :search) do
@@ -38,7 +38,7 @@ defmodule FinincialTool.Workers.Util.Cache do
     value
   end
 
-  # FinincialTool.Workers.Util.Cache.get(:login)
+  # FinincialAgent.Workers.Util.Cache.get(:login)
   def get(:login) do
     {:ok, value} = Cachex.get(:store, :params)
     value

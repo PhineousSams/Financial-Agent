@@ -1,15 +1,15 @@
-defmodule FinincialToolWeb.PermissionGroupsLive.Index do
-  use FinincialToolWeb, :live_view
+defmodule FinincialAgentWeb.PermissionGroupsLive.Index do
+  use FinincialAgentWeb, :live_view
 
-  alias FinincialTool.Repo
-  alias FinincialToolWeb.Helps.ErrorHelper
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialToolWeb.Helps.PaginationControl, as: Control
+  alias FinincialAgent.Repo
+  alias FinincialAgentWeb.Helps.ErrorHelper
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
 
-  alias FinincialTool.Roles
-  alias FinincialTool.Roles.PermissionGroups
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Roles.PermissionGroups
 
-  alias FinincialToolWeb.NotificationLive.{
+  alias FinincialAgentWeb.NotificationLive.{
     ErrorModalLive,
     InfoModalLive,
     SuccessModalLive

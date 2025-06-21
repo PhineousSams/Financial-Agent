@@ -1,12 +1,12 @@
-defmodule FinincialToolWeb do
+defmodule FinincialAgentWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use FinincialToolWeb, :controller
-      use FinincialToolWeb, :html
+      use FinincialAgentWeb, :controller
+      use FinincialAgentWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -40,10 +40,10 @@ defmodule FinincialToolWeb do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: FinincialToolWeb.Layouts]
+        layouts: [html: FinincialAgentWeb.Layouts]
 
       import Plug.Conn
-      import FinincialToolWeb.Gettext
+      import FinincialAgentWeb.Gettext
 
       unquote(verified_routes())
     end
@@ -52,7 +52,7 @@ defmodule FinincialToolWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {FinincialToolWeb.Layouts, :app}
+        layout: {FinincialAgentWeb.Layouts, :app}
 
       unquote(html_helpers())
     end
@@ -84,8 +84,8 @@ defmodule FinincialToolWeb do
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import FinincialToolWeb.CoreComponents
-      import FinincialToolWeb.Gettext
+      import FinincialAgentWeb.CoreComponents
+      import FinincialAgentWeb.Gettext
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
@@ -98,9 +98,9 @@ defmodule FinincialToolWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: FinincialToolWeb.Endpoint,
-        router: FinincialToolWeb.Router,
-        statics: FinincialToolWeb.static_paths()
+        endpoint: FinincialAgentWeb.Endpoint,
+        router: FinincialAgentWeb.Router,
+        statics: FinincialAgentWeb.static_paths()
     end
   end
 

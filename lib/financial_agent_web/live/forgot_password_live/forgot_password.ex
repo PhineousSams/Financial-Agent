@@ -1,10 +1,10 @@
-defmodule FinincialToolWeb.ForgotPasswordLive.Index do
-  use FinincialToolWeb, :live_view
-  alias FinincialTool.Accounts
-  alias FinincialTool.Accounts.User
-  alias FinincialTool.Accounts.UserToken
-  alias FinincialTool.Repo
-  alias FinincialTool.Notifications.Email
+defmodule FinincialAgentWeb.ForgotPasswordLive.Index do
+  use FinincialAgentWeb, :live_view
+  alias FinincialAgent.Accounts
+  alias FinincialAgent.Accounts.User
+  alias FinincialAgent.Accounts.UserToken
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Notifications.Email
 
   @impl true
   def mount(_params, _session, socket) do
@@ -61,7 +61,7 @@ defmodule FinincialToolWeb.ForgotPasswordLive.Index do
 
   def send_password_reset_instructions(user) do
     {token, token_record} = UserToken.build_reset_password_token(user)
-    app_url = Application.get_env(:financial_tool, :base_url)
+    app_url = Application.get_env(:financial_agent, :base_url)
     base_url = "#{app_url}/forgot/password/reset/#{token}"
     dbg(base_url)
 

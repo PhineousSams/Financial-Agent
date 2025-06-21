@@ -1,7 +1,7 @@
-defmodule FinincialToolWeb.RoleLive.Redirect do
+defmodule FinincialAgentWeb.RoleLive.Redirect do
   @moduledoc false
-  use FinincialToolWeb, :live_view
-  on_mount FinincialToolWeb.UserLiveAuth
+  use FinincialAgentWeb, :live_view
+  on_mount FinincialAgentWeb.UserLiveAuth
 
   @impl true
   def mount(_params, _session, socket) do

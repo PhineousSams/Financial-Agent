@@ -1,4 +1,4 @@
-defmodule FinincialTool.Workers.Helpers.ZraEncoder do
+defmodule FinincialAgent.Workers.Helpers.ZraEncoder do
   require Logger
 
   @prov_id "NTSV"
@@ -269,11 +269,11 @@ defmodule FinincialTool.Workers.Helpers.ZraEncoder do
   @spec init_keys() :: {:ok, {binary(), binary()}} | {:error, term()}
   def init_keys do
     # Load configuration
-    priv_dir = :code.priv_dir(:financial_tool)
+    priv_dir = :code.priv_dir(:financial_agent)
     certs_dir = Path.join(priv_dir, "certs")
 
-    certificate_path = Application.get_env(:financial_tool, :certificate_path, Path.join(certs_dir, "natsave.crt"))
-    private_key_path = Application.get_env(:financial_tool, :private_key_path, Path.join(certs_dir, "natsave.key"))
+    certificate_path = Application.get_env(:financial_agent, :certificate_path, Path.join(certs_dir, "natsave.crt"))
+    private_key_path = Application.get_env(:financial_agent, :private_key_path, Path.join(certs_dir, "natsave.key"))
 
     # Load my public and private keys
     with {:ok, my_public_key} <- File.read(certificate_path),
@@ -295,9 +295,9 @@ defmodule FinincialTool.Workers.Helpers.ZraEncoder do
   """
   @spec get_public_key() :: {:ok, :public_key.rsa_public_key()} | {:error, term()}
   def get_public_key do
-    priv_dir = :code.priv_dir(:financial_tool)
+    priv_dir = :code.priv_dir(:financial_agent)
     certs_dir = Path.join(priv_dir, "certs")
-    zra_cert = Application.get_env(:financial_tool, :zra_cert_path, Path.join(certs_dir, "zra.org.zm.crt"))
+    zra_cert = Application.get_env(:financial_agent, :zra_cert_path, Path.join(certs_dir, "zra.org.zm.crt"))
 
     with {:ok, zra_public_key} <- File.read(zra_cert),
          [entry] <- :public_key.pem_decode(zra_public_key),

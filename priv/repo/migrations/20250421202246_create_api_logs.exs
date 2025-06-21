@@ -1,4 +1,4 @@
-defmodule FinincialTool.Repo.Migrations.CreateApiLogs do
+defmodule FinincialAgent.Repo.Migrations.CreateApiLogs do
   use Ecto.Migration
 
   def change do

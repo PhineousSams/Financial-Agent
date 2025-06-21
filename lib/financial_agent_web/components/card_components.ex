@@ -1,4 +1,4 @@
-defmodule FinincialToolWeb.CardComponents do
+defmodule FinincialAgentWeb.CardComponents do
   use Phoenix.Component
 
   def card(assigns) do

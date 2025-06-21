@@ -1,4 +1,4 @@
-defmodule FinincialTool.Repo.Migrations.CreateTblDashboardStats do
+defmodule FinincialAgent.Repo.Migrations.CreateTblDashboardStats do
   use Ecto.Migration
 
   def change do

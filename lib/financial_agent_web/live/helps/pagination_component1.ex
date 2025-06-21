@@ -1,7 +1,7 @@
-defmodule FinincialToolWeb.Helps.PaginationComponent1 do
+defmodule FinincialAgentWeb.Helps.PaginationComponent1 do
   @moduledoc false
-  use FinincialToolWeb, :live_component
-  import FinincialToolWeb.Helps.DataTable
+  use FinincialAgentWeb, :live_component
+  import FinincialAgentWeb.Helps.DataTable
 
   @distance 5
 

@@ -1,5 +1,5 @@
-defmodule FinincialToolWeb.PageHTML do
-  use FinincialToolWeb, :html
+defmodule FinincialAgentWeb.PageHTML do
+  use FinincialAgentWeb, :html
 
   embed_templates "page_html/*"
 end

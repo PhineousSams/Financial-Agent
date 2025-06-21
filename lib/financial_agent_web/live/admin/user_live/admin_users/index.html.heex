@@ -36,7 +36,7 @@
   <div class="p-6">
     <div class="grid md:flex justify-between items-center px-4">
       <.live_component
-        module={FinincialToolWeb.Helps.ISearchComponent}
+        module={FinincialAgentWeb.Helps.ISearchComponent}
         id="ISearchComponent"
         params={@params}
       />
@@ -157,7 +157,7 @@
               </td>
 
               <td class="px-4 py-4 whitespace-nowrap">
-                <%= raw(FinincialTool.Workers.Util.Utils.td_status(phin.status)) %>
+                <%= raw(FinincialAgent.Workers.Util.Utils.td_status(phin.status)) %>
               </td>
 
               <td class="px-4 py-4 whitespace-nowrap">
@@ -370,7 +370,7 @@
       </table>
 
       <.live_component
-        module={FinincialToolWeb.Helps.PaginationComponent}
+        module={FinincialAgentWeb.Helps.PaginationComponent}
         id="PaginationComponent"
         params={@params}
         pagination_data={@data}
@@ -387,7 +387,7 @@
   on_cancel={JS.patch(~p"/Admin/admin/users/management")}
 >
   <.live_component
-    module={FinincialToolWeb.UserLive.FormComponent}
+    module={FinincialAgentWeb.UserLive.FormComponent}
     id={@user.id || :new}
     title={@page_title}
     action={@live_action}
@@ -405,7 +405,7 @@
   on_cancel={JS.patch(~p"/Admin/admin/users/management")}
 >
   <.live_component
-    module={FinincialToolWeb.UserLive.ViewComponent}
+    module={FinincialAgentWeb.UserLive.ViewComponent}
     id={@user.id || :new}
     title={@page_title}
     action={@live_action}
@@ -464,7 +464,7 @@
 
 <%= if @show_modal do %>
   <.live_component
-    module={FinincialToolWeb.UserLive.UserLiveFilterComponent}
+    module={FinincialAgentWeb.UserLive.UserLiveFilterComponent}
     id="modal-component"
     params={@params}
     roles={@roles}

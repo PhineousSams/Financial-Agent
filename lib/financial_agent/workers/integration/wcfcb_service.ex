@@ -1,8 +1,8 @@
-defmodule FinincialTool.Workers.Integration.WcfcbService do
+defmodule FinincialAgent.Workers.Integration.WcfcbService do
   use PipeTo.Override
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs.ServiceLogs
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs.ServiceLogs
 
   @base_url "http://127.0.0.1:4000"
   # @base_url "https://api.wcfcb.gov.zm" # Production URL would go here

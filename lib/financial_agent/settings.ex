@@ -1,14 +1,14 @@
-defmodule FinincialTool.Settings do
+defmodule FinincialAgent.Settings do
   import Ecto.Query, warn: false
   @pagination [page_size: 10]
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Settings.SmsConfigs
-  alias FinincialTool.Utils.NumberFunctions
-  alias FinincialTool.Settings.ConfigSettings
-  alias FinincialTool.Settings.DashboardStats
-  alias FinincialTool.Settings.ApiIntegrator
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Settings.SmsConfigs
+  alias FinincialAgent.Utils.NumberFunctions
+  alias FinincialAgent.Settings.ConfigSettings
+  alias FinincialAgent.Settings.DashboardStats
+  alias FinincialAgent.Settings.ApiIntegrator
 
   def list_settings(search_params) do
     ConfigSettings

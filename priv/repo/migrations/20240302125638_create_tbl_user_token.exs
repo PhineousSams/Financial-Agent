@@ -1,9 +1,9 @@
-defmodule FinincialTool.Repo.Migrations.CreateTblUserToken do
+defmodule FinincialAgent.Repo.Migrations.CreateTblUserToken do
   use Ecto.Migration
 
   def change do
     create table(:tbl_user_tokens) do
-      add :user_id, references(:tbl_user, on_delete: :delete_all), null: false 
+      add :user_id, references(:tbl_user, on_delete: :delete_all), null: false
       add :token, :binary, null: false
       add :context, :string, null: false
       add :sent_to, :string

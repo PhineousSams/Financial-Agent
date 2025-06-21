@@ -1,11 +1,11 @@
-defmodule FinincialToolWeb.AccessLive.Index do
-  use FinincialToolWeb, :live_view
-  on_mount FinincialToolWeb.UserLiveAuth
+defmodule FinincialAgentWeb.AccessLive.Index do
+  use FinincialAgentWeb, :live_view
+  on_mount FinincialAgentWeb.UserLiveAuth
 
-  alias FinincialTool.Roles
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Workers.Util.Helpers
-  alias FinincialTool.Workers.Helpers.PermissionsCheck
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Workers.Util.Helpers
+  alias FinincialAgent.Workers.Helpers.PermissionsCheck
 
   @impl true
   def mount(params, _session, %{assigns: assigns} = socket) do

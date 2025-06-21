@@ -1,4 +1,4 @@
-defmodule FinincialTool.Repo.Migrations.CreateTblPermissions do
+defmodule FinincialAgent.Repo.Migrations.CreateTblPermissions do
   use Ecto.Migration
 
   def change do

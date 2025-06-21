@@ -1,4 +1,4 @@
-defmodule FinincialTool.Workers.Util.AuthDecoder  do
+defmodule FinincialAgent.Workers.Util.AuthDecoder  do
 
   def decode_basic_auth(conn) do
     case get_basic_auth_header(conn) do

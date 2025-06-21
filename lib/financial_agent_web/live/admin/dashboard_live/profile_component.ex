@@ -1,5 +1,5 @@
-defmodule FinincialToolWeb.DashboardLive.ProfileComponent do
-  use FinincialToolWeb, :live_component
+defmodule FinincialAgentWeb.DashboardLive.ProfileComponent do
+  use FinincialAgentWeb, :live_component
 
   @impl true
   def update(%{user: user} = assigns, socket) do

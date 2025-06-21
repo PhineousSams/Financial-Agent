@@ -1,11 +1,11 @@
 import Config
 
 # Configure your database - PostgreSQL for AI features
-config :financial_tool, FinincialTool.Repo,
+config :financial_agent, FinincialAgent.Repo,
   username: "postgres",
   password: "qwerty",
   hostname: "localhost",
-  database: "financial_tool_dev",
+  database: "financial_agent_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -16,7 +16,7 @@ config :financial_tool, FinincialTool.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :financial_tool, FinincialToolWeb.Endpoint,
+config :financial_agent, FinincialAgentWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 9000],
@@ -53,17 +53,17 @@ config :financial_tool, FinincialToolWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :financial_tool, FinincialToolWeb.Endpoint,
+config :financial_agent, FinincialAgentWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/financial_tool_web/(controllers|live|components)/.*(ex|heex)$"
+      ~r"lib/financial_agent_web/(controllers|live|components)/.*(ex|heex)$"
     ]
   ]
 
 # Enable dev routes for dashboard and mailbox
-config :financial_tool, dev_routes: true
+config :financial_agent, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
@@ -105,6 +105,6 @@ config :openai,
   organization_key: System.get_env("OPENAI_ORGANIZATION_KEY")
 
 # Configure Guardian for development
-config :financial_tool, FinincialTool.Guardian,
-  issuer: "financial_tool",
+config :financial_agent, FinincialAgent.Guardian,
+  issuer: "financial_agent",
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")

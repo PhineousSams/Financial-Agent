@@ -1,8 +1,8 @@
-defmodule FinincialTool.AI.OngoingInstruction do
+defmodule FinincialAgent.AI.OngoingInstruction do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialTool.Accounts.User
+  alias FinincialAgent.Accounts.User
 
   schema "ongoing_instructions" do
     field :instruction, :string

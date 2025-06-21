@@ -1,4 +1,4 @@
-defmodule FinincialToolWeb.Telemetry do
+defmodule FinincialAgentWeb.Telemetry do
   use Supervisor
   import Telemetry.Metrics
 
@@ -52,23 +52,23 @@ defmodule FinincialToolWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("financial_tool.repo.query.total_time",
+      summary("financial_agent.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("financial_tool.repo.query.decode_time",
+      summary("financial_agent.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("financial_tool.repo.query.query_time",
+      summary("financial_agent.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("financial_tool.repo.query.queue_time",
+      summary("financial_agent.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("financial_tool.repo.query.idle_time",
+      summary("financial_agent.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"
@@ -86,7 +86,7 @@ defmodule FinincialToolWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {FinincialToolWeb, :count_users, []}
+      # {FinincialAgentWeb, :count_users, []}
     ]
   end
 end

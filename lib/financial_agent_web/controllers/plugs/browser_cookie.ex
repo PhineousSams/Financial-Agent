@@ -1,4 +1,4 @@
-defmodule FinincialToolWeb.Plugs.BrowserCookie do
+defmodule FinincialAgentWeb.Plugs.BrowserCookie do
   @behaviour Plug
   import Plug.Conn
 

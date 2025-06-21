@@ -1,9 +1,9 @@
-defmodule FinincialToolWeb.UserLive.ViewComponent do
+defmodule FinincialAgentWeb.UserLive.ViewComponent do
   @moduledoc false
-  use FinincialToolWeb, :live_component
+  use FinincialAgentWeb, :live_component
 
-  alias FinincialTool.Roles
-  alias FinincialTool.Accounts
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Accounts
 
   @impl true
 

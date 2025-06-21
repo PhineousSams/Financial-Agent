@@ -1,10 +1,10 @@
-defmodule FinincialTool.ApiIntegrators do
+defmodule FinincialAgent.ApiIntegrators do
   import Ecto.Query, warn: false
   @pagination [page_size: 10]
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Settings.ApiIntegrator
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Settings.ApiIntegrator
 
   def get_bill_integrators(search_params) do
     ApiIntegrator

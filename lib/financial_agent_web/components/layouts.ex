@@ -1,5 +1,5 @@
-defmodule FinincialToolWeb.Layouts do
-  use FinincialToolWeb, :html
+defmodule FinincialAgentWeb.Layouts do
+  use FinincialAgentWeb, :html
 
   embed_templates "layouts/*"
 end

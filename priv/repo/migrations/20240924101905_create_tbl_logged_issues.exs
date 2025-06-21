@@ -1,4 +1,4 @@
-defmodule FinincialTool.Repo.Migrations.CreateTblLoggedIssues do
+defmodule FinincialAgent.Repo.Migrations.CreateTblLoggedIssues do
   use Ecto.Migration
 
   def change do

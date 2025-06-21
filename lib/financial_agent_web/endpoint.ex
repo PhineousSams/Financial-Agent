@@ -1,12 +1,12 @@
-defmodule FinincialToolWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :financial_tool
+defmodule FinincialAgentWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :financial_agent
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_financial_tool_key",
+    key: "_financial_agent_key",
     signing_salt: "uzD0WDjy",
     same_site: "Lax"
   ]
@@ -19,9 +19,9 @@ defmodule FinincialToolWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :financial_tool,
+    from: :financial_agent,
     gzip: false,
-    only: FinincialToolWeb.static_paths()
+    only: FinincialAgentWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -29,7 +29,7 @@ defmodule FinincialToolWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :financial_tool
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :financial_agent
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -47,5 +47,5 @@ defmodule FinincialToolWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug FinincialToolWeb.Router
+  plug FinincialAgentWeb.Router
 end

@@ -1,10 +1,10 @@
-defmodule FinincialTool.SetUps.SetUpPermissions do
-  alias FinincialTool.Repo
-  alias FinincialTool.Roles
-  alias FinincialTool.Roles.Permissions
-  alias FinincialTool.Roles.PermissionGroups
+defmodule FinincialAgent.SetUps.SetUpPermissions do
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Roles.Permissions
+  alias FinincialAgent.Roles.PermissionGroups
 
-  # FinincialTool.SetUps.SetUpPermissions.permits()
+  # FinincialAgent.SetUps.SetUpPermissions.permits()
 
 
 

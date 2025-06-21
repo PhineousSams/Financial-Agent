@@ -1,17 +1,17 @@
-defmodule FinincialToolWeb.UserLive.Blocked do
-  use FinincialToolWeb, :live_view
+defmodule FinincialAgentWeb.UserLive.Blocked do
+  use FinincialAgentWeb, :live_view
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Accounts
-  alias FinincialTool.Roles
-  alias FinincialTool.Accounts.User
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Workers.Util.Helpers
-  alias FinincialTool.Workers.Helpers.UserLog
-  alias FinincialToolWeb.Helps.ErrorHelper
-  alias FinincialToolWeb.Helps.PaginationControl, as: Control
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Accounts
+  alias FinincialAgent.Roles
+  alias FinincialAgent.Accounts.User
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Workers.Util.Helpers
+  alias FinincialAgent.Workers.Helpers.UserLog
+  alias FinincialAgentWeb.Helps.ErrorHelper
+  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
 
-  alias FinincialToolWeb.NotificationLive.{
+  alias FinincialAgentWeb.NotificationLive.{
     ErrorModalLive,
     InfoModalLive,
     SuccessModalLive

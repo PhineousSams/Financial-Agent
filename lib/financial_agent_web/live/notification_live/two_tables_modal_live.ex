@@ -1,6 +1,6 @@
-defmodule FinincialToolWeb.NotificationLive.TwoTablesModalLive do
+defmodule FinincialAgentWeb.NotificationLive.TwoTablesModalLive do
   @moduledoc false
-  use FinincialToolWeb, :live_component
+  use FinincialAgentWeb, :live_component
 
   def mount(socket) do
     {:ok, socket}

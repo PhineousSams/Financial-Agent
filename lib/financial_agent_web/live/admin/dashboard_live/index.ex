@@ -1,11 +1,11 @@
-defmodule FinincialToolWeb.DashboardLive.Index do
-  use FinincialToolWeb, :live_view
-  alias FinincialTool.Companies
-  alias FinincialTool.Accounts
+defmodule FinincialAgentWeb.DashboardLive.Index do
+  use FinincialAgentWeb, :live_view
+  alias FinincialAgent.Companies
+  alias FinincialAgent.Accounts
 
   @impl true
   def mount(_params, _session, %{assigns: _assigns} = socket) do
-    Task.async(fn -> FinincialTool.SetUps.SetUpPermissions.permits() end)
+    Task.async(fn -> FinincialAgent.SetUps.SetUpPermissions.permits() end)
     {:ok,
      socket
      |> assign(:title, "Dashboard")

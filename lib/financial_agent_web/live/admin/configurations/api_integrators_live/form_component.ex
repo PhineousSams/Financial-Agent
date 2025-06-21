@@ -1,12 +1,12 @@
-defmodule FinincialToolWeb.ApiIntegratorsLive.FormComponent do
-  use FinincialToolWeb, :live_component
+defmodule FinincialAgentWeb.ApiIntegratorsLive.FormComponent do
+  use FinincialAgentWeb, :live_component
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs
-  alias FinincialTool.Settings
-  alias FinincialTool.Workers.Util.Utils
-  alias FinincialTool.Settings.ApiIntegrator
-  alias FinincialTool.Workers.Util.Cache
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs
+  alias FinincialAgent.Settings
+  alias FinincialAgent.Workers.Util.Utils
+  alias FinincialAgent.Settings.ApiIntegrator
+  alias FinincialAgent.Workers.Util.Cache
 
 
   @impl true

@@ -1,4 +1,4 @@
-defmodule FinincialTool.Repo.Migrations.TblAuditTrails do
+defmodule FinincialAgent.Repo.Migrations.TblAuditTrails do
   use Ecto.Migration
 
   def change do

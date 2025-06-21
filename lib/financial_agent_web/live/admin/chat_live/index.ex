@@ -1,9 +1,9 @@
-defmodule FinincialToolWeb.ChatLive.Index do
-  use FinincialToolWeb, :live_view
+defmodule FinincialAgentWeb.ChatLive.Index do
+  use FinincialAgentWeb, :live_view
 
-  alias FinincialTool.AI
-  alias FinincialTool.AI.Agent
-  alias FinincialTool.Auth
+  alias FinincialAgent.AI
+  alias FinincialAgent.AI.Agent
+  alias FinincialAgent.Auth
 
   @impl true
   def mount(_params, session, %{assigns: %{user: user} = assigns} = socket) do

@@ -1,11 +1,11 @@
-defmodule FinincialTool.AI do
+defmodule FinincialAgent.AI do
   @moduledoc """
   The AI context for managing conversations, messages, and AI-powered features.
   """
 
   import Ecto.Query, warn: false
-  alias FinincialTool.Repo
-  alias FinincialTool.AI.{Conversation, Message, Task, OngoingInstruction}
+  alias FinincialAgent.Repo
+  alias FinincialAgent.AI.{Conversation, Message, Task, OngoingInstruction}
 
   ## Conversations
 

@@ -1,4 +1,4 @@
-defmodule FinincialTool.Configs.PasswordConfig do
+defmodule FinincialAgent.Configs.PasswordConfig do
   use Ecto.Schema
   import Ecto.Changeset
 

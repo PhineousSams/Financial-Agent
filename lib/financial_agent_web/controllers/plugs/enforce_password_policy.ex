@@ -1,4 +1,4 @@
-defmodule FinincialToolWeb.Plugs.EnforcePasswordPolicy do
+defmodule FinincialAgentWeb.Plugs.EnforcePasswordPolicy do
   @behaviour Plug
   import Plug.Conn
   import Phoenix.Controller, only: [put_flash: 3, redirect: 2]

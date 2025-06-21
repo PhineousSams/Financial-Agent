@@ -1,5 +1,5 @@
-defmodule FinincialToolWeb.ClientUserLive.ClientUserLiveFilterComponent do
-  use FinincialToolWeb, :live_component
+defmodule FinincialAgentWeb.ClientUserLive.ClientUserLiveFilterComponent do
+  use FinincialAgentWeb, :live_component
 
   def render(assigns) do
     ~H"""

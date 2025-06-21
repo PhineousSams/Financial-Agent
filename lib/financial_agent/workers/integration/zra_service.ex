@@ -1,4 +1,4 @@
-defmodule FinincialTool.Workers.Integration.ZraService do
+defmodule FinincialAgent.Workers.Integration.ZraService do
   @moduledoc """
   Handles integration with the ZRA (Zambia Revenue Authority) API.
   Provides functionality for PRN (Payment Registration Number) operations.
@@ -7,9 +7,9 @@ defmodule FinincialTool.Workers.Integration.ZraService do
   # use PipeTo.Override
   require Logger
 
-  alias FinincialTool.Repo
-  alias FinincialTool.Logs.ServiceLogs
-  alias FinincialTool.Workers.Helpers.ZraEncoder
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Logs.ServiceLogs
+  alias FinincialAgent.Workers.Helpers.ZraEncoder
 
   @doc """
   Retrieves pending PRNs based on the provided parameters.
@@ -61,7 +61,7 @@ defmodule FinincialTool.Workers.Integration.ZraService do
     * `{:ok, result}` on success
     * `{:error, reason}` on failure
   """
-  # FinincialTool.Integration.ZraService.get_prn_details("212410230720")
+  # FinincialAgent.Integration.ZraService.get_prn_details("212410230720")
   def get_prn_details(prn) when is_binary(prn) do
     %{service: "GET_PRN_DETAILS", req: %{prn: prn}}
     |> ZraEncoder.encrypt_data()
@@ -78,7 +78,7 @@ defmodule FinincialTool.Workers.Integration.ZraService do
   @doc """
   Test function to get pending PRNs with hardcoded parameters.
   """
-  # FinincialTool.Integration.ZraService.phin()
+  # FinincialAgent.Integration.ZraService.phin()
   def phin do
     params = %{
       "currencyCode" => "ZMW",

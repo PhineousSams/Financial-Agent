@@ -1,5 +1,5 @@
-defmodule FinincialToolWeb.UserLive.BlockedFilterComponent do
-  use FinincialToolWeb, :live_component
+defmodule FinincialAgentWeb.UserLive.BlockedFilterComponent do
+  use FinincialAgentWeb, :live_component
 
   def render(assigns) do
     ~H"""

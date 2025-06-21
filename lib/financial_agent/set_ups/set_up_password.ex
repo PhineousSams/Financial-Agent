@@ -1,8 +1,8 @@
-defmodule FinincialTool.SetUps.SetUpPassword do
-  alias FinincialTool.Repo
-  alias FinincialTool.Configs.PasswordConfig
+defmodule FinincialAgent.SetUps.SetUpPassword do
+  alias FinincialAgent.Repo
+  alias FinincialAgent.Configs.PasswordConfig
 
-  # FinincialTool.SetUps.SetUpPassword.insert_password_maintenance()
+  # FinincialAgent.SetUps.SetUpPassword.insert_password_maintenance()
 
 
   def insert_password_maintenance do

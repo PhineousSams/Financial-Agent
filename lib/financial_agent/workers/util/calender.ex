@@ -1,4 +1,4 @@
-defmodule FinincialTool.Workers.Util.Cal do
+defmodule FinincialAgent.Workers.Util.Cal do
   def get_calender(year) do
     Enum.reduce(1..12, %{}, fn month, acc ->
       first_day_of_month = Date.from_erl!({year, month, 1})

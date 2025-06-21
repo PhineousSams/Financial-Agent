@@ -1,4 +1,4 @@
-defmodule FinincialTool.Repo.Migrations.AlterTblUserLogsAddFields do
+defmodule FinincialAgent.Repo.Migrations.AlterTblUserLogsAddFields do
   use Ecto.Migration
 
   def up do

@@ -1,10 +1,10 @@
-defmodule FinincialTool.Integrations.Calendar do
+defmodule FinincialAgent.Integrations.Calendar do
   @moduledoc """
   Google Calendar API integration for managing calendar events.
   """
 
-  alias FinincialTool.Auth
-  alias FinincialTool.RAG
+  alias FinincialAgent.Auth
+  alias FinincialAgent.RAG
 
   @calendar_api_base "https://www.googleapis.com/calendar/v3"
 

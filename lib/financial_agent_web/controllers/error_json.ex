@@ -1,4 +1,4 @@
-defmodule FinincialToolWeb.ErrorJSON do
+defmodule FinincialAgentWeb.ErrorJSON do
   # If you want to customize a particular status code,
   # you may add your own clauses, such as:
   #
