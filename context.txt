@@ -1,0 +1,37 @@
+
+mix phx.gen.context Product Charges tbl_charge_definition status:string description:string code:string modification:string reason:string code_id:integer deleted_at:utc_datetime auth_status:string maker_id:integer updated_by:integer
+
+mix phx.gen.context Product AccountClass tbl_account_class status:string description:string code:string client_type:integer client_group:integer currency:integer debit_acc:integer credit_acc:integer maker:integer checker:integer
+
+mix phx.gen.context Product ProductDefinition tbl_products ClientID:integer code currencyDecimals:integer currencyId:integer currencyName defaultPeriod:integer details interest:decimal  interestMode interestType maximumPrincipal:decimal minimumPrincipal:decimal name periodType productType status yearLengthInDays:integer credit_account_id:integer debit_account_id:integer charges_account_id:integer classification_id:integer charge_id:map reference_id:integer reason finance_cost:decimal arrangement_fee:decimal maker_id:integer updated_by:integer
+
+mix phx.gen.context BanksSettings Banks tbl_bank name:string swift_code:string short_code:string bank_code:string description:string status:string acronym:string
+
+mix phx.gen.context BanksSettings Branches tbl_branches name:string branch_code:string bank_name:string isDefaultUSSDBranch:boolean province_id:integer district_id:integer status:string
+
+mix phx.gen.context Calendar Calendars tbl_calendars year days status maker_id:integer updated_by:integer
+
+mix phx.gen.context Calendar FinYear tbl_financial_year year status start_date:date end_date:date maker_id:integer updated_by:integer
+
+
+
+
+["session_logs","access_user_roles","approve_user_role","user_logs","manage_users","create_permissions","access_logs","access_permission_groups","create_user_roles","manage_user_roles","create_users","access_permissions","permission_management","access_notifications","access_users","assign_user_roles","approve_permissions","access_sms_logs","access_email_logs","user_management","approve_users","access_cofigurations","approve_charge","create_charge","create_charge_definition","approve_charge_definition","access_charge_definition","access_charge_management","create_workflows","manage_workflows","approve_workflows","access_system_calendar","system_calendar","create_system_calendar","approve_financial_year","approve_system_calendar","create_corporate_funder","access_corporate_funder","approve_corporate_funder"]
+
+
+
+  def get_user_by_id(id) do
+    User
+    |> where([a], a.id == ^id)
+    |> select([a], a)
+    |> preload([:role])
+    |> Repo.one()
+  end
+
+  def get_user_details(id) do
+    User
+    |> where([a], a.id == ^id)
+    |> select([a], a)
+    |> preload([:role])
+    |> Repo.all()
+  end
