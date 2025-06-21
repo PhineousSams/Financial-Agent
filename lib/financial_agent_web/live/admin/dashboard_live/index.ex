@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.DashboardLive.Index do
+defmodule FinancialAgentWeb.Admin.DashboardLive.Index do
   use FinancialAgentWeb, :live_view
   alias FinancialAgent.Companies
   alias FinancialAgent.Accounts

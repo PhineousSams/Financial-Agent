@@ -175,7 +175,7 @@ defmodule FinancialAgentWeb.OAuthController do
           status: "ACTIVE",
           user_status: "ACTIVE",
           blocked: false,
-          user_type: "BACKOFFICE",
+          user_type: "CLIENT",
           role_id: 1
         }
 

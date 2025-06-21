@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.PasswordFormatLive.Index do
+defmodule FinancialAgentWeb.Admin.PasswordFormatLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Repo

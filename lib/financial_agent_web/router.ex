@@ -16,6 +16,10 @@ defmodule FinancialAgentWeb.Router do
     plug :put_root_layout, html: {FinancialAgentWeb.Layouts, :root}
   end
 
+  pipeline :client do
+    plug :put_root_layout, html: {FinancialAgentWeb.Layouts, :client}
+  end
+
   pipeline :login do
     plug :put_root_layout, html: {FinancialAgentWeb.Layouts, :login}
   end
@@ -90,18 +94,12 @@ defmodule FinancialAgentWeb.Router do
 
   live_session :admins, on_mount: [FinancialAgentWeb.UserLiveAuth, FinancialAgentWeb.Plugs.Authorizer] do
     # =================== ADMIN ==================
-    scope "/Admin", FinancialAgentWeb do
+    scope "/Admin", FinancialAgentWeb.Admin do
       pipe_through([:browser, :csrf, :root, :auth])
 
       live "/dashboard", DashboardLive.Index, :index
       live "/profile", DashboardLive.Index, :profile
       get "/dashboard/stats", ReportController, :dash_stats
-
-      # ============== Chat ======================
-      scope "/chats", ChatLive do
-        live "/", Index, :index
-        live "/:conversation_id", Index, :show
-      end
 
       # ============= SYSTEM NOTIFICATIONS ============
       live "/sms/logs", NotificationsLive.Sms, :index
@@ -181,15 +179,24 @@ defmodule FinancialAgentWeb.Router do
   end
 
 
-  scope "/", FinancialAgentWeb do
+  live_session :tenants, on_mount: [LoansSystemWeb.UserLiveAuth, Tenant] do
+    # =================== TENANT ADMIN ==================
+    scope "/Client", FinancialAgentWeb.Client do
+      pipe_through([:browser, :csrf, :client, :auth])
 
-    # ------------------------WRONG ROUTES ------------
-    get "/*any", ErrorController, :invalid_endpoint
-    post "/*any", ErrorController, :invalid_endpoint
-    put "/*any", ErrorController, :invalid_endpoint
-    delete "/*any", ErrorController, :invalid_endpoint
-    patch "/*any", ErrorController, :invalid_endpoint
-    options "/*any", ErrorController, :invalid_endpoint
-    head "/*any", ErrorController, :invalid_endpoint
+      # ============== Chat ======================
+      scope "/chats", ChatLive do
+        live "/", Index, :index
+        live "/:conversation_id", Index, :show
+      end
+    end
+  end
+
+
+  scope "/", FinancialAgentWeb do
+    pipe_through([:browser, :csrf, :login])
+    # ------------------------WRONG ROUTES ------------------------
+    get("/*anything", SessionController, :new)
+    post("/*anything", SessionController, :new)
   end
 end

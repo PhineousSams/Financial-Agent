@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ServiceLogsLive.Index do
+defmodule FinancialAgentWeb.Admin.ServiceLogsLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias Phoenix.LiveView.JS

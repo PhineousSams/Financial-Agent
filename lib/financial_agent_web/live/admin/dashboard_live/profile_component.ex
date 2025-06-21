@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.DashboardLive.ProfileComponent do
+defmodule FinancialAgentWeb.Admin.DashboardLive.ProfileComponent do
   use FinancialAgentWeb, :live_component
 
   @impl true

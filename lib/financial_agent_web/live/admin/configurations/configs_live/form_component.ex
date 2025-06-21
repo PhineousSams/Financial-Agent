@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ConfigsLive.FormComponent do
+defmodule FinancialAgentWeb.Admin.ConfigsLive.FormComponent do
   @moduledoc false
   use FinancialAgentWeb, :live_component
 

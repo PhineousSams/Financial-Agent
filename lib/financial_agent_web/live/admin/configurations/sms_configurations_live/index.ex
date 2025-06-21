@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.SmsConfigurationsLive.Index do
+defmodule FinancialAgentWeb.Admin.SmsConfigurationsLive.Index do
   use FinancialAgentWeb, :live_view
 
 

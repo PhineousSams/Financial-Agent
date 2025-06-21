@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ClientUserLive.ViewComponent do
+defmodule FinancialAgentWeb.Admin.ClientUserLive.ViewComponent do
   @moduledoc false
   use FinancialAgentWeb, :live_component
 

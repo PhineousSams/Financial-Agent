@@ -32,6 +32,7 @@ defmodule FinancialAgent.Accounts.UserToken do
   end
 
   def verify_session_token_query(token, type) do
+    IO.inspect type, label: "=========== type"
     setting = Settings.get_setting_configuration("user_inactive_session_notification")
     _setting1 = Settings.get_setting_configuration("inactive_user_model_timeout")
 

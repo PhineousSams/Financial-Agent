@@ -1,4 +1,4 @@
-# defmodule FinancialAgentWeb.PermissionGroupsLive.Show do
+# defmodule FinancialAgentWeb.Admin.PermissionGroupsLive.Show do
 #   use FinancialAgentWeb, :live_component
 
 #   alias FinancialAgent.Roles
@@ -20,7 +20,7 @@
 #   defp page_title(:edit), do: "Edit Permission groups"
 # end
 
-defmodule FinancialAgentWeb.PermissionGroupsLive.Show do
+defmodule FinancialAgentWeb.Admin.PermissionGroupsLive.Show do
   @moduledoc false
   use FinancialAgentWeb, :live_component
 

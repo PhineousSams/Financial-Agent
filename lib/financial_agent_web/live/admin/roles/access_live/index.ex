@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.AccessLive.Index do
+defmodule FinancialAgentWeb.Admin.AccessLive.Index do
   use FinancialAgentWeb, :live_view
   on_mount FinancialAgentWeb.UserLiveAuth
 

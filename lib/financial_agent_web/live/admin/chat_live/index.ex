@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ChatLive.Index do
+defmodule FinancialAgentWeb.Admin.ChatLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.AI

@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.LogsLive.LogsFilterComponent do
+defmodule FinancialAgentWeb.Admin.LogsLive.LogsFilterComponent do
   use FinancialAgentWeb, :live_component
 
   def render(assigns) do

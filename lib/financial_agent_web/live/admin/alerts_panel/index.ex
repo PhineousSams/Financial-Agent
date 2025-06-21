@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.AlertsPanelLive.Index do
+defmodule FinancialAgentWeb.Admin.AlertsPanelLive.Index do
 
   use FinancialAgentWeb, :live_view
 

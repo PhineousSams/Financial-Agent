@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.NotificationsLive.Emails do
+defmodule FinancialAgentWeb.Admin.NotificationsLive.Emails do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Notifications

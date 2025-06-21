@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.UserLive.Blocked do
+defmodule FinancialAgentWeb.Admin.UserLive.Blocked do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Repo

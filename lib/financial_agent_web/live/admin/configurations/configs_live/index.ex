@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ConfigsLive.Index do
+defmodule FinancialAgentWeb.Admin.ConfigsLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Settings

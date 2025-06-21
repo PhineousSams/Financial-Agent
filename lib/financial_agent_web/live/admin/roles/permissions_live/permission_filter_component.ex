@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.PermissionsLive.PermissionsLiveFilterComponent do
+defmodule FinancialAgentWeb.Admin.PermissionsLive.PermissionsLiveFilterComponent do
   use FinancialAgentWeb, :live_component
 
   def render(assigns) do

@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.SessionLogsLive.Index do
+defmodule FinancialAgentWeb.Admin.SessionLogsLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Logs

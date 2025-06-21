@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.PermissionGroupsLive.FormComponent do
+defmodule FinancialAgentWeb.Admin.PermissionGroupsLive.FormComponent do
   use FinancialAgentWeb, :live_component
 
   alias FinancialAgent.Roles

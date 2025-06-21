@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ApiIntegratorsLive.FormComponent do
+defmodule FinancialAgentWeb.Admin.ApiIntegratorsLive.FormComponent do
   use FinancialAgentWeb, :live_component
 
   alias FinancialAgent.Repo

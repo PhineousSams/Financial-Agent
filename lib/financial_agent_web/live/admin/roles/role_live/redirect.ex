@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.RoleLive.Redirect do
+defmodule FinancialAgentWeb.Admin.RoleLive.Redirect do
   @moduledoc false
   use FinancialAgentWeb, :live_view
   on_mount FinancialAgentWeb.UserLiveAuth

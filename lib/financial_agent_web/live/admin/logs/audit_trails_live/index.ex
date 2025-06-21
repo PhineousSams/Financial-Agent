@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.AuditTrailsLive.Index do
+defmodule FinancialAgentWeb.Admin.AuditTrailsLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Logs

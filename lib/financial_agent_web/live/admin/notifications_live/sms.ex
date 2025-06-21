@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.NotificationsLive.Sms do
+defmodule FinancialAgentWeb.Admin.NotificationsLive.Sms do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Notifications

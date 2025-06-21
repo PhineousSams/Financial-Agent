@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ClientUserLive.Index do
+defmodule FinancialAgentWeb.Admin.ClientUserLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Repo

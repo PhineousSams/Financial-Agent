@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.ApiIntegratorsLive.Index do
+defmodule FinancialAgentWeb.Admin.ApiIntegratorsLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.Repo

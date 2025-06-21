@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.RoleLive.Index do
+defmodule FinancialAgentWeb.Admin.RoleLive.Index do
   use FinancialAgentWeb, :live_view
   on_mount FinancialAgentWeb.UserLiveAuth
 
