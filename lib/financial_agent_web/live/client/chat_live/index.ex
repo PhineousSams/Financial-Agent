@@ -1,4 +1,4 @@
-defmodule FinancialAgentWeb.Admin.ChatLive.Index do
+defmodule FinancialAgentWeb.Client.ChatLive.Index do
   use FinancialAgentWeb, :live_view
 
   alias FinancialAgent.AI
@@ -79,7 +79,7 @@ defmodule FinancialAgentWeb.Admin.ChatLive.Index do
           |> assign(:current_conversation, conversation)
           |> assign(:messages, [])
 
-        {:noreply, push_patch(socket, to: ~p"/Admin/chats/#{conversation.id}")}
+        {:noreply, push_patch(socket, to: ~p"/Client/chats/#{conversation.id}")}
 
       {:error, _changeset} ->
         {:noreply, put_flash(socket, :error, "Failed to create conversation")}

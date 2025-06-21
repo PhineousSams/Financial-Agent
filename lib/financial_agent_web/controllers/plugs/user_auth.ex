@@ -181,5 +181,6 @@ defmodule FinancialAgentWeb.Plugs.UserAuth do
   end
 
   def signed_in_path("BACKOFFICE"), do: "/Admin/dashboard"
+  def signed_in_path(_), do: "/Client/chats"
   defp new_session(), do: "/"
 end

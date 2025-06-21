@@ -39,12 +39,12 @@ defmodule FinancialAgentWeb.OAuthController do
           {:ok, _token} ->
             conn
             |> put_flash(:info, "Successfully connected #{String.capitalize(provider)}!")
-            |> redirect(to: "/Admin/chats")
+            |> redirect(to: "/Client/chats")
 
           {:error, reason} ->
             conn
             |> put_flash(:error, "Failed to connect #{String.capitalize(provider)}: #{reason}")
-            |> redirect(to: "/Admin/chats")
+            |> redirect(to: "/Client/chats")
         end
     end
   end

@@ -170,20 +170,7 @@
         <Heroicons.home outline class="mt-0.5 h-5 w-5 mr-4 flex-none text-white" />
         <span class="text-white font-medium">Dashboard</span>
       </.link>
-    </li> 
-
-
-    <!-- Logs Report --> 
-    <%= if Enum.member?(@permits, "manage_chats") do %>
-      <li class="transition-all duration-300 ease-in-out">
-        <.link navigate={~p"/Admin/chats"} class="text-black font-medium hover:text-blue-600 text-sm flex justify-start hover:bg-blue-50 rounded px-4 py-3 transition-all duration-300 ease-in-out">
-          <Heroicons.arrow_right_end_on_rectangle outline class="mt-0.5 h-5 w-5 mr-4 flex-none" />
-          <span>Chats</span>
-        </.link>
-      </li>
-    <% end %>
- 
-
+    </li>  
 
     <!-- User management -->
     <%= if Enum.member?(@permits, "access_users") do %>

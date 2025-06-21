@@ -126,6 +126,8 @@ defmodule FinancialAgentWeb.UserLiveAuth do
       |> assign(:user, user)
       |> assign(:user_token, token)
       |> assign(:browser_id, session["uuid_browser"])
+      |> assign(:alert_count, Notifications.count_staff_alerts())
+      |> assign(newest_alerts: Notifications.get_newest_staff_notifications())
 
     {:ok, socket}
   end

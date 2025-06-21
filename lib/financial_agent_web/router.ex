@@ -179,7 +179,7 @@ defmodule FinancialAgentWeb.Router do
   end
 
 
-  live_session :tenants, on_mount: [LoansSystemWeb.UserLiveAuth, Tenant] do
+  live_session :tenants, on_mount: FinancialAgentWeb.UserLiveAuth do
     # =================== TENANT ADMIN ==================
     scope "/Client", FinancialAgentWeb.Client do
       pipe_through([:browser, :csrf, :client, :auth])
