@@ -1,0 +1,124 @@
+<!-- Container -->
+<div class="container mx-auto px-4 pt-5">
+  <div class="p-2">
+    <!-- Subheader -->
+    <div class="mb-3 bg-white p-4 rounded-3xl shadow-md">
+      <h1 class="text-2xl font-bold text-gray-800 flex items-center">
+        Financial Advisor Dashboard
+      </h1>
+      <p class="text-gray-600 mt-1">Monitor integrator activity and system performance</p>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"> 
+    <div class="bg-blue-600 rounded-3xl p-6 text-white shadow-md hover:shadow-lg transition-all">
+      <h3 class="text-lg mb-2">Users</h3>
+      <p class="text-4xl font-bold mb-2"><%= @count_users %></p>
+      <p class="text-sm"><span class="bg-white text-blue-600 px-2 py-1 rounded-full">10% <i class="fas fa-arrow-up"></i></span> From Last Month</p>
+    </div>
+    
+    <div class="bg-blue-500 rounded-3xl p-6 text-white shadow-md hover:shadow-lg transition-all">
+      <h3 class="text-lg mb-2">API Calls</h3>
+      <p class="text-4xl font-bold mb-2">5,842</p>
+      <p class="text-sm"><span class="bg-white text-blue-500 px-2 py-1 rounded-full">15% <i class="fas fa-arrow-up"></i></span> From Last Month</p>
+    </div>
+    
+    <div class="bg-blue-400 rounded-3xl p-6 text-white shadow-md hover:shadow-lg transition-all">
+      <h3 class="text-lg mb-2">Integrators</h3>
+      <p class="text-4xl font-bold mb-2">4</p>
+      <p class="text-sm"><span class="bg-white text-blue-400 px-2 py-1 rounded-full">New <i class="fas fa-plus"></i></span> NHIMA Added</p>
+    </div>
+    
+    <div class="bg-blue-700 rounded-3xl p-6 text-white shadow-md hover:shadow-lg transition-all">
+      <h3 class="text-lg mb-2">Uptime</h3>
+      <p class="text-4xl font-bold mb-2">99.8%</p>
+      <p class="text-sm"><span class="bg-white text-blue-700 px-2 py-1 rounded-full">0.2% <i class="fas fa-arrow-up"></i></span> From Last Month</p>
+    </div>
+  </div>
+
+  <!-- Integrator Performance Section -->
+  <div class="mb-8">
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Integrator Performance</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- API Usage Chart -->
+      <div class="bg-white p-6 rounded-3xl shadow-md">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">API Usage by Integrator</h3>
+        <div id="chart" phx-update="ignore" phx-hook="Chart" class="w-full h-80"></div>
+      </div>
+      
+      <!-- Response Time Chart -->
+      <div class="bg-white p-6 rounded-3xl shadow-md">
+        <h3 class="text-lg font-semibold text-gray-800 mb-4">Average Response Time (ms)</h3>
+        <div id="response-time" phx-update="ignore" phx-hook="ResponseTime" class="w-full h-80"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transaction Distribution Section -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-3xl shadow-md">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Transaction Distribution</h3>
+      <div id="pie" phx-update="ignore" phx-hook="Pie" class="w-full h-80"></div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-3xl shadow-md">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Error Rate by Integrator</h3>
+      <div id="error-rate" phx-update="ignore" phx-hook="ErrorRate" class="w-full h-80"></div>
+    </div>
+  </div>
+  
+  <!-- Recent Activity Section -->
+  <div class="bg-white p-6 rounded-3xl shadow-md mb-8">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Recent Activity</h3>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-gray-200">
+        <thead>
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Integrator</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+          </tr>
+        </thead>
+        <tbody class="bg-white divide-y divide-gray-200">
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">ZRA</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Tax Verification</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Success</span></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2 minutes ago</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">NAPSA</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Contribution Check</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Success</span></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">15 minutes ago</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">WCFCB</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Compensation Claim</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Failed</span></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">45 minutes ago</td>
+          </tr>
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">NHIMA</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Health Insurance Verification</td>
+            <td class="px-6 py-4 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Success</span></td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1 hour ago</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%= if @live_action in [:profile] do %>
+  <.live_component
+    module={FinincialToolWeb.DashboardLive.ProfileComponent}
+    id="profile"
+    title={@page_title}
+    action={@live_action}
+    user={@user}
+    patch={~p"/Admin/dashboard"}
+  />
+<% end %>

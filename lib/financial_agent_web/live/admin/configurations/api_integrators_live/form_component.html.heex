@@ -1,0 +1,102 @@
+<div>
+  <h2 class="text-xl font-semibold text-gray-800 mb-6"><%= @title %></h2>
+
+  <.form
+    for={@changeset}
+    id="api-integrator-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="col-span-1">
+        <.input
+          field={@changeset[:name]}
+          type="text"
+          label="Name"
+          placeholder="Enter integrator name"
+          required
+        />
+      </div>
+
+      <div class="col-span-1">
+        <.input
+          field={@changeset[:endpoint]}
+          type="text"
+          label="Endpoint URL"
+          placeholder="https://api.example.com/endpoint"
+          required
+        />
+      </div>
+
+      <div class="col-span-1">
+        <.input
+          field={@changeset[:callback_url]}
+          type="text"
+          label="Callback URL"
+          placeholder="https://api.example.com/callback"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <.input
+          field={@changeset[:contact_email]}
+          type="email"
+          label="Contact Email"
+          placeholder="contact@example.com"
+          required
+        />
+      </div>
+
+      <div class="col-span-1">
+        <.input
+          field={@changeset[:ip_address]}
+          type="text"
+          label="IP Address"
+          placeholder="192.168.1.1"
+        />
+      </div>
+
+      <div class="col-span-1">
+        <.input
+          field={@changeset[:port]}
+          type="number"
+          label="Port"
+          placeholder="8080"
+        />
+      </div>
+
+      <%= if @action == :edit do %>
+        <div class="col-span-1">
+          <.input
+            field={@changeset[:status]}
+            type="select"
+            label="Status"
+            options={[
+              {"Active", "ACTIVE"},
+              {"Pending Approval", "PENDING_APPROVAL"},
+              {"Deactivated", "DEACTIVATED"},
+              {"Rejected", "REJECTED"}
+            ]}
+          />
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-8 flex justify-end space-x-3">
+      <.link
+        patch={@return_to}
+        class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+      >
+        Cancel
+      </.link>
+      <button
+        type="submit"
+        class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white gradient-bg border border-transparent rounded-md shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        phx-disable-with="Saving..."
+      >
+        Save
+      </button>
+    </div>
+  </.form>
+</div>

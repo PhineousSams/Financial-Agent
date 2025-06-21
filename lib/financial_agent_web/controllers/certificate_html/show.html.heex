@@ -1,0 +1,19 @@
+<div class="container mx-auto px-4">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-3xl font-bold underline decoration-4 decoration-blue-500">
+        Certificate of Completion
+      </h1>
+      <img src={~p"/images/ceec-logo-1.png"} alt="Logo" class="w-48 h-48 mx-auto" />
+      <p class="text-lg font-semibold">CEEC Loan Orientation</p>
+
+      <p class="text-lg font-semibold">This certificate is awarded to:</p>
+
+      <p class="text-xl font-bold"><%= @attempt.applicant %></p>
+
+      <p class="text-lg font-semibold">For completing the loan quiz on:</p>
+
+      <p class="text-xl font-bold"><%= @attempt.inserted_at %></p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,257 @@
+<div class="mb-6">
+  <h1 class="text-2xl font-semibold flex items-center">
+    <i class="fa-regular fa-history mr-2"></i>
+    Service Logs
+    <small class="ml-2 text-gray-600 font-normal text-base">
+      View Service request and response logs
+    </small>
+  </h1>
+</div>
+
+<!-- Modal for displaying log details -->
+<.modal 
+  :if={@show_modal} 
+  id="log-details-modal" 
+  show={@show_modal} 
+  on_cancel={JS.push("modal_closed")}
+>
+  <:title>Log Details</:title>
+  <div class="p-6 space-y-4">
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <h3 class="font-semibold text-gray-700">Service Code</h3>
+        <p class="text-gray-600"><%= @selected_log.service_type %></p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-700">Request Type</h3>
+        <p class="text-gray-600"><%= @selected_log.request_type %></p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-700">Request ID</h3>
+        <p class="text-gray-600"><%= @selected_log.request_id %></p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-700">Method</h3>
+        <p class="text-gray-600"><%= @selected_log.request_method %></p>
+      </div>
+      <div class="col-span-2">
+        <h3 class="font-semibold text-gray-700">URL</h3>
+        <p class="text-gray-600 break-all"><%= @selected_log.request_url %></p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-700">Response Code</h3>
+        <p class={"#{if @selected_log.response_code >= 400, do: "text-red-600", else: "text-green-600"} font-semibold"}>
+          <%= @selected_log.response_code %>
+        </p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-700">Status</h3>
+        <p class="text-gray-600"><%= @selected_log.status %></p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-700">Duration</h3>
+        <p class="text-gray-600"><%= @selected_log.duration_ms %>ms</p>
+      </div>
+      <div>
+        <h3 class="font-semibold text-gray-700">Timestamp</h3>
+        <p class="text-gray-600"><%= Calendar.strftime(@selected_log.inserted_at, "%Y-%m-%d %H:%M:%S") %></p>
+      </div>
+      
+      <div class="col-span-2">
+        <h3 class="font-semibold text-gray-700 mb-2">Request Headers</h3>
+        <pre class="bg-gray-50 p-3 rounded-lg overflow-x-auto text-sm"><%= if @selected_log.request_headers, do: (try do; Jason.encode!(@selected_log.request_headers, pretty: true); rescue _-> inspect(@selected_log.request_headers) end), else: "No headers" %></pre>
+      </div>
+      
+      <div class="col-span-2">
+        <h3 class="font-semibold text-gray-700 mb-2">Request Body</h3>
+        <pre class="bg-gray-50 p-3 rounded-lg overflow-x-auto text-sm"><%= if @selected_log.request_body, do: (try do; Jason.encode!(@selected_log.request_body, pretty: true); rescue _-> inspect(@selected_log.request_body) end), else: "No body" %></pre>
+      </div>
+      
+      <div class="col-span-2">
+        <h3 class="font-semibold text-gray-700 mb-2">Response Body</h3>
+        <pre class="bg-gray-50 p-3 rounded-lg overflow-x-auto text-sm"><%= if @selected_log.response_body, do: (try do; Jason.encode!(@selected_log.response_body, pretty: true); rescue _-> inspect(@selected_log.response_body) end), else: "No response body" %></pre>
+
+        <%= if @selected_log.error_message do %>
+          <h3 class="font-semibold text-gray-700 mt-4 mb-2">Error Message</h3>
+          <p class="text-red-600"><%= @selected_log.error_message %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <:cancel>Close</:cancel>
+</.modal>
+
+<!-- Main Content -->
+<div class="bg-white shadow-md rounded-lg overflow-hidden" id="LogsHook" phx-hook="LogsHook">
+  <div class="p-6">
+    <div class="my-overflow-div">
+      <.live_component
+        module={FinincialToolWeb.Helps.ISearchComponent}
+        id="ISearchComponent"
+        params={@params}
+      />
+      <input
+        type="hidden"
+        id="csrf"
+        name="_csrf_token"
+        value={Plug.CSRFProtection.get_csrf_token()}
+      />
+      
+      <div class="flex justify-end mb-4 space-x-4">
+        <button
+          class="inline-flex px-4 py-2 bg-blue-500 text-white tracking-wider text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          phx-click="filter_modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-4 mr-1 mt-1"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+            />
+          </svg>
+          Filter
+        </button>
+
+        <button
+          class="inline-flex px-4 py-2 bg-green-500 text-white tracking-wider text-sm font-semibold rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+          phx-click="reload"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-4 mr-1 mt-1"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+          Reload
+        </button>
+      </div>
+      
+     <div class="overflow-x-auto">
+      <table class="table min-w-full divide-y divide-gray-200 overflow-x-auto">
+        <thead class="gradient-bg text-white whitespace-nowrap">
+          <tr class="table-row">
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Service Name
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Request Type
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Request ID
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Method
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              URL
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Response Code
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Status
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Duration
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Timestamp
+            </th>
+            <th scope="col" class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="bg-white divide-y divide-gray-200">
+          <%= for log <- @data do %>
+            <tr class="table-row hover:bg-gray-50 cursor-pointer" phx-click="show_log_details" phx-value-id={log.id}>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= log.service_type %>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= log.request_type %>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= log.request_id %>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= log.request_method %>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= log.request_url %>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <span class={"px-2 inline-flex text-xs leading-5 font-semibold rounded-full #{if log.response_code >= 400, do: "bg-red-100 text-red-800", else: "bg-green-100 text-green-800"}"}>
+                  <%= log.response_code %>
+                </span>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= log.status %>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= log.duration_ms %>ms
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <%= Calendar.strftime(log.inserted_at, "%Y-%m-%d %H:%M:%S") %>
+              </td>
+              <td class="px-4 py-3 text-left text-xs whitespace-nowrap">
+                <button
+                  class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 rounded-md hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  phx-click="show_log_details"
+                  phx-value-id={log.id}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  View Details
+                </button>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <%= if @data_loader do %>
+          <tr>
+            <td colspan="10" class="px-6 py-4 text-center">
+              <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900">
+              </div>
+            </td>
+          </tr>
+        <% else %>
+          <%= if Enum.empty?(@data) do %>
+            <tr>
+              <td colspan="10" class="px-6 py-4 text-center text-gray-500">
+                No data available in table
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+     </div>
+
+      <.live_component
+        module={FinincialToolWeb.Helps.PaginationComponent}
+        id="PaginationComponent"
+        params={@params}
+        pagination_data={@data}
+      />
+    </div>
+  </div>
+</div>

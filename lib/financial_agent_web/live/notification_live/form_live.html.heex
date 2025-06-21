@@ -1,0 +1,99 @@
+<div
+  id={"modal-#{@id}"}
+  class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+>
+  <div
+    class="bg-white rounded-lg shadow-lg max-w-lg w-full"
+    phx-hook="ScrollLock"
+    id={"modals-#{@id}"}
+  >
+    <form
+      class="p-6 rounded-lg"
+      phx-submit="submit-all-data"
+      phx-change="change-modal-data"
+      phx-target={"#modal-#{@id}"}
+    >
+      <!-- Header -->
+      <div class="flex items-center justify-between border-b border-gray-300 pb-4 mb-4">
+        <h5 class="text-lg font-semibold" id="exampleModalLabel"><%= @title %></h5>
+
+        <%= if @no_click == false do %>
+          <button
+            type="button"
+            class="text-gray-600 hover:text-gray-800 text-2xl leading-none"
+            phx-target={"#modal-#{@id}"}
+            phx-click="dismiss-modal"
+          >
+            &times;
+          </button>
+        <% end %>
+      </div>
+      <!-- Body -->
+      <div class="space-y-4">
+        <%= if Enum.count(@form) <= 1 do %>
+          <!-- Optional space for specific conditions if needed -->
+        <% end %>
+
+        <%= for data <- @form do %>
+          <%= if data.type == "hidden" do %>
+            <input type="hidden" name={data.name} value={data.value} id={data.name} />
+          <% else %>
+            <div class={if data.type == "textarea", do: "w-full", else: "w-1/2"}>
+              <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-semibold mb-1" for={data.name}>
+                  <%= data.label %>
+                </label>
+
+                <%= if data.type == "textarea" do %>
+                  <textarea
+                    class="w-full border border-gray-300 rounded-lg p-2"
+                    name={data.name}
+                    id={data.name}
+                    required
+                  ><%= data.value %></textarea>
+                <% else %>
+                  <input
+                    class="w-full border border-gray-300 rounded-lg p-2"
+                    type={data.type}
+                    name={data.name}
+                    value={data.value}
+                    id={data.name}
+                    required
+                  />
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <!-- Footer -->
+      <div class="flex justify-end gap-2 mt-4">
+        <%= if @no_click == false do %>
+          <button
+            type="button"
+            class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+            phx-click="dismiss-modal"
+            phx-target={"#modal-#{@id}"}
+          >
+            <%= @left_button %>
+          </button>
+
+          <button
+            type="submit"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+          >
+            <%= @right_button %>
+          </button>
+        <% else %>
+          <button
+            type="button"
+            class="bg-blue-600 text-white px-4 py-2 rounded-lg cursor-not-allowed opacity-50"
+            disabled
+          >
+            <%= @right_button %>
+          </button>
+        <% end %>
+      </div>
+    </form>
+  </div>
+</div>

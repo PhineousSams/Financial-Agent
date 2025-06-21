@@ -1,0 +1,66 @@
+<div class="modal-body p-6">
+  <.header>
+    <%= @title %>
+  </.header>
+
+  <.simple_form
+    for={@form}
+    id="user-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+    class="space-y-6"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <.input
+          field={@form[:name]}
+          type="text"
+          label="Name"
+          placeholder="Enter name"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:description]}
+          type="text"
+          label="Description"
+          placeholder="Enter description"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:value]}
+          type="text"
+          label="Value"
+          placeholder="Enter value"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:value_type]}
+          type="text"
+          label="Value type"
+          placeholder="Enter value type"
+          class="w-full"
+        />
+      </div>
+    </div>
+    <!-- You can add submit and other buttons here -->
+    <div class="flex justify-start mt-4">
+      <button
+        type="submit"
+        phx-disable-with="processing..."
+        class="gradient-bg text-white px-4 py-2 rounded-md hover:bg-green-700"
+      >
+        Save
+      </button>
+    </div>
+  </.simple_form>
+</div>

@@ -1,0 +1,280 @@
+<div class="p-6">
+  <h1 class="text-3xl font-semibold text-gray-800 flex items-center space-x-2">
+    <i class="subheader-icon fal fa-user-circle text-blue-500"></i>
+    <h2 class="font-bold text-xl">System User Role</h2>
+  </h1>
+
+  <h3 class="block text-gray-600 text-sm mt-1">
+    Create roles, and configure administrators to their respective roles
+  </h3>
+
+  <%= if Enum.member?(@permits, "create_user_roles") do %>
+    <.link
+      patch={~p"/Admin/roles/new"}
+      class="mt-4 inline-flex items-center tracking-wider px-4 py-2 gradient-bg text-white text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Add User Role <i class="fal fa-user-plus ml-2"></i>
+    </.link>
+  <% end %>
+</div>
+
+<div class="mx-auto py-6 sm:px-6 lg:px-8 bg-white shadow-md rounded-lg text-xs mt-6">
+  <div class="px-4 py-6 sm:px-0">
+    <div class="flex justify-between items-center mb-6">
+      <.live_component
+        module={FinincialToolWeb.Helps.ISearchComponent}
+        id="ISearchComponent"
+        params={@params}
+      />
+      <div class="flex space-x-2">
+        <button
+          phx-click="open_modal"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white gradient-bg hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          <i class="fal fa-filter mr-2"></i>Filter
+        </button>
+
+        <button
+          phx-click="reload"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white gradient-bg hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          <i class="fal fa-sync mr-2"></i>Reload
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white shadow overflow-visible sm:rounded-lg">
+      <table class="table min-w-full divide-y divide-gray-200">
+        <thead class="gradient-bg text-white">
+          <tr class="table-row">
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            >
+              Role Name
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            >
+              Role Description
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            >
+              Status
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            >
+              Date Created
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            >
+              Last Modified
+            </th>
+
+            <th
+              scope="col"
+              class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="bg-white divide-y divide-gray-200">
+          <%= for phin <- @data do %>
+            <tr class="table-row">
+              <td class="px-6 py-4 whitespace-nowrap text-sm"><%= phin.name %></td>
+
+              <td class="px-6 py-4 whitespace-nowrap text-sm"><%= phin.description %></td>
+
+              <td class="px-6 py-4 whitespace-nowrap text-sm">
+                <%= raw(FinincialTool.Workers.Util.Utils.td_status(phin.status)) %>
+              </td>
+
+              <td class="px-6 py-4 whitespace-nowrap text-sm">
+                <%= Timex.format!(phin.inserted_at, "%d/%m/%Y %H:%M:%S", :strftime) %>
+              </td>
+
+              <td class="px-6 py-4 whitespace-nowrap text-sm">
+                <%= Timex.format!(phin.updated_at, "%d/%m/%Y %H:%M:%S", :strftime) %>
+              </td>
+                <td>
+                <%= if Enum.member?(@permits, "manage_user_roles") do %>
+                  <div class="relative" x-data="{ open: false }">
+                    <button type="button" @click="open = !open" @keydown.escape.window="open = false" @click.away="open = false" class="px-2 py-1 text-sm font-medium text-white bg-blue-600 rounded">
+                      Options
+                    </button>
+                    <div class="absolute z-10 mt-2 bg-white border border-gray-200 rounded shadow-lg w-48" x-show="open" x-transition>
+                      <%= if phin.status == "DEACTIVATED" do %>
+                      <button type="button" x-on:click="open = ! open"
+                        class="block w-full px-4 py-2 text-left text-sm text-green-600 hover:bg-gray-100"
+                        phx-click="release" phx-value-id={phin.id}>
+                        <i class="subheader-icon fal fa-check"></i>
+                        Activate
+                      </button>
+                      <% end %>
+
+                      <%= if phin.status in ["PENDING_CONFIGURATION"] do %>
+                      <%= live_patch raw('<i class="subheader-icon fal fa-edit"></i> Assign Permissions '),
+                        to: ~p"/Admin/roles/#{phin.id}/access",
+                        class: "block w-full px-4 py-2 text-left text-sm text-blue-600 hover:bg-gray-100", 'x-on:click': "open = ! open" %>
+                      <button type="button" x-on:click="open = ! open"
+                        class="block w-full px-4 py-2 text-left text-sm text-green-600 hover:bg-gray-100"
+                        phx-click="submit" phx-value-id={phin.id}>
+                        <i class="subheader-icon fal fa-check"></i>
+                        Submit for Approval
+                      </button> 
+                      <% end %>
+
+                      <%= if phin.status == "PENDING_APPROVAL" && Enum.member?(@permits, "approve_user_role") do %>
+                      <button type="button" x-on:click="open = ! open"
+                        class="block w-full px-4 py-2 text-left text-sm text-green-600 hover:bg-gray-100"
+                        phx-click="approve" phx-value-id={phin.id}>
+                        <i class="subheader-icon fal fa-check"></i>
+                        Approve Role
+                      </button>                                                    
+                      <% end %>
+
+                      <%= if phin.status == "ACTIVE" do %>
+                      <%= live_patch raw('<span x-on:click="open = ! open"> <i class="subheader-icon fal fa-edit"></i> Edit </span>'),
+                        to: ~p"/Admin/roles/#{phin.id}/edit",
+                        class: "block w-full px-4 py-2 text-left text-sm text-blue-600 hover:bg-gray-100" %>
+
+                      <button type="button" x-on:click="open = ! open"
+                        class="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
+                        phx-click="deactivate" phx-value-id={phin.id}>
+                        <i class="subheader-icon fal fa-trash"></i>
+                        Deactivate
+                      </button>  
+
+                      <%= if Enum.member?(@permits, "assign_user_roles") do %>
+                        <%= live_patch raw('<i class="subheader-icon fal fa-edit"></i> Assign  '),
+                        to: ~p"/Admin/roles/#{phin.id}/access",
+                        class: "block w-full px-4 py-2 text-left text-sm text-blue-600 hover:bg-gray-100", 'x-on:click': "open = ! open" %>
+                      <% end %>
+                                  
+                      <% end %>
+                    </div>
+                  </div>
+
+                <% else %> 
+                  <div class="text-center text-red-600">No Actions</div> 
+                <% end %>
+                </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <%= if @data_loader do %>
+      <div class="flex justify-center items-center mt-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    <% else %>
+      <%= if Enum.empty?(@data) do %>
+        <div class="text-center mt-4 text-gray-500">No data available in table</div>
+      <% end %>
+    <% end %>
+
+    <div class="mt-4">
+      <.live_component
+        module={FinincialToolWeb.Helps.PaginationComponent}
+        id="PaginationComponent"
+        params={@params}
+        pagination_data={@data}
+      />
+    </div>
+  </div>
+</div>
+<!-- Modals -->
+<.modal
+  :if={@live_action in [:new, :edit]}
+  class="max-w-4xl p-2"
+  id="role-modal"
+  show
+  on_cancel={JS.patch(~p"/Admin/roles")}
+>
+  <.live_component
+    module={FinincialToolWeb.RoleLive.FormComponent}
+    id={@user_role.id || :new}
+    title={@page_title}
+    action={@live_action}
+    user_role={@user_role}
+    user={@user}
+    browser_info={@browser_info}
+    user_agent={@user_agent}
+    remote_ip={@remote_ip}
+    live_socket_identifier={@live_socket_identifier}
+    return_to={~p"/Admin/roles"}
+  />
+</.modal>
+<!-- Info, Success, and Error modals -->
+<%= if @info_modal do %>
+  <.live_component
+    module={InfoModalLive}
+    id="warning-boom"
+    title="Warning"
+    body={@info_message}
+    right_button={@info_wording}
+    right_button_action="process"
+    right_button_param={@info_modal_param}
+    left_button_action="cancel-crash"
+    left_button="Cancel"
+  />
+<% end %>
+
+<%= if @success_modal do %>
+  <.live_component
+    module={SuccessModalLive}
+    id="success-boom"
+    title="Successful"
+    body={@success_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    right_button_param="phin"
+    left_button_action="cancel-phin"
+  />
+<% end %>
+
+<%= if @error_modal do %>
+  <.live_component
+    module={ErrorModalLive}
+    id="error-phin"
+    title="Failed"
+    body={@error_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    right_button_param="phin"
+    left_button_action="cancel-phin"
+  />
+<% end %>
+
+<.modal
+  :if={@show_modal}
+  class="max-w-4xl p-2"
+  id="role-filter-modal"
+  show
+  on_cancel={JS.patch(~p"/Admin/roles")}
+>
+  <.live_component
+    module={FinincialToolWeb.RoleLive.RoleLiveFilterComponent}
+    id="filter-modal-component"
+    params={@params}
+    role={@role}
+    page={@page}
+  />
+</.modal>

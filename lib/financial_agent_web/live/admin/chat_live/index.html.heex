@@ -1,0 +1,367 @@
+<div class="flex h-screen bg-gradient-to-br from-slate-50 to-blue-50">
+  <!-- Sidebar -->
+  <div class="w-1/4 bg-white/80 backdrop-blur-sm border-r border-slate-200/60 flex flex-col shadow-xl">
+    <!-- Header -->
+    <div class="p-6 border-b border-slate-200/60 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <div class="flex items-center space-x-3 mb-4">
+        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold">AI Financial Assistant</h1>
+          <p class="text-blue-100 text-sm">Your intelligent finance companion</p>
+        </div>
+      </div>
+      <button
+        phx-click="new_conversation"
+        class="w-full bg-white/20 hover:bg-white/30 text-white px-4 py-3 rounded-lg transition-all duration-200 font-medium backdrop-blur-sm border border-white/20 hover:border-white/40 hover:scale-105 transform"
+      >
+        <div class="flex items-center justify-center space-x-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+          </svg>
+          <span>New Conversation</span>
+        </div>
+      </button>
+    </div>
+
+    <!-- Connected Services -->
+    <div class="p-4 border-b border-slate-200/60">
+      <h3 class="text-sm font-semibold text-slate-700 mb-3 flex items-center">
+        <svg class="w-4 h-4 mr-2 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3z"/>
+        </svg>
+        Connected Services
+      </h3>
+      <div class="space-y-3">
+        <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-xs font-bold">G</span>
+            </div>
+            <span class="text-sm font-medium text-slate-700">Google</span>
+          </div>
+          <%= if @connected_services.google do %>
+            <div class="flex items-center space-x-1 text-emerald-600">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-xs font-medium">Connected</span>
+            </div>
+          <% else %>
+            <button
+              phx-click="connect_google"
+              class="text-blue-600 text-xs font-medium hover:text-blue-700 px-2 py-1 rounded hover:bg-blue-50 transition-colors"
+            >
+              Connect
+            </button>
+          <% end %>
+        </div>
+        <div class="flex items-center justify-between p-3 rounded-lg bg-slate-50 hover:bg-slate-100 transition-colors">
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+              <span class="text-white text-xs font-bold">H</span>
+            </div>
+            <span class="text-sm font-medium text-slate-700">HubSpot</span>
+          </div>
+          <%= if @connected_services.hubspot do %>
+            <div class="flex items-center space-x-1 text-emerald-600">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              <span class="text-xs font-medium">Connected</span>
+            </div>
+          <% else %>
+            <button
+              phx-click="connect_hubspot"
+              class="text-blue-600 text-xs font-medium hover:text-blue-700 px-2 py-1 rounded hover:bg-blue-50 transition-colors"
+            >
+              Connect
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Conversations List -->
+    <div class="flex-1 overflow-y-auto">
+      <div class="p-4">
+        <h3 class="text-sm font-semibold text-slate-700 mb-3 flex items-center">
+          <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          Recent Conversations
+        </h3>
+        <div class="space-y-2">
+          <%= for conversation <- @conversations do %>
+            <.link
+              patch={~p"/Admin/chats/#{conversation.id}"}
+              class={[
+                "block p-3 rounded-lg text-sm transition-all duration-200 hover:scale-105 transform border",
+                if(@current_conversation && @current_conversation.id == conversation.id,
+                    do: "bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg border-blue-300",
+                    else: "text-slate-700 hover:bg-slate-50 border-slate-200 hover:border-slate-300 hover:shadow-md")
+              ]}
+            >
+              <div class="flex items-start justify-between">
+                <div class="flex-1">
+                  <div class={[
+                    "font-medium truncate",
+                    if(@current_conversation && @current_conversation.id == conversation.id,
+                        do: "text-white",
+                        else: "text-slate-900")
+                  ]}>
+                    <%= conversation.title || "Untitled Conversation" %>
+                  </div>
+                  <div class={[
+                    "text-xs mt-1 flex items-center space-x-1",
+                    if(@current_conversation && @current_conversation.id == conversation.id,
+                        do: "text-blue-100",
+                        else: "text-slate-500")
+                  ]}>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span><%= Calendar.strftime(conversation.updated_at, "%m/%d %I:%M %p") %></span>
+                  </div>
+                </div>
+                <%= if @current_conversation && @current_conversation.id == conversation.id do %>
+                  <div class="ml-2">
+                    <div class="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                  </div>
+                <% end %>
+              </div>
+            </.link>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="flex-1 flex flex-col">
+    <!-- Chat Header -->
+    <div class="bg-white/80 backdrop-blur-sm border-b border-slate-200/60 p-6 shadow-sm">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+          <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center shadow-lg">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">
+              <%= if @current_conversation do %>
+                <%= @current_conversation.title || "Untitled Conversation" %>
+              <% else %>
+                Welcome to AI Financial Assistant
+              <% end %>
+            </h2>
+            <p class="text-sm text-slate-600">
+              <%= if @current_conversation do %>
+                Ready to help with your financial needs
+              <% else %>
+                Select a conversation or start a new one to begin
+              <% end %>
+            </p>
+          </div>
+        </div>
+        <%= if @current_conversation do %>
+          <div class="flex items-center space-x-2 text-sm text-slate-500">
+            <div class="flex items-center space-x-1">
+              <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+              <span>Online</span>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Messages and Input Container -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+      <%= if @current_conversation do %>
+        <%= if Enum.empty?(@messages) do %>
+          <!-- Empty state with centered input -->
+          <div class="flex-1 flex flex-col items-center justify-center p-6">
+            <div class="text-center mb-8">
+              <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mb-4 shadow-lg mx-auto">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                </svg>
+              </div>
+              <h3 class="text-xl font-semibold text-slate-900 mb-2">Start a conversation</h3>
+              <p class="text-slate-600 max-w-md">
+                I'm here to help you with financial planning, client management, scheduling, and more. 
+                What would you like to work on today?
+              </p>
+            </div>
+            
+            <!-- Centered Message Input for Empty Chat -->
+            <div class="w-full max-w-2xl">
+              <form phx-submit="send_message" class="flex space-x-4">
+                <div class="flex-1 relative">
+                  <input
+                    type="text"
+                    name="message"
+                    value={@message_input}
+                    phx-change="update_message"
+                    placeholder="Type your message..."
+                    class="w-full border border-slate-300 rounded-xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80 backdrop-blur-sm shadow-sm text-slate-900 placeholder-slate-500 transition-all duration-200"
+                    disabled={@loading}
+                  />
+                  <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                  </div>
+                </div>
+                <button
+                  type="submit"
+                  disabled={@loading || String.trim(@message_input) == ""}
+                  class="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-8 py-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-medium shadow-lg hover:shadow-xl hover:scale-105 transform flex items-center space-x-2"
+                >
+                  <%= if @loading do %>
+                    <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  <% else %>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                    </svg>
+                  <% end %>
+                  <span>Send</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        <% else %>
+          <!-- Messages with input right after messages -->
+          <div class="flex-1 overflow-y-auto p-6">
+            <div class="space-y-6" id="messages-container">
+              <%= for message <- @messages do %>
+                <div class={[
+                  "flex animate-fade-in",
+                  if(message.role == "user", do: "justify-end", else: "justify-start")
+                ]}>
+                  <div class={[
+                    "max-w-xs lg:max-w-md px-6 py-4 rounded-2xl shadow-lg backdrop-blur-sm border",
+                    if(message.role == "user",
+                        do: "bg-gradient-to-r from-blue-500 to-indigo-500 text-white border-blue-300 ml-12",
+                        else: "bg-white/80 border-slate-200 text-slate-900 mr-12")
+                  ]}>
+                    <div class="whitespace-pre-wrap leading-relaxed"><%= message.content %></div>
+                    <div class={[
+                      "text-xs mt-2 flex items-center space-x-1",
+                      if(message.role == "user", do: "text-blue-100", else: "text-slate-500")
+                    ]}>
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                      </svg>
+                      <span><%= Calendar.strftime(message.inserted_at, "%I:%M %p") %></span>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+              <%= if @loading do %>
+                <div class="flex justify-start animate-fade-in">
+                  <div class="bg-white/80 backdrop-blur-sm border border-slate-200 text-slate-900 max-w-xs lg:max-w-md px-6 py-4 rounded-2xl shadow-lg mr-12">
+                    <div class="flex items-center space-x-3">
+                      <div class="flex space-x-1">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                        <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+                        <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+                      </div>
+                      <span class="text-slate-600">AI is thinking...</span>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+
+              <!-- Message Input right after messages -->
+              <div class="mt-8">
+                <form phx-submit="send_message" class="flex space-x-4">
+                  <div class="flex-1 relative">
+                    <input
+                      type="text"
+                      name="message"
+                      value={@message_input}
+                      phx-change="update_message"
+                      placeholder="Type your message..."
+                      class="w-full border border-slate-300 rounded-xl px-6 py-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/80 backdrop-blur-sm shadow-sm text-slate-900 placeholder-slate-500 transition-all duration-200"
+                      disabled={@loading}
+                    />
+                    <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                      <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={@loading || String.trim(@message_input) == ""}
+                    class="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-8 py-4 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-medium shadow-lg hover:shadow-xl hover:scale-105 transform flex items-center space-x-2"
+                  >
+                    <%= if @loading do %>
+                      <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    <% else %>
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                      </svg>
+                    <% end %>
+                    <span>Send</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <!-- No conversation selected state -->
+        <div class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+          <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mb-4 shadow-lg">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-slate-900 mb-2">Welcome to AI Financial Assistant</h3>
+          <p class="text-slate-600 max-w-md mb-6">
+            Select a conversation from the sidebar or create a new one to start chatting with your AI assistant.
+          </p>
+          <button
+            phx-click="new_conversation"
+            class="bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-8 py-3 rounded-xl transition-all duration-200 font-medium shadow-lg hover:shadow-xl hover:scale-105 transform flex items-center space-x-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+            <span>Start New Conversation</span>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+</style>

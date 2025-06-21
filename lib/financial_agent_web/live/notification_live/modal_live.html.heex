@@ -1,0 +1,47 @@
+<div
+  id={"modal-#{@id}"}
+  class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+>
+  <!-- Modal Background -->
+  <div
+    class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6"
+    phx-hook="ScrollLock"
+    id={"modals-#{@id}"}
+  >
+    <div class="flex flex-col">
+      <!-- Title -->
+      <%= if @title != nil do %>
+        <div class="text-xl font-semibold text-gray-900 mb-4">
+          <%= @title %>
+        </div>
+      <% end %>
+      <!-- Body -->
+      <%= if @body != nil do %>
+        <div class="text-gray-700 mb-4">
+          <%= @body %>
+        </div>
+      <% end %>
+      <!-- Buttons -->
+      <div class="flex justify-between">
+        <!-- Left Button -->
+        <button
+          class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition"
+          type="button"
+          phx-click="left-button-click"
+          phx-target={"#modal-#{@id}"}
+        >
+          <%= @left_button %>
+        </button>
+        <!-- Right Button -->
+        <button
+          class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+          type="button"
+          phx-click="right-button-click"
+          phx-target={"#modal-#{@id}"}
+        >
+          <%= @right_button %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

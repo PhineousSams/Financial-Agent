@@ -1,0 +1,156 @@
+<!-- Header -->
+<div class="subheader mb-6">
+  <h1 class="text-2xl font-semibold">
+    <i class="subheader-icon fal fa-users"></i>
+    PASSWORD GENERATION
+    <small class="block text-sm text-gray-600">
+      Password Generation Maintenance
+    </small>
+  </h1>
+</div>
+<!-- Flash Notification -->
+<div class="container mx-auto mb-6">
+  <%= if @flash[:info] do %>
+    <p
+      class="alert alert-info text-center"
+      role="alert"
+      phx-click="lv:clear-flash"
+      phx-value-key="info"
+    >
+      <%= @flash[:info] %>
+    </p>
+  <% end %>
+
+  <%= if @flash[:error] do %>
+    <p
+      class="alert alert-danger text-center"
+      role="alert"
+      phx-click="lv:clear-flash"
+      phx-value-key="error"
+    >
+      <%= @flash[:error] %>
+    </p>
+  <% end %>
+</div>
+
+<div class="w-full">
+  <div class="bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-xl font-semibold mb-4">
+      Configurations <span class="font-light"><i>Password generation settings</i></span>
+    </h2>
+
+    <.simple_form for={@form} id="document-form" phx-change="validate" phx-submit="save">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <.input
+          field={@form[:max_characters]}
+          type="number"
+          label="Maximum Characters"
+          placeholder="Maximum Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+        <.input
+          field={@form[:min_characters]}
+          type="number"
+          label="Minimum Characters"
+          placeholder="Minimum Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <.input
+          field={@form[:repetitive_characters]}
+          type="number"
+          label="Repetitive Characters"
+          placeholder="Repetitive Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+        <.input
+          field={@form[:sequential_numeric]}
+          type="number"
+          label="Sequential Numeric (ASC/DES)"
+          placeholder="Sequential Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <.input
+          field={@form[:reuse]}
+          type="number"
+          label="Password Reuse/History"
+          placeholder="Password Reusability"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+        <.input
+          field={@form[:restriction]}
+          type="select"
+          label="Password Restriction (Use ID)"
+          options={[Yes: true, No: false]}
+          prompt="--- Use ID ---"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <.input
+          field={@form[:max_attempts]}
+          type="number"
+          label="Maximum Password Attempts"
+          placeholder="Maximum Password Attempts"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+        <.input
+          field={@form[:force_change]}
+          type="number"
+          label="Force Password Change after*"
+          placeholder="Password Change Attempts"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <.input
+          field={@form[:min_special]}
+          type="number"
+          label="Minimum Special Characters"
+          placeholder="Minimum Special Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+        <.input
+          field={@form[:min_numeric]}
+          type="number"
+          label="Minimum Numeric Characters"
+          placeholder="Minimum Numeric Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <.input
+          field={@form[:min_lower_case]}
+          type="number"
+          label="Minimum Lowercase Characters"
+          placeholder="Minimum Lowercase Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+        <.input
+          field={@form[:min_upper_case]}
+          type="number"
+          label="Minimum Uppercase Characters"
+          placeholder="Minimum Uppercase Characters"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        />
+      </div>
+
+      <div class="flex justify-end mt-6">
+        <button
+          phx_disable_with="Saving..."
+          class="bg-blue-600 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+        >
+          Save
+        </button>
+      </div>
+    </.simple_form>
+  </div>
+</div>

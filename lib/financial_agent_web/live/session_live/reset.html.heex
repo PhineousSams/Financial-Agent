@@ -1,0 +1,86 @@
+<%= if @loader == true do %>
+
+  <div class="container">
+        <div class="loader">
+        <span class="hour"></span>
+        <span class="min"></span>
+        <span class="circel"></span>
+      </div>
+    <div class="message">Processing your request, please wait...</div>
+    </div>
+
+<% else %>
+  <div class="py-5 font-[sans-serif]">
+  <div class="flex flex-col items-center justify-center py-6 px-4">
+    <div class="max-w-md w-full">
+      <.link href={~p"/Admin/dashboard"}>
+        <img  src="/images/ceec-logo-white.png" alt="logo" class="w-20 mb-6 mx-auto block" />
+      </.link>
+      <div class="p-8 rounded-2xl bg-white shadow">
+        <h1 class="text-gray-800 text-center text-2xl font-bold">
+          Change Password
+        </h1>
+
+        <.simple_form for={@form} id="document-form" phx-change="validate" phx-submit="submit">
+          <.input field={@form[:current_password]} type="password" label="Current Password" placeholder="Enter current password" />
+          <.input field={@form[:password]} type="password" label="Password" placeholder="Enter new password" />
+          <.input field={@form[:confirm_password]} type="password" label="Confirm Password" placeholder="Confirm new password" />
+
+          <div class="inline-flex justify-between w-full">
+            <.link
+              navigate={if assigns.login_user.user_type == "BACKOFFICE", do: ~p"/Admin/dashboard", else: ~p"/Client/dashboard"}
+              type="submit"
+              class="w-full inline-flex justify-center py-3 px-4 text-center mr-1 text-sm tracking-wide rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-4 mr-1 pt-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+                />
+              </svg>
+              Go Back
+            </.link>
+            <button
+              type="submit"
+              class="w-full inline-flex justify-center py-3 px-4 ml-1  text-sm tracking-wide rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none"
+            >
+              Proceed
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-5 h-4 ml-1 pt-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                />
+              </svg>
+            </button>
+          </div>
+        </.simple_form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Footer -->
+<div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-black">
+  <%= Timex.today().year %> © CEEC. All Rights Reserved
+</div>
+<% end %>

@@ -1,0 +1,352 @@
+<div class="bg-gray-100 p-6">
+  <h1 class="text-2xl font-semibold text-gray-800 flex items-center space-x-2">
+    <div class="inline-flex space-x-1">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 w-6 mr-2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
+        />
+      </svg>
+
+      <h2 class="font-bold text-xl">SMS Configurations</h2>
+    </div>
+
+    <h3 class="block text-gray-600 text-sm mt-1">
+      A list of sms configurations
+    </h3>
+  </h1>
+
+  <%= if Enum.member?(@permits, "create_users") do %>
+    <.link
+      patch={~p"/Admin/sms/new"}
+      class="mt-4 inline-flex items-center tracking-wider px-4 py-2 gradient-bg text-white text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Add configuration
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 h-6 ml-1"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z"
+        />
+      </svg>
+    </.link>
+  <% end %>
+</div>
+
+<div id="panel-1" class="bg-white shadow-md rounded-lg  text-xs">
+  <div class="p-6">
+    <div class="grid md:flex justify-between items-center px-4">
+      <.live_component
+        module={FinincialToolWeb.Helps.ISearchComponent}
+        id="ISearchComponent"
+        params={@params}
+      />
+      <div class="md:flex space-x-4">
+        <button
+          class="inline-flex px-4 py-2 gradient-bg text-white tracking-wider text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          phx-click="open_modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-4 mr-1 mt-1"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+            />
+          </svg>
+          Filter
+        </button>
+
+        <button
+          class="inline-flex px-4 py-2 gradient-bg text-white tracking-wider  text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          phx-click="reload"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-4 mr-1 mt-1"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+          Reload
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-6 my-overflow-div">
+      <input
+        type="hidden"
+        name="_csrf_token"
+        id="csrf"
+        value={Plug.CSRFProtection.get_csrf_token()}
+      />
+      <!-- datatable start -->
+      <table id="tbl_users" class="min-w-full divide-y divide-gray-200 table">
+        <thead class="gradient-bg text-white">
+          <tr class="table-row">
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Username
+            </th>
+
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Password
+            </th>
+
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Host
+            </th>
+
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Sender
+            </th>
+
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Max Attempts
+            </th>
+
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Status
+            </th>
+
+            <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="bg-white divide-y divide-gray-200">
+          <%= for phin <- @data do %>
+            <tr class="table-row">
+              <td class="px-6 py-4 whitespace-nowrap"><%= phin.username %></td>
+
+              <td class="px-6 py-4 whitespace-nowrap">**************</td>
+
+              <td class="px-6 py-4 whitespace-nowrap"><%= phin.host %></td>
+
+              <td class="px-6 py-4 whitespace-nowrap"><%= phin.sender %></td>
+
+              <td class="px-6 py-4 whitespace-nowrap">
+                <%= phin.max_attempts %>
+              </td>
+
+              <td class="px-6 py-4 whitespace-nowrap">
+                <%= raw(FinincialTool.Workers.Util.Utils.td_status(phin.status)) %>
+              </td>
+
+              <td class="px-6 py-4 whitespace-nowrap">
+                <%= if phin.status in ["ACTIVE", "PENDING_APPROVAL", "DEACTIVATED", "REJECTED", "BLOCKED"] && Enum.member?(@permits, "manage_users") do %>
+                  <Option.bordered>
+                    <%= live_patch(
+                      raw(
+                        '<span class="block px-4 py-2 text-blue-600 hover:bg-gray-100" x-on:click="open = !open"> <i class="fal fa-edit mr-2"></i> Edit </span>'
+                      ),
+                      to: ~p"/Admin/sms/#{phin.id}/edit"
+                    ) %>
+                    <%= if phin.status in ["PENDING_APPROVAL", "REJECTED"] && Enum.member?(@permits, "approve_users") do %>
+                      <button
+                        type="button"
+                        x-on:click="open = !open"
+                        class="block px-4 py-2 text-green-600 hover:bg-gray-100"
+                        role="button"
+                        phx-click="approve"
+                        phx-value-id={phin.id}
+                      >
+                        <i class="fal fa-check mr-2"></i> Approve
+                      </button>
+                    <% end %>
+
+                    <%= if phin.status == "PENDING_APPROVAL" && Enum.member?(@permits, "approve_users") do %>
+                      <button
+                        type="button"
+                        x-on:click="open = !open"
+                        class="block px-4 py-2 text-red-600 hover:bg-gray-100"
+                        role="button"
+                        phx-click="reject"
+                        phx-value-id={phin.id}
+                      >
+                        <i class="fal fa-times mr-2"></i> Reject
+                      </button>
+                    <% end %>
+
+                    <%= if phin.status == "REJECTED" && Enum.member?(@permits, "approve_users") do %>
+                      <button
+                        type="button"
+                        x-on:click="open = !open"
+                        class="block px-4 py-2 text-green-600 hover:bg-gray-100"
+                        role="button"
+                        phx-click="approve"
+                        phx-value-id={phin.id}
+                      >
+                        <i class="fal fa-check mr-2"></i> Approve
+                      </button>
+                    <% end %>
+
+                    <%= if phin.status == "ACTIVE" && Enum.member?(@permits, "approve_users") do %>
+                      <button
+                        type="button"
+                        x-on:click="open = !open"
+                        class="block px-4 py-2 text-yellow-600 hover:bg-gray-100"
+                        role="button"
+                        phx-click="deactivate"
+                        phx-value-id={phin.id}
+                      >
+                        <i class="fal fa-times mr-2"></i> Deactivate
+                      </button>
+                    <% end %>
+
+                    <%= if phin.status == "DEACTIVATED" && Enum.member?(@permits, "approve_users") do %>
+                      <button
+                        type="button"
+                        x-on:click="open = !open"
+                        class="block px-4 py-2 text-green-600 hover:bg-gray-100"
+                        role="button"
+                        phx-click="activate"
+                        phx-value-id={phin.id}
+                      >
+                        <i class="fal fa-check mr-2"></i> Activate
+                      </button>
+                    <% end %>
+
+                    <%= if Enum.member?(@permits, "approve_users") do %>
+                      <button
+                        type="button"
+                        x-on:click="open = !open"
+                        class="block px-4 py-2 text-red-600 hover:bg-gray-100"
+                        role="button"
+                        phx-click="delete"
+                        phx-value-id={phin.id}
+                      >
+                        <i class="fal fa-trash mr-2"></i> Delete
+                      </button>
+                    <% end %>
+                  </Option.bordered>
+                <% else %>
+                  <div class="text-center text-red-600">No Actions</div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <%= if @data_loader do %>
+          <tr>
+            <td colspan="20" class="py-4 text-center">
+              <div class="flex justify-center items-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-green-600"></div>
+                <span class="ml-2 text-gray-500">Loading...</span>
+              </div>
+            </td>
+          </tr>
+        <% else %>
+          <%= if Enum.empty?(@data) do %>
+            <tr>
+              <td colspan="20" class="py-4 text-center text-gray-500">
+                No data available in table
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+
+      <.live_component
+        module={FinincialToolWeb.Helps.PaginationComponent}
+        id="PaginationComponent"
+        params={@params}
+        pagination_data={@data}
+      />
+    </div>
+  </div>
+</div>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal
+    class="max-w-4xl p-2"
+    id="client-modal"
+    show
+    on_cancel={JS.patch(~p"/Admin/sms/configurations")}
+  >
+    <.live_component
+      module={FinincialToolWeb.SmsConfigurationsLive.FormComponent}
+      id={@sms_config.id || :new}
+      title={@page_title}
+      action={@live_action}
+      sms_config={@sms_config}
+      user={@user}
+      patch={~p"/Admin/sms/configurations"}
+    />
+  </.modal>
+<% end %>
+
+<%= if @info_modal do %>
+  <.live_component
+    module={InfoModalLive}
+    id="warning-boom"
+    title="Warning"
+    body={@info_message}
+    right_button={@info_wording}
+    right_button_action="process"
+    right_button_param={@info_modal_param}
+    left_button_action="cancel-crash"
+    left_button="Cancel"
+  />
+<% end %>
+
+<%= if @success_modal do %>
+  <.live_component
+    module={SuccessModalLive}
+    id="success-boom"
+    title="Successful"
+    body={@success_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="sms_config"
+    ,
+    right_button_param="sms_config"
+    ,
+    left_button_action="cancel-sms_config"
+  />
+<% end %>
+
+<%= if @error_modal do %>
+  <.live_component
+    module={ErrorModalLive}
+    id="error-class"
+    title="Failed"
+    body={@error_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="sms_config"
+    ,
+    right_button_param="sms_config"
+    ,
+    left_button_action="cancel-sms_config"
+  />
+<% end %>

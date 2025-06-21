@@ -1,0 +1,102 @@
+<div class="mb-4">
+  <h1 class="text-3xl font-semibold flex items-center">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="mr-2 text-green-500"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      width="24"
+      height="24"
+    >
+      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+    </svg>
+    User Access Permissions
+  </h1>
+
+  <p class="text-sm text-gray-600">Assign Access Permissions to User Roles</p>
+</div>
+
+
+<div class="mt-8">
+  <div class="bg-white p-6 rounded-lg shadow-lg">
+    <div class="flex justify-between mb-4">
+      <button
+      type="button"
+      class="bg-blue-600 text-white px-4 py-2 rounded-full"
+      phx-click="select_all"
+      >
+      Select All
+      </button>
+
+      <form class="flex space-x-2" id="search-form" phx-change="search">
+        <input
+          type="search"
+          class="border border-gray-300 rounded-l-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 ease-in-out"
+          name="filter"
+          placeholder="Search..."
+        />
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-r-full transition duration-200 ease-in-out hover:bg-green-600">
+          <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2"
+          >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1 0 7.5 15.5a7.5 7.5 0 0 0 9.15 1.15z"
+        />
+          </svg>
+        </button>
+      </form>
+    </div> 
+
+    <form id="update_the_permissions" phx-change="validate" phx-submit="save">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <%= 
+          grouped_permissions = group_permissions(@all_permissions)
+          |> Enum.sort_by(&length(&1.permits), :desc)
+          |> Enum.flat_map(fn group ->
+            Enum.chunk_every(group.permits, 10)
+            |> Enum.map(fn chunk -> %{name: group.name, permits: chunk} end)
+          end)
+          
+          for group <- grouped_permissions do 
+        %>
+          <div class="mb-4">
+            <h3 class="font-medium text-gray-700 mt-2 mb-2"><%= group.name %></h3>
+            
+            <%= for phin <- group.permits do %>
+              <div class="flex items-center mb-1">
+                <input
+                  type="checkbox"
+                  id={phin}
+                  name={"permissions[#{phin}]"}
+                  checked={Enum.member?(@user_role.permissions, phin)}
+                  class="mr-2 form-checkbox text-green-600 rounded"
+                />
+                <label for={phin} class="text-sm">
+                  <%= Enum.map(String.split(phin, "_"), &String.capitalize/1) |> Enum.join(" ") %>
+                </label>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="flex justify-end mt-6">
+        <button
+          type="button"
+          class="bg-gray-300 text-gray-800 px-4 py-2 rounded mr-2"
+          onclick="history.back()"
+        >
+          Back
+        </button>
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Update</button>
+      </div>
+    </form>
+  </div>
+</div>

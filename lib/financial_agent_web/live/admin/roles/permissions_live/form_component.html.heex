@@ -1,0 +1,56 @@
+<div>
+  <.simple_form
+    for={@form}
+    id="document-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+    class="space-y-6"
+  >
+    <div class="bg-white px-4 py-5 sm:px-6">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">
+        <i class="fa-regular fa-user-circle mr-2"></i><%= @title %>
+      </h3>
+    </div>
+
+    <div class="bg-white px-4 py-5 sm:p-6">
+      <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-3">
+        <div>
+          <.input
+            field={@form[:name]}
+            type="text"
+            label="Name"
+            placeholder="Enter Permission Name"
+          />
+        </div>
+
+        <div>
+          <.input
+            field={@form[:description]}
+            type="text"
+            label="Description"
+            placeholder="Enter your Description"
+          />
+        </div>
+
+        <div>
+          <.input
+            field={@form[:group_id]}
+            type="select"
+            label="Group"
+            prompt="-- Permission Group --"
+            options={
+              Enum.map(@groups, fn group -> {"#{group.group}/#{group.section}", group.id} end)
+            }
+          />
+        </div>
+      </div>
+    </div>
+
+    <:actions>
+      <.button phx-disable-with="Saving..." class="w-full sm:w-auto bg-green-600">
+        Save
+      </.button>
+    </:actions>
+  </.simple_form>
+</div>

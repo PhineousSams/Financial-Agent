@@ -1,0 +1,68 @@
+<div>
+  <%= if @preview_modal do %>
+    <div
+      id={"modal-#{@id}"}
+      phx-hook="ScrollLock"
+      class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+    >
+      <div class="bg-white rounded-lg shadow-lg max-w-3xl w-full p-6" role="document">
+        <div class="flex flex-col h-full">
+          <!-- Header -->
+          <div class="flex items-center justify-between bg-gray-800 text-white p-4 rounded-t-lg">
+            <h5 class="text-xl font-semibold" id="exampleModalLabel"><%= @title %></h5>
+
+            <button
+              type="button"
+              phx-click="dismiss-modal"
+              phx-target={"#modal-#{@id}"}
+              class="text-white text-2xl leading-none"
+            >
+              &times;
+            </button>
+          </div>
+          <!-- Body -->
+          <div class="flex-1 overflow-auto bg-gray-100 p-4 max-h-[70vh]">
+            <div class="relative">
+              <button
+                onclick="copyToClipboard('#preview_source_code', '#copyToClipboard_all')"
+                id="copyToClipboard_all"
+                class="absolute top-2 right-2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition"
+                aria-label="copy"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  fill="currentColor"
+                >
+                  <path d="M0 0h24v24H0z" fill="none"></path>
+
+                  <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z">
+                  </path>
+                </svg>
+              </button>
+              <pre
+                id="preview_source_code"
+                class="whitespace-pre-wrap break-words p-2 bg-gray-200 overflow-auto"
+              >
+                <%= @code %>
+              </pre>
+            </div>
+          </div>
+          <!-- Footer -->
+          <div class="flex justify-end p-4">
+            <button
+              type="button"
+              phx-click="dismiss-modal"
+              phx-target={"#modal-#{@id}"}
+              class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"
+            >
+              <%= @right_button %>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

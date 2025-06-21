@@ -1,0 +1,102 @@
+<div class="modal-body p-6">
+  <.header>
+    <%= @title %>
+  </.header>
+
+  <.simple_form
+    for={@form}
+    id="user-form"
+    phx-target={@myself}
+    phx-change="validate"
+    phx-submit="save"
+    class="space-y-6"
+  >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <.input
+          field={@form[:first_name]}
+          type="text"
+          label="Firstname"
+          placeholder="Enter firstname"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:last_name]}
+          type="text"
+          label="Lastname"
+          placeholder="Enter lastname"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:username]}
+          type="text"
+          label="Username"
+          placeholder="Enter username"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:email]}
+          type="text"
+          label="Email"
+          placeholder="Enter email"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:id_no]}
+          type="text"
+          label="ID No"
+          placeholder="Enter ID number"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:phone]}
+          type="text"
+          label="Phone"
+          placeholder="Enter phone number"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:address]}
+          type="text"
+          label="Address"
+          placeholder="Enter address"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <.input
+          field={@form[:role_id]}
+          type="select"
+          label="Role"
+          options={Enum.map(@roles, &{&1.name, &1.id})}
+          class="w-full"
+        />
+      </div> 
+    </div>
+    <!-- You can add submit and other buttons here -->
+    <div class="flex justify-start mt-4">
+      <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+        Save
+      </button>
+    </div>
+  </.simple_form>
+</div>

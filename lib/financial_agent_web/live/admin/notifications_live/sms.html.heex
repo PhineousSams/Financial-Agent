@@ -1,0 +1,101 @@
+<ol class="breadcrumb page-breadcrumb text-sm font-medium text-gray-500">
+  <li class="breadcrumb-item">Loan Management</li>
+</ol>
+
+<div class="subheader mb-4">
+  <h1 class="sub-title text-xl font-bold text-gray-800 flex items-center">
+    <i class="subheader-icon fal fa-comment mr-2"></i> SMS Logs
+  </h1>
+</div>
+
+<div id="panel-6" class="panel bg-white shadow-md rounded-lg overflow-hidden">
+  <div class="panel-container show p-4">
+    <div class="panel-content rounded-xl my-overflow-div">
+      <.live_component
+        module={FinincialToolWeb.Helps.ISearchComponent}
+        id="ISearchComponent"
+        params={@params}
+      />
+      <input
+        type="hidden"
+        id="csrf"
+        name="_csrf_token"
+        value={Plug.CSRFProtection.get_csrf_token()}
+      />
+      <table class="table-auto w-full border border-gray-200 rounded-lg overflow-hidden">
+        <thead class="bg-fusion-100 text-white bg-blue-600 text-left rounded-t-lg">
+          <tr class="text-sm font-semibold">
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Type</th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Mobile
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Status
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">SMS</th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Date Sent
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">
+              Attempts
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="text-gray-700">
+          <%= for phin <- @data do %>
+            <tr class="border-t border-gray-200">
+              <td class="px-4 py-3 text-left text-xs  whitespace-nowrap"><%= phin.type %></td>
+
+              <td class="px-4 py-3 text-left text-xs  whitespace-nowrap"><%= phin.mobile %></td>
+
+              <td class="px-4 py-3 text-left text-xs  whitespace-nowrap">
+                <%= FinincialTool.Workers.Util.Utils.td_status(phin.status) %>
+              </td>
+
+              <td class="px-4 py-3 text-left text-xs  whitespace-nowrap"><%= phin.sms %></td>
+
+              <td class="px-4 py-3 text-left text-xs  whitespace-nowrap">
+                <%= phin.inserted_at %>
+              </td>
+
+              <td class="px-4 py-3 text-left text-xs  whitespace-nowrap">
+                <%= phin.msg_count %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <%= if @data_loader do %>
+          <tr class="text-center">
+            <td valign="top" colspan="6" class="py-4">
+              <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </td>
+          </tr>
+        <% else %>
+          <%= if Enum.empty?(@data) do %>
+            <tr class="text-center">
+              <td valign="top" colspan="6" class="py-4 text-gray-500">
+                No data available in table
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+
+      <.live_component
+        module={FinincialToolWeb.Helps.PaginationComponent}
+        id="PaginationComponent"
+        params={@params}
+        pagination_data={@data}
+      />
+    </div>
+  </div>
+</div>

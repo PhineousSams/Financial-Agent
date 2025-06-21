@@ -1,0 +1,265 @@
+<div class="bg-gray-100 p-6">
+  <h1 class="text-3xl font-semibold text-gray-800 flex items-center space-x-2">
+    <i class="subheader-icon fal fa-cogs text-blue-500"></i>
+    <h2 class="font-bold text-xl">API Integrators</h2>
+
+    <h3 class="block text-gray-600 text-sm mt-1">
+      Manage external API integrations.
+    </h3>
+  </h1>
+
+  <%= if Enum.member?(@permits, "manage_api_integrators") do %>
+    <.link
+      patch={~p"/Admin/api_integrators/new"}
+      class="mt-4 inline-flex items-center tracking-wider px-4 py-2 gradient-bg text-white text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Add API Integrator
+    </.link>
+  <% end %>
+</div>
+
+<div class="mx-auto py-6 sm:px-6 lg:px-8 bg-white shadow-md rounded-lg text-xs mt-6">
+  <div class="px-4 py-6 sm:px-0">
+    <div class="flex justify-between items-center mb-6">
+      <.live_component
+        module={FinincialToolWeb.Helps.ISearchComponent}
+        id="ISearchComponent"
+        params={@params}
+      />
+      <div class="flex space-x-2">
+        <button
+          phx-click="reload"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white gradient-bg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <i class="fas fa-sync h-4 mr-2"></i> Reload
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white shadow overflow-visible sm:rounded-lg">
+      <Table.table id="tbl_api_integrators" rows={@data}>
+        <:col :let={integrator} label="Name">
+          <%= integrator.name %>
+        </:col>
+
+        <:col :let={integrator} label="Integrator ID">
+          <%= integrator.integrator_id %>
+        </:col>
+
+        <:col :let={integrator} label="Endpoint">
+          <%= integrator.endpoint %>
+        </:col>
+
+        <:col :let={integrator} label="Contact Email">
+          <%= integrator.contact_email %>
+        </:col>
+
+        <:col :let={integrator} label="IP Address">
+          <%= integrator.ip_address || "-" %>
+        </:col>
+
+        <:col :let={integrator} label="Port">
+          <%= integrator.port || "-" %>
+        </:col>
+
+        <:col :let={integrator} label="Attempt Count">
+          <%= integrator.attempt_count %>
+        </:col>
+
+        <:col :let={integrator} label="Status">
+          <%= raw(FinincialTool.Workers.Util.Utils.td_status(integrator.status)) %>
+        </:col>
+
+        <:action :let={integrator}>
+          <%= if integrator.status in ["ACTIVE", "PENDING_APPROVAL", "DEACTIVATED", "REJECTED", "BLOCKED"] && Enum.member?(@permits, "manage_api_integrators") do %>
+            <%= if integrator.status in ["PENDING_APPROVAL", "REJECTED"] do %>
+              <div class="py-1">
+                <button
+                  phx-click="approve"
+                  phx-value-id={integrator.id}
+                  class="flex items-center w-full text-left px-4 py-2 text-sm text-blue-700 hover:bg-blue-100"
+                  role="menuitem"
+                >
+                  <Heroicons.check_circle outline class="mr-2 w-5 h-5" />Approve
+                </button>
+              </div>
+            <% end %>
+
+            <%= if integrator.status == "ACTIVE" do %>
+              <div class="py-1">
+                <button
+                  phx-click="deactivate"
+                  phx-value-id={integrator.id}
+                  class="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                >
+                  <Heroicons.x_circle outline class="mr-2 w-5 h-5" />Deactivate
+                </button>
+              </div>
+            <% end %>
+
+            <%= if integrator.status == "DEACTIVATED" do %>
+              <div class="py-1">
+                <button
+                  phx-click="activate"
+                  phx-value-id={integrator.id}
+                  class="flex items-center last:w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                >
+                  <Heroicons.check_circle outline class="mr-2 w-5 h-5" />Activate
+                </button>
+              </div>
+            <% end %>
+
+            <div class="py-1">
+              <button
+                phx-click="delete"
+                phx-value-id={integrator.id}
+                class="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+              >
+                <Heroicons.trash outline class="mr-2 w-5 h-5" />Delete
+              </button>
+            </div>
+
+            <div class="py-1">
+              <button
+                phx-click="generate_password"
+                phx-value-id={integrator.id}
+                class="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+              >
+                <Heroicons.key outline class="mr-2 w-5 h-5" />Generate Password
+              </button>
+            </div>
+
+            <div class="py-1">
+              <button
+                phx-click="reset_attempts"
+                phx-value-id={integrator.id}
+                class="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+              >
+                <Heroicons.arrow_path outline class="mr-2 w-5 h-5" />Reset Attempts
+              </button>
+            </div>
+
+            <div class="py-1">
+              <%= live_patch to: ~p"/Admin/api_integrators/#{integrator.id}/edit", class: "flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" do %>
+                <Heroicons.pencil_square outline class="mr-2 w-5 h-5" />Edit
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center text-red-600">No Actions</div>
+          <% end %>
+        </:action>
+      </Table.table>
+    </div>
+
+    <%= if @data_loader do %>
+      <div class="flex justify-center items-center mt-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    <% else %>
+      <%= if Enum.empty?(@data) do %>
+        <div class="text-center mt-4 text-gray-500">No data available in table</div>
+      <% end %>
+    <% end %>
+
+    <div class="mt-4">
+      <.live_component
+        module={FinincialToolWeb.Helps.PaginationComponent}
+        id="PaginationComponent"
+        params={@params}
+        pagination_data={@data}
+      />
+    </div>
+  </div>
+</div>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  class="max-w-4xl p-2"
+  id="api-integrator-modal"
+  show
+  on_cancel={JS.patch(~p"/Admin/api_integrators")}
+>
+  <.live_component
+    module={FinincialToolWeb.ApiIntegratorsLive.FormComponent}
+    id={@integrator.id || :new}
+    title={@page_title}
+    action={@live_action}
+    user={@user}
+    browser_info={@browser_info}
+    user_agent={@user_agent}
+    remote_ip={@remote_ip}
+    integrator={@integrator}
+    live_socket_identifier={@live_socket_identifier}
+    patch={~p"/Admin/api_integrators"}
+    return_to={~p"/Admin/api_integrators"}
+  />
+</.modal>
+
+<%= if @show_password_modal do %>
+  <.modal id="password-modal" show>
+    <div class="p-6">
+      <h2 class="text-lg font-medium text-gray-900">Generated Password</h2>
+      <p class="mt-2 text-sm text-gray-500">
+        This password will only be shown once. Please save it securely.
+      </p>
+      <div class="mt-4 p-4 bg-gray-100 rounded-md">
+        <code class="text-lg font-mono"><%= @generated_password %></code>
+      </div>
+      <div class="mt-6 flex justify-end">
+        <button
+          phx-click="close_password_modal"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white gradient-bg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </.modal>
+<% end %>
+
+<%= if @info_modal do %>
+  <.live_component
+    module={InfoModalLive}
+    id="warning-boom"
+    title="Warning"
+    body={@info_message}
+    right_button={@info_wording}
+    right_button_action="process"
+    right_button_param={@info_modal_param}
+    left_button_action="cancel-crash"
+    left_button="Cancel"
+  />
+<% end %>
+
+<%= if @success_modal do %>
+  <.live_component
+    module={SuccessModalLive}
+    id="success-boom"
+    title="Successful"
+    body={@success_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    right_button_param="phin"
+    left_button_action="cancel-phin"
+  />
+<% end %>
+
+<%= if @error_modal do %>
+  <.live_component
+    module={ErrorModalLive}
+    id="error-phin"
+    title="Failed"
+    body={@error_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    right_button_param="phin"
+    left_button_action="cancel-phin"
+  />
+<% end %>

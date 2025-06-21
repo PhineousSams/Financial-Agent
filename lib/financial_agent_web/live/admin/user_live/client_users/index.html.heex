@@ -1,0 +1,467 @@
+<div class="p-6">
+  <h1 class="text-2xl font-semibold text-gray-800 flex items-center space-x-2">
+    <i class="subheader-icon fal fa-users text-blue-500"></i>
+    <h2 class="font-bold text-xl">Clients</h2>
+
+    <h3 class="block text-gray-600 text-sm mt-1">
+      A list of clients
+    </h3>
+  </h1>
+
+  <%= if Enum.member?(@permits, "create_users") do %>
+    <.link
+      patch={~p"/Admin/Client/registration"}
+      class="mt-4 inline-flex items-center tracking-wider px-4 py-2 gradient-bg text-white text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Add client
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="w-5 h-4 ml-1"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z"
+        />
+      </svg>
+    </.link>
+  <% end %>
+</div>
+
+<div id="panel-1" class="bg-white shadow-md rounded-lg  text-xs">
+  <div class="p-6">
+    <div class="grid md:flex justify-between items-center px-4">
+      <.live_component
+        module={FinincialToolWeb.Helps.ISearchComponent}
+        id="ISearchComponent"
+        params={@params}
+      />
+      <div class="flex space-x-4">
+        <button
+          class="inline-flex px-4 py-2 gradient-bg text-white tracking-wider text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          phx-click="open_modal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-4 mr-1 mt-1"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.568a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z"
+            />
+          </svg>
+          Filter
+        </button>
+
+        <button
+          class="inline-flex px-4 py-2 gradient-bg text-white tracking-wider  text-sm font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          phx-click="reload"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-4 mr-1 mt-1"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"
+            />
+          </svg>
+          Reload
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-6 relative my-overflow-div">
+      <input
+        type="hidden"
+        name="_csrf_token"
+        id="csrf"
+        value={Plug.CSRFProtection.get_csrf_token()}
+      />
+      <!-- datatable start -->
+      <table id="tbl_users" class="min-w-full divide-y divide-gray-200 table">
+        <thead class="gradient-bg text-white">
+          <tr class="table-row">
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Firstname
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Lastname
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Username
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Email
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Phone
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Sex</th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              User Type
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Status
+            </th>
+
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Action
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="bg-white divide-y divide-gray-200">
+          <%= for phin <- @data do %>
+            <tr class="table-row">
+              <td class="px-4 py-4 whitespace-nowrap"><%= phin.first_name %></td>
+
+              <td class="px-4 py-4 whitespace-nowrap"><%= phin.last_name %></td>
+
+              <td class="px-4 py-4 whitespace-nowrap"><%= phin.username %></td>
+
+              <td class="px-4 py-4 whitespace-nowrap"><%= phin.email %></td>
+
+              <td class="px-4 py-4 whitespace-nowrap"><%= phin.phone %></td>
+
+              <td class="px-4 py-4 whitespace-nowrap"><%= phin.sex %></td>
+
+              <td class="px-4 py-4 whitespace-nowrap"><%= phin.user_type %></td>
+
+              <td class="px-4 py-4 whitespace-nowrap">
+                <%= raw(FinincialTool.Workers.Util.Utils.td_status(phin.status)) %>
+              </td>
+
+              <td class="px-4 py-4 whitespace-nowrap">
+                <%= if phin.status in ["ACTIVE",  "PENDING_APPROVAL", "DEACTIVATED", "REJECTED", "BLOCKED"] && Enum.member?(@permits, "manage_users") do %>
+                  <div x-data="{ open: false }" class="relative mt-2">
+                    <button
+                      @click="open = !open"
+                      class="bg-blue-600 hover:bg-amber-500 text-white px-2 py-1  rounded-md text-sm font-medium transition duration-150 ease-in-out"
+                    >
+                      Options
+                    </button>
+
+                    <div
+                      x-show="open"
+                      @click.away="open = false"
+                      class="absolute grid right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10"
+                    >
+                      <%= live_patch  to: ~p"/Admin/Client/users/#{phin.id}/edit", class: "inline-flex px-4 py-1 text-sm text-gray-700 hover:bg-gray-100" do %>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-4 h-4 mt-1 mr-2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"
+                          />
+                        </svg>
+                        Edit Details
+                      <% end %>
+
+                      <%= live_patch  to: ~p"/Admin/Client/users/#{phin.id}/view", class: "inline-flex px-4 py-1 text-sm text-gray-700 hover:bg-gray-100" do %>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-4 h-4 mt-1 mr-2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"
+                          />
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                          />
+                        </svg>
+                        View Details
+                      <% end %>
+
+                      <%= if phin.status in ["PENDING_APPROVAL", "REJECTED"] && Enum.member?(@permits, "approve_users") do %>
+                        <a
+                          href="#"
+                          class="inline-flex px-4 py-1 text-sm text-green-700 hover:bg-gray-100"
+                          phx-click="approve"
+                          phx-value-id={phin.id}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-4 h-4 mt-1 mr-2"
+                          >
+                          <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                        </svg>Approve
+                        </a>
+                      <% end %>
+
+                      <%= if phin.status == "PENDING_APPROVAL" && Enum.member?(@permits, "approve_users") do %>
+                        <a
+                          href="#"
+                          class="inline-flex px-4 py-1 text-sm text-red-700 hover:bg-gray-100"
+                          phx-click="reject"
+                          phx-value-id={phin.id}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-4 h-4 mt-1 mr-2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                            />
+                          </svg>
+                          Reject
+                        </a>
+                      <% end %>
+
+                      <%= if Enum.member?(@permits, "approve_users") do %>
+                        <a
+                          href="#"
+                          class="inline-flex px-4 py-1 text-sm text-red-700 hover:bg-gray-100"
+                          phx-click="delete"
+                          phx-value-id={phin.id}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-4 h-4 mt-1 mr-2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                            />
+                          </svg>
+                          Delete
+                        </a>
+                      <% end %>
+
+                      <%= if phin.status == "DEACTIVATED" && Enum.member?(@permits, "approve_users") do %>
+                        <a
+                          href="#"
+                          class="inline-flex px-4 py-1 text-sm text-green-700 hover:bg-gray-100"
+                          phx-click="activate"
+                          phx-value-id={phin.id}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-4 h-4 mt-1 mr-2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m4.5 12.75 6 6 9-13.5"
+                            />
+                          </svg>
+                          Activate
+                        </a>
+                      <% end %>
+
+                      <%= if phin.status == "ACTIVE" && Enum.member?(@permits, "approve_users") do %>
+                        <a
+                          href="#"
+                          class="inline-flex px-4 py-1 text-sm text-red-700 hover:bg-gray-100"
+                          phx-click="deactivate"
+                          phx-value-id={phin.id}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-4 h-4 mt-1 mr-2"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                            />
+                          </svg>
+                          Deactivate
+                        </a>
+                      <% end %>
+                    </div>
+                  </div>
+                <% else %>
+                  <div class="text-center text-red-600">No Actions</div>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+
+        <%= if @data_loader do %>
+          <tr>
+            <td colspan="20" class="py-4 text-center">
+              <div class="flex justify-center items-center">
+                <div class="animate-spin rounded-full h-8 w-8 border-t-2 border-green-600"></div>
+                <span class="ml-2 text-gray-500">Loading...</span>
+              </div>
+            </td>
+          </tr>
+        <% else %>
+          <%= if Enum.empty?(@data) do %>
+            <tr>
+              <td colspan="20" class="py-4 text-center text-gray-500">
+                No data available in table
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+
+      <.live_component
+        module={FinincialToolWeb.Helps.PaginationComponent}
+        id="PaginationComponent"
+        params={@params}
+        pagination_data={@data}
+      />
+    </div>
+  </div>
+</div>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal
+    class="max-w-4xl p-2"
+    id="client-modal"
+    show
+    on_cancel={JS.patch(~p"/Admin/Client/users/management")}
+  >
+    <.live_component
+      module={FinincialToolWeb.ClientUserLive.FormComponent}
+      id={@user.id || :new}
+      title={@page_title}
+      action={@live_action}
+      user={@user}
+      user_type={@user_type}
+      patch={~p"/Admin/Client/users//management"}
+    />
+  </.modal>
+<% end %>
+
+<%= if @live_action in [:view] do %>
+  <.modal
+    class="max-w-4xl p-2"
+    id="client-view-modal"
+    show
+    on_cancel={JS.patch(~p"/Admin/Client/users/management")}
+  >
+    <.live_component
+      module={FinincialToolWeb.ClientUserLive.ViewComponent}
+      id={@user.id || :new}
+      title={@page_title}
+      action={@live_action}
+      user={@user}
+      tbl_user={@tbl_user}
+      user_type={@user_type}
+      patch={~p"/Admin/Client/users//management"}
+    />
+  </.modal>
+<% end %>
+
+<%= if @info_modal do %>
+  <.live_component
+    module={InfoModalLive}
+    id="warning-boom"
+    title="Warning"
+    body={@info_message}
+    right_button={@info_wording}
+    right_button_action="process"
+    right_button_param={@info_modal_param}
+    left_button_action="cancel-crash"
+    left_button="Cancel"
+  />
+<% end %>
+
+<%= if @success_modal do %>
+  <.live_component
+    module={SuccessModalLive}
+    id="success-boom"
+    title="Successful"
+    body={@success_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    ,
+    right_button_param="phin"
+    ,
+    left_button_action="cancel-phin"
+  />
+<% end %>
+
+<%= if @error_modal do %>
+  <.live_component
+    module={ErrorModalLive}
+    id="error-phin"
+    title="Failed"
+    body={@error_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    ,
+    right_button_param="phin"
+    ,
+    left_button_action="cancel-phin"
+  />
+<% end %>
+
+<%= if @show_modal do %>
+  <.live_component
+    module={FinincialToolWeb.ClientUserLive.ClientUserLiveFilterComponent}
+    id="modal-component"
+    params={@params}
+    page={@page}
+  />
+<% end %>

@@ -1,0 +1,81 @@
+<div
+  id={"modal-#{@id}"}
+  class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50"
+  phx-hook="ScrollLock"
+>
+  <div class="bg-white rounded-lg shadow-lg max-w-4xl mx-auto p-6" id={"modals-#{@id}"}>
+    <div class="relative">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+        <h5 class="text-lg font-semibold" id="exampleModalLabel"><%= @title %></h5>
+
+        <button
+          type="button"
+          class="text-gray-500 hover:text-gray-700 absolute top-0 right-0 mt-2 mr-2"
+          phx-target={"#modal-#{@id}"}
+          phx-click="two_table_dismiss"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="py-4">
+        <div class="mb-4">
+          <span class="font-semibold text-lg">Tax</span>
+          <table class="table w-full border-separate border-spacing-0">
+            <thead class="bg-black text-white">
+              <tr>
+                <%= for data <- @table1 do %>
+                  <th class="border-b-3 border-red-500 py-2 px-4"><%= data.head %></th>
+                <% end %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <%= for data <- @table1 do %>
+                  <td class="py-2 px-4"><%= data.data %></td>
+                <% end %>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="mb-4">
+          <h4 class="text-center text-lg font-semibold"><%= @table_2_title %></h4>
+
+          <table class="tablew-full border-separate border-spacing-0">
+            <thead class="bg-black text-white">
+              <tr>
+                <%= for data <- @table2.head do %>
+                  <th class="border-b-3 border-red-500 py-2 px-4"><%= data %></th>
+                <% end %>
+              </tr>
+            </thead>
+
+            <tbody>
+              <%= for data <- @table2.data do %>
+                <tr>
+                  <%= for data1 <- data do %>
+                    <td class="py-2 px-4"><%= data1 %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Modal Footer -->
+      <div class="flex justify-end pt-4 border-t border-gray-200">
+        <button
+          type="button"
+          class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600"
+          phx-click="two_table_dismiss"
+          phx-target={"#modal-#{@id}"}
+        >
+          <%= @left_button %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

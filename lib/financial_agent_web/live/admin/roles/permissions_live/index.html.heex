@@ -1,0 +1,232 @@
+<div class="bg-gray-100 p-6">
+  <h1 class="text-3xl font-semibold text-gray-800 flex items-center space-x-2">
+    <i class="subheader-icon fal fa-users text-blue-500"></i>
+    <h2 class="font-bold text-xl">Permission</h2>
+
+    <h3 class="block text-gray-600 text-sm mt-1">
+      A list of permissions.
+    </h3>
+  </h1>
+
+  <%= if Enum.member?(@permits, "create_users") do %>
+    <.link
+      patch={~p"/Admin/permissions/new"}
+      class="mt-4 inline-flex items-center tracking-wider px-4 py-2 gradient-bg text-white text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Add Permission
+    </.link>
+  <% end %>
+</div>
+
+<div class="mx-auto py-6 sm:px-6 lg:px-8 bg-white shadow-md rounded-lg  text-xs mt-6">
+  <div class="px-4 py-6 sm:px-0">
+    <div class="flex justify-between items-center mb-6">
+      <.live_component
+        module={FinincialToolWeb.Helps.ISearchComponent}
+        id="ISearchComponent"
+        params={@params}
+      />
+      <div class="flex space-x-2">
+        <button
+          phx-click="open_modal"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white gradient-bg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <i class="fas fa-filter w-5 h-4 mr-w"></i> Filter
+        </button>
+
+        <button
+          phx-click="reload"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white gradient-bg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+        >
+          <i class="fas fa-sync h-4 mr-2"></i> Reload
+        </button>
+      </div>
+    </div>
+
+    <div class="bg-white shadow overflow-visible sm:rounded-lg">
+      <Table.table id="tbl_workflows" rows={@data}>
+        <:col :let={permission} label="Permission Name">
+          <%= permission.name %>
+        </:col>
+
+        <:col :let={permission} label="Permission Description">
+          <%= permission.description %>
+        </:col>
+
+        <:col :let={permission} label="Permission Group">
+          <%= permission.group_name %>
+        </:col>
+
+        <:col :let={workflow} label="Permission Section">
+          <%= workflow.section_name %>
+        </:col>
+
+        <:col :let={permission} label="Status">
+          <%= raw(FinincialTool.Workers.Util.Utils.td_status(permission.status)) %>
+        </:col>
+
+        <:action :let={permission}>
+          <%= if permission.status in ["ACTIVE", "PENDING_APPROVAL", "DEACTIVATED", "REJECTED", "BLOCKED"] && Enum.member?(@permits, "manage_permissions") do %>
+            <%= if permission.status in ["PENDING_APPROVAL", "REJECTED"] do %>
+              <div class="py-1">
+                <button
+                  phx-click="approve"
+                  phx-value-id={permission.id}
+                  class="flex items-center w-full text-left px-4 py-2 text-sm text-blue-700 hover:bg-blue-100"
+                  role="menuitem"
+                >
+                  <Heroicons.check_circle outline class="mr-2 w-5 h-5" />Approve
+                </button>
+              </div>
+            <% end %>
+
+            <%= if permission.status == "ACTIVE" do %>
+              <div class="py-1">
+                <button
+                  phx-click="deactivate"
+                  phx-value-id={permission.id}
+                  class="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                >
+                  <Heroicons.x_circle outline class="mr-2 w-5 h-5" />Deactivate
+                </button>
+              </div>
+            <% end %>
+
+            <%= if permission.status == "DEACTIVATED" do %>
+              <div class="py-1">
+                <button
+                  phx-click="activate"
+                  phx-value-id={permission.id}
+                  class="flex items-center last:w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                  role="menuitem"
+                >
+                  <Heroicons.check_circle outline class="mr-2 w-5 h-5" />Activate
+                </button>
+              </div>
+            <% end %>
+
+            <div class="py-1">
+              <button
+                phx-click="delete"
+                phx-value-id={permission.id}
+                class="flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                role="menuitem"
+              >
+                <Heroicons.trash outline class="mr-2 w-5 h-5" />Delete
+              </button>
+            </div>
+
+            <div class="py-1">
+              <%= live_patch to: ~p"/Admin/permissions/#{permission.id}/edit", class: "flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" do %>
+                <Heroicons.pencil_square outline class="mr-2 w-5 h-5" />Edit
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center text-red-600">No Actions</div>
+          <% end %>
+        </:action>
+      </Table.table>
+    </div>
+
+    <%= if @data_loader do %>
+      <div class="flex justify-center items-center mt-4">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+      </div>
+    <% else %>
+      <%= if Enum.empty?(@data) do %>
+        <div class="text-center mt-4 text-gray-500">No data available in table</div>
+      <% end %>
+    <% end %>
+
+    <div class="mt-4">
+      <.live_component
+        module={FinincialToolWeb.Helps.PaginationComponent}
+        id="PaginationComponent"
+        params={@params}
+        pagination_data={@data}
+      />
+    </div>
+  </div>
+</div>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  class="max-w-4xl p-2"
+  id="permission-modal"
+  show
+  on_cancel={JS.patch(~p"/Admin/permissions")}
+>
+  <.live_component
+    module={FinincialToolWeb.PermissionsLive.FormComponent}
+    id={@permission.id || :new}
+    title={@page_title}
+    action={@live_action}
+    role={@role}
+    user={@user}
+    browser_info={@browser_info}
+    user_agent={@user_agent}
+    remote_ip={@remote_ip}
+    permission={@permission}
+    live_socket_identifier={@live_socket_identifier}
+    patch={~p"/Admin/permissions"}
+    return_to={~p"/Admin/permissions"}
+  />
+</.modal>
+
+<%= if @info_modal do %>
+  <.live_component
+    module={InfoModalLive}
+    id="warning-boom"
+    title="Warning"
+    body={@info_message}
+    right_button={@info_wording}
+    right_button_action="process"
+    right_button_param={@info_modal_param}
+    left_button_action="cancel-crash"
+    left_button="Cancel"
+  />
+<% end %>
+
+<%= if @success_modal do %>
+  <.live_component
+    module={SuccessModalLive}
+    id="success-boom"
+    title="Successful"
+    body={@success_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    right_button_param="phin"
+    left_button_action="cancel-phin"
+  />
+<% end %>
+
+<%= if @error_modal do %>
+  <.live_component
+    module={ErrorModalLive}
+    id="error-phin"
+    title="Failed"
+    body={@error_message}
+    right_button="OK"
+    left_button={nil}
+    right_button_action="phin"
+    right_button_param="phin"
+    left_button_action="cancel-phin"
+  />
+<% end %>
+
+<.modal
+  :if={@show_modal}
+  class="max-w-4xl p-2"
+  on_cancel={JS.patch(~p"/Admin/permissions")}
+  show
+  id="permission-filter-modal"
+>
+  <.live_component
+    module={FinincialToolWeb.PermissionsLive.PermissionsLiveFilterComponent}
+    id="filter-modal-component"
+    params={@params}
+    page={@page}
+  />
+</.modal>
