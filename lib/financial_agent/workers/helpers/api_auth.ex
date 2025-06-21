@@ -1,8 +1,8 @@
-defmodule FinincialAgent.Workers.Helpers.ApiAuth do
+defmodule FinancialAgent.Workers.Helpers.ApiAuth do
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Settings
-  alias FinincialAgent.Settings.ApiIntegrator
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Settings
+  alias FinancialAgent.Settings.ApiIntegrator
 
 
   @duration 1_000_000 # 1 day
@@ -91,7 +91,7 @@ defmodule FinincialAgent.Workers.Helpers.ApiAuth do
   # Private function to generate a token
   defp generate_token(claims) do
     # Generate and sign a token with the provided claims
-    FinincialAgent.Token.generate_and_sign!(claims)
+    FinancialAgent.Token.generate_and_sign!(claims)
   end
 
   def invalidate(token) do

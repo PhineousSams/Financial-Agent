@@ -1,9 +1,9 @@
-defmodule FinincialAgentWeb.ConfigsLive.Index do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.ConfigsLive.Index do
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Settings
-  alias FinincialAgent.Settings.ConfigSettings
-  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
+  alias FinancialAgent.Settings
+  alias FinancialAgent.Settings.ConfigSettings
+  alias FinancialAgentWeb.Helps.PaginationControl, as: Control
 
   @impl true
   def mount(_params, _session, socket) do

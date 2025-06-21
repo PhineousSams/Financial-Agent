@@ -1,12 +1,12 @@
-defmodule FinincialAgent.Accounts.User do
+defmodule FinancialAgent.Accounts.User do
   use Endon
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Accounts.User
-  alias FinincialAgent.Roles.UserRole
-  alias FinincialAgent.Centres.Provincial
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Accounts.User
+  alias FinancialAgent.Roles.UserRole
+  alias FinancialAgent.Centres.Provincial
 
   @columns ~w(title first_name last_name other_name username email password auto_pwd sex dob id_no
   phone address status blocked user_type user_class failed_attempts pwd_reuse  maker_id updated_by approved_at
@@ -310,7 +310,7 @@ defmodule FinincialAgent.Accounts.User do
     Pbkdf2.verify_pass(confirm_pwd, new_pass_hash)
   end
 
-  # FinincialAgent.Accounts.User.Localtime
+  # FinancialAgent.Accounts.User.Localtime
 
   defmodule Localtime do
     def autogenerate, do: Timex.local() |> DateTime.truncate(:second) |> DateTime.to_naive()

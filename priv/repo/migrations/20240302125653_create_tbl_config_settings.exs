@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Repo.Migrations.CreateTblConfigSettings do
+defmodule FinancialAgent.Repo.Migrations.CreateTblConfigSettings do
   use Ecto.Migration
 
   def change do

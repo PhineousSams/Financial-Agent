@@ -22,7 +22,7 @@
   <div class="px-4 py-6 sm:px-0">
     <div class="flex justify-between items-center mb-6">
       <.live_component
-        module={FinincialAgentWeb.Helps.ISearchComponent}
+        module={FinancialAgentWeb.Helps.ISearchComponent}
         id="ISearchComponent"
         params={@params}
       />
@@ -99,7 +99,7 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm"><%= phin.description %></td>
 
               <td class="px-6 py-4 whitespace-nowrap text-sm">
-                <%= raw(FinincialAgent.Workers.Util.Utils.td_status(phin.status)) %>
+                <%= raw(FinancialAgent.Workers.Util.Utils.td_status(phin.status)) %>
               </td>
 
               <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -190,7 +190,7 @@
 
     <div class="mt-4">
       <.live_component
-        module={FinincialAgentWeb.Helps.PaginationComponent}
+        module={FinancialAgentWeb.Helps.PaginationComponent}
         id="PaginationComponent"
         params={@params}
         pagination_data={@data}
@@ -207,7 +207,7 @@
   on_cancel={JS.patch(~p"/Admin/roles")}
 >
   <.live_component
-    module={FinincialAgentWeb.RoleLive.FormComponent}
+    module={FinancialAgentWeb.RoleLive.FormComponent}
     id={@user_role.id || :new}
     title={@page_title}
     action={@live_action}
@@ -271,7 +271,7 @@
   on_cancel={JS.patch(~p"/Admin/roles")}
 >
   <.live_component
-    module={FinincialAgentWeb.RoleLive.RoleLiveFilterComponent}
+    module={FinancialAgentWeb.RoleLive.RoleLiveFilterComponent}
     id="filter-modal-component"
     params={@params}
     role={@role}

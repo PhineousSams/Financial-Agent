@@ -1,18 +1,18 @@
-defmodule FinincialAgentWeb.RoleLive.Index do
-  use FinincialAgentWeb, :live_view
-  on_mount FinincialAgentWeb.UserLiveAuth
+defmodule FinancialAgentWeb.RoleLive.Index do
+  use FinancialAgentWeb, :live_view
+  on_mount FinancialAgentWeb.UserLiveAuth
 
-  alias FinincialAgent.Logs
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Roles
-  alias FinincialAgent.Roles.UserRole
-  alias FinincialAgent.Workers.Util.Cache
-  alias FinincialAgent.Workers.Util.Utils
-  alias FinincialAgentWeb.Helps.ErrorHelper
-  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
-  alias FinincialAgent.Workers.Helpers.PermissionsCheck
+  alias FinancialAgent.Logs
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Roles
+  alias FinancialAgent.Roles.UserRole
+  alias FinancialAgent.Workers.Util.Cache
+  alias FinancialAgent.Workers.Util.Utils
+  alias FinancialAgentWeb.Helps.ErrorHelper
+  alias FinancialAgentWeb.Helps.PaginationControl, as: Control
+  alias FinancialAgent.Workers.Helpers.PermissionsCheck
 
-  alias FinincialAgentWeb.NotificationLive.{
+  alias FinancialAgentWeb.NotificationLive.{
     ErrorModalLive,
     InfoModalLive,
     SuccessModalLive

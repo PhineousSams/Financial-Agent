@@ -1,8 +1,8 @@
-defmodule FinincialAgent.Settings.Receivers do
+defmodule FinancialAgent.Settings.Receivers do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialAgent.Accounts.User
+  alias FinancialAgent.Accounts.User
 
   @derive {Jason.Encoder, only: [:name, :email, :status, :company, :maker_id, :updated_by]}
   schema "tbl_notification_receivers" do

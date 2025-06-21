@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Repo.Migrations.CreateApiIntegrators do
+defmodule FinancialAgent.Repo.Migrations.CreateApiIntegrators do
   use Ecto.Migration
 
   def change do

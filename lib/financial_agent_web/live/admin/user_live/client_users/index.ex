@@ -1,15 +1,15 @@
-defmodule FinincialAgentWeb.ClientUserLive.Index do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.ClientUserLive.Index do
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Accounts
-  alias FinincialAgent.Accounts.User
-  alias FinincialAgent.Workers.Util.Utils
-  alias FinincialAgent.Workers.Util.Helpers
-  alias FinincialAgentWeb.Helps.ErrorHelper
-  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Accounts
+  alias FinancialAgent.Accounts.User
+  alias FinancialAgent.Workers.Util.Utils
+  alias FinancialAgent.Workers.Util.Helpers
+  alias FinancialAgentWeb.Helps.ErrorHelper
+  alias FinancialAgentWeb.Helps.PaginationControl, as: Control
 
-  alias FinincialAgentWeb.NotificationLive.{
+  alias FinancialAgentWeb.NotificationLive.{
     ErrorModalLive,
     InfoModalLive,
     SuccessModalLive

@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Workers.Helpers.PwdValidator do
+defmodule FinancialAgent.Workers.Helpers.PwdValidator do
   def custom_pwd_validation(type, password, configs) do
     case configs_by_type(type, configs) do
       {:ok, configs} ->

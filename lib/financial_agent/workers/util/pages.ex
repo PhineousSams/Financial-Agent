@@ -1,8 +1,8 @@
-defmodule FinincialAgent.Workers.Util.Pages do
+defmodule FinancialAgent.Workers.Util.Pages do
   import Ecto.Query, warn: false
   import Plug.Conn
 
-  alias FinincialAgent.Repo
+  alias FinancialAgent.Repo
 
   def calculate_page_num(nil, _), do: 1
 

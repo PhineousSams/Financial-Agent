@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Settings.ConfigSettings do
+defmodule FinancialAgent.Settings.ConfigSettings do
   use Ecto.Schema
   import Ecto.Changeset
 

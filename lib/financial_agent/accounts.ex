@@ -1,17 +1,17 @@
-defmodule FinincialAgent.Accounts do
+defmodule FinancialAgent.Accounts do
   import Ecto.Query, warn: false
-  # import FinincialAgentWeb.Helps.DataTable, only: [sort: 1]
+  # import FinancialAgentWeb.Helps.DataTable, only: [sort: 1]
   @pagination [page_size: 10]
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Logs
-  alias FinincialAgent.Settings
-  alias FinincialAgent.Accounts.User
-  alias FinincialAgent.Accounts.UserToken
-  alias FinincialAgent.Workers.Util.Utils
-  alias FinincialAgent.Utils.NumberFunctions
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Logs
+  alias FinancialAgent.Settings
+  alias FinancialAgent.Accounts.User
+  alias FinancialAgent.Accounts.UserToken
+  alias FinancialAgent.Workers.Util.Utils
+  alias FinancialAgent.Utils.NumberFunctions
 
-  # FinincialAgent.Accounts.update_all_user_pwds()
+  # FinancialAgent.Accounts.update_all_user_pwds()
   def update_all_user_pwds() do
     users = Repo.all(User)
 
@@ -33,11 +33,11 @@ defmodule FinincialAgent.Accounts do
     |> List.first()
   end
 
-  # FinincialAgent.Accounts.list_tbl_users()
+  # FinancialAgent.Accounts.list_tbl_users()
   def list_tbl_users do
     Repo.all(User)
   end
-  # FinincialAgent.Accounts.get_user!
+  # FinancialAgent.Accounts.get_user!
   def get_user!(id), do: Repo.get!(User, id)
 
   def get_user_by_id(id) do
@@ -389,7 +389,7 @@ defmodule FinincialAgent.Accounts do
     Repo.delete(user_token)
   end
 
-  # FinincialAgent.Accounts.count_clients
+  # FinancialAgent.Accounts.count_clients
   def count_users() do
     User
     |> where([mx], mx.user_type == "BACKOFFICE")
@@ -397,7 +397,7 @@ defmodule FinincialAgent.Accounts do
   end
 
   # ================== Generate Username ======================
-  # FinincialAgent.Accounts.generate_unique_username("admin", "admin")
+  # FinancialAgent.Accounts.generate_unique_username("admin", "admin")
   def generate_unique_username(first_name, last_name) do
     base_usernames = [
       String.downcase(first_name),

@@ -1,5 +1,5 @@
-defmodule FinincialAgentWeb.Helps.ErrorHelper do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.Helps.ErrorHelper do
+  use FinancialAgentWeb, :live_view
 
   def get_results(socket, result) do
     case result do

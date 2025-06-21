@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Repo.Migrations.CreateAiFinancialAdvisorTablesWithoutVector do
+defmodule FinancialAgent.Repo.Migrations.CreateAiFinancialAdvisorTablesWithoutVector do
   use Ecto.Migration
 
   def up do

@@ -1,6 +1,6 @@
-defmodule FinincialAgentWeb.ModalComponent do
+defmodule FinancialAgentWeb.ModalComponent do
   @moduledoc false
-  use FinincialAgentWeb, :live_component
+  use FinancialAgentWeb, :live_component
 
   @impl true
   def render(assigns) do

@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Repo do
+defmodule FinancialAgent.Repo do
   use Ecto.Repo,
     otp_app: :financial_agent,
         # -------------------- Postgres

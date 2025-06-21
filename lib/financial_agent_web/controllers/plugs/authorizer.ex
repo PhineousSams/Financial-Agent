@@ -1,10 +1,10 @@
 
-defmodule FinincialAgentWeb.Plugs.Authorizer do
-  use FinincialAgentWeb, :live_view
-  use FinincialAgentWeb, :live_component
+defmodule FinancialAgentWeb.Plugs.Authorizer do
+  use FinancialAgentWeb, :live_view
+  use FinancialAgentWeb, :live_component
 
-  alias FinincialAgent.Logs
-  alias FinincialAgent.Roles
+  alias FinancialAgent.Logs
+  alias FinancialAgent.Roles
 
   def on_mount(_params, session, socket) do
     # Use the socket's live_view module name for permission checking
@@ -65,37 +65,37 @@ defmodule FinincialAgentWeb.Plugs.Authorizer do
 
   defp get_required_permission(live_view_name) do
     case live_view_name do
-      FinincialAgentWeb.DashboardLive.Index -> nil
-      FinincialAgentWeb.AccessLive.Index -> "assign_user_roles"
-      FinincialAgentWeb.RoleLive -> "access_user_roles"
+      FinancialAgentWeb.DashboardLive.Index -> nil
+      FinancialAgentWeb.AccessLive.Index -> "assign_user_roles"
+      FinancialAgentWeb.RoleLive -> "access_user_roles"
 
-      FinincialAgentWeb.SessionLogsLive.Index -> "session_logs"
-      FinincialAgentWeb.UserLogsLive.Index -> "user_logs"
-      FinincialAgentWeb.AuditTrailsLive.Index-> "access_logs"
-      FinincialAgentWeb.UserSessionLogsLive.Index-> "session_logs"
-      FinincialAgentWeb.ApiLogsLive.Index-> "api_logs"
-      FinincialAgentWeb.ServiceLogsLive.Index-> "service_logs"
+      FinancialAgentWeb.SessionLogsLive.Index -> "session_logs"
+      FinancialAgentWeb.UserLogsLive.Index -> "user_logs"
+      FinancialAgentWeb.AuditTrailsLive.Index-> "access_logs"
+      FinancialAgentWeb.UserSessionLogsLive.Index-> "session_logs"
+      FinancialAgentWeb.ApiLogsLive.Index-> "api_logs"
+      FinancialAgentWeb.ServiceLogsLive.Index-> "service_logs"
 
-      FinincialAgentWeb.UserLive.Index -> "access_users"
-      FinincialAgentWeb.AccessLive.Index -> "access_user_roles"
-      FinincialAgentWeb.UserLive.Blocked -> "access_users"
-      FinincialAgentWeb.ClientUserLive.Index -> "access_users"
-      FinincialAgentWeb.AccessLive.Index -> "assign_user_roles"
-      FinincialAgentWeb.RoleLive.Index -> "access_user_roles"
-      FinincialAgentWeb.PermissionsLive.Index -> "access_permissions"
-      FinincialAgentWeb.PermissionGroupsLive.Index -> "access_permission_groups"
-      FinincialAgentWeb.ConfigsLive.Index -> "access_session_configurations"
-      FinincialAgentWeb.SmsConfigurationsLive.Index -> "access_sms_configurations"
-      FinincialAgentWeb.PasswordFormatLive.Index -> "access_password_format"
-      FinincialAgentWeb.ApiIntegratorsLive.Index -> "access_api_integrators"
-      FinincialAgentWeb.NotificationsLive.Sms -> "access_sms_logs"
-      FinincialAgentWeb.NotificationsLive.Emails -> "access_email_logs"
+      FinancialAgentWeb.UserLive.Index -> "access_users"
+      FinancialAgentWeb.AccessLive.Index -> "access_user_roles"
+      FinancialAgentWeb.UserLive.Blocked -> "access_users"
+      FinancialAgentWeb.ClientUserLive.Index -> "access_users"
+      FinancialAgentWeb.AccessLive.Index -> "assign_user_roles"
+      FinancialAgentWeb.RoleLive.Index -> "access_user_roles"
+      FinancialAgentWeb.PermissionsLive.Index -> "access_permissions"
+      FinancialAgentWeb.PermissionGroupsLive.Index -> "access_permission_groups"
+      FinancialAgentWeb.ConfigsLive.Index -> "access_session_configurations"
+      FinancialAgentWeb.SmsConfigurationsLive.Index -> "access_sms_configurations"
+      FinancialAgentWeb.PasswordFormatLive.Index -> "access_password_format"
+      FinancialAgentWeb.ApiIntegratorsLive.Index -> "access_api_integrators"
+      FinancialAgentWeb.NotificationsLive.Sms -> "access_sms_logs"
+      FinancialAgentWeb.NotificationsLive.Emails -> "access_email_logs"
 
-      FinincialAgentWeb.UserLive.Blocked -> "access_blocked_users"
-      FinincialAgentWeb.ClientUserLive.Index -> "access_client_users"
-      FinincialAgentWeb.UserLive.Index -> "access_admin_users"
+      FinancialAgentWeb.UserLive.Blocked -> "access_blocked_users"
+      FinancialAgentWeb.ClientUserLive.Index -> "access_client_users"
+      FinancialAgentWeb.UserLive.Index -> "access_admin_users"
 
-      FinincialAgentWeb.ChatLive.Index -> "access_chats"
+      FinancialAgentWeb.ChatLive.Index -> "access_chats"
 
 
       _ -> "unknown_role"
@@ -132,31 +132,31 @@ defmodule FinincialAgentWeb.Plugs.Authorizer do
   # Function to get a friendly name for the LiveView
   defp live_view_display_name(live_view_name) do
     case live_view_name do
-      FinincialAgentWeb.DashboardLive.Index -> "Dashboard"
-      FinincialAgentWeb.AccessLive.Index ->  "Roles Access Managaement Page"
-      FinincialAgentWeb.RoleLive -> "Roles Mnanagement page"
+      FinancialAgentWeb.DashboardLive.Index -> "Dashboard"
+      FinancialAgentWeb.AccessLive.Index ->  "Roles Access Managaement Page"
+      FinancialAgentWeb.RoleLive -> "Roles Mnanagement page"
 
-      FinincialAgentWeb.SessionLogsLive.Index -> "Session Logs Page"
-      FinincialAgentWeb.UserLogsLive.Index -> "User Logs Page"
-      FinincialAgentWeb.AuditTrailsLive.Index-> "Access Logs Page"
-      FinincialAgentWeb.UserSessionLogsLive.Index-> "Session Logs Page"
-      FinincialAgentWeb.ApiLogsLive.Index-> "API Logs Page"
-      FinincialAgentWeb.ServiceLogsLive.Index-> "Service Logs Page"
+      FinancialAgentWeb.SessionLogsLive.Index -> "Session Logs Page"
+      FinancialAgentWeb.UserLogsLive.Index -> "User Logs Page"
+      FinancialAgentWeb.AuditTrailsLive.Index-> "Access Logs Page"
+      FinancialAgentWeb.UserSessionLogsLive.Index-> "Session Logs Page"
+      FinancialAgentWeb.ApiLogsLive.Index-> "API Logs Page"
+      FinancialAgentWeb.ServiceLogsLive.Index-> "Service Logs Page"
 
-      FinincialAgentWeb.UserLive.Index -> "Admin User Management Page"
-      FinincialAgentWeb.UserLive.Blocked -> "Blocked Users Management Page"
-      FinincialAgentWeb.ClientUserLive.Index -> "Client Users Management Page"
-      FinincialAgentWeb.RoleLive.Index -> "Roles Management Page"
-      FinincialAgentWeb.PermissionsLive.Index -> "Permissions Management Page"
-      FinincialAgentWeb.PermissionGroupsLive.Index -> "Permission Groups Management Page"
-      FinincialAgentWeb.ConfigsLive.Index -> "Session Management Page"
-      FinincialAgentWeb.SmsConfigurationsLive.Index -> "SMS Configurations Page"
-      FinincialAgentWeb.PasswordFormatLive.Index -> "Password Format Page"
-      FinincialAgentWeb.ApiIntegratorsLive.Index -> "API Integrators Page"
-      FinincialAgentWeb.NotificationsLive.Sms -> "SMS Logs Page"
-      FinincialAgentWeb.NotificationsLive.Emails -> "Email Logs Page"
+      FinancialAgentWeb.UserLive.Index -> "Admin User Management Page"
+      FinancialAgentWeb.UserLive.Blocked -> "Blocked Users Management Page"
+      FinancialAgentWeb.ClientUserLive.Index -> "Client Users Management Page"
+      FinancialAgentWeb.RoleLive.Index -> "Roles Management Page"
+      FinancialAgentWeb.PermissionsLive.Index -> "Permissions Management Page"
+      FinancialAgentWeb.PermissionGroupsLive.Index -> "Permission Groups Management Page"
+      FinancialAgentWeb.ConfigsLive.Index -> "Session Management Page"
+      FinancialAgentWeb.SmsConfigurationsLive.Index -> "SMS Configurations Page"
+      FinancialAgentWeb.PasswordFormatLive.Index -> "Password Format Page"
+      FinancialAgentWeb.ApiIntegratorsLive.Index -> "API Integrators Page"
+      FinancialAgentWeb.NotificationsLive.Sms -> "SMS Logs Page"
+      FinancialAgentWeb.NotificationsLive.Emails -> "Email Logs Page"
 
-      FinincialAgentWeb.ChatLive.Index -> "Access Chats"
+      FinancialAgentWeb.ChatLive.Index -> "Access Chats"
 
       _ -> "Unknown Page"
     end

@@ -62,7 +62,7 @@
   <div class="p-6">
     <div class="grid md:flex justify-between items-center px-4">
       <.live_component
-        module={FinincialAgentWeb.Helps.ISearchComponent}
+        module={FinancialAgentWeb.Helps.ISearchComponent}
         id="ISearchComponent"
         params={@params}
       />
@@ -204,7 +204,7 @@
       </table>
 
       <.live_component
-        module={FinincialAgentWeb.Helps.PaginationComponent}
+        module={FinancialAgentWeb.Helps.PaginationComponent}
         id="PaginationComponent"
         params={@params}
         pagination_data={@data}
@@ -221,7 +221,7 @@
     on_cancel={JS.patch(~p"/Admin/Configs/management")}
   >
     <.live_component
-      module={FinincialAgentWeb.ConfigsLive.FormComponent}
+      module={FinancialAgentWeb.ConfigsLive.FormComponent}
       id={@settings.id || :new}
       title={@page_title}
       action={@live_action}
@@ -234,7 +234,7 @@
 
 <%= if @show_modal do %>
   <.live_component
-    module={FinincialAgentWeb.ConfigsLive.ConfigsLiveFilterComponent}
+    module={FinancialAgentWeb.ConfigsLive.ConfigsLiveFilterComponent}
     id="modal-component"
     params={@params}
     page={@page}

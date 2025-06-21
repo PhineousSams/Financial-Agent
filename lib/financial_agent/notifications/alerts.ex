@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Notifications.Alerts do
+defmodule FinancialAgent.Notifications.Alerts do
   use Ecto.Schema
   import Ecto.Changeset
   use Endon

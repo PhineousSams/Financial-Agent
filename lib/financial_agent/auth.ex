@@ -1,11 +1,11 @@
-defmodule FinincialAgent.Auth do
+defmodule FinancialAgent.Auth do
   @moduledoc """
   The Auth context for managing OAuth tokens and authentication.
   """
 
   import Ecto.Query, warn: false
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Auth.OAuthToken
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Auth.OAuthToken
 
   @doc """
   Gets an OAuth token for a user and provider.

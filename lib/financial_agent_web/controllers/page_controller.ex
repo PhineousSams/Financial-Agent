@@ -1,5 +1,5 @@
-defmodule FinincialAgentWeb.PageController do
-  use FinincialAgentWeb, :controller
+defmodule FinancialAgentWeb.PageController do
+  use FinancialAgentWeb, :controller
 
   def home(conn, _params) do
     # The home page is often custom made,

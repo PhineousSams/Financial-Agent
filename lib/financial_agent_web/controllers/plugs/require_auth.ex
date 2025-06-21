@@ -1,4 +1,4 @@
-defmodule FinincialAgentWeb.Plugs.RequireAuth do
+defmodule FinancialAgentWeb.Plugs.RequireAuth do
   @behaviour Plug
   import Plug.Conn
   import Phoenix.Controller, only: [put_flash: 3, redirect: 2, json: 2]

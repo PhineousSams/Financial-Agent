@@ -15,7 +15,7 @@
 
       <div class="grid md:flex justify-between items-center px-4">
         <.live_component
-          module={FinincialAgentWeb.Helps.ISearchComponent}
+          module={FinancialAgentWeb.Helps.ISearchComponent}
           id="ISearchComponent"
           params={@params}
         />
@@ -138,7 +138,7 @@
                 </td>
 
                 <td class="px-4 py-2">
-                  <%= raw(FinincialAgent.Workers.Util.Utils.td_status(phin.status)) %>
+                  <%= raw(FinancialAgent.Workers.Util.Utils.td_status(phin.status)) %>
                 </td>
 
                 <td class="px-4 py-2">
@@ -200,7 +200,7 @@
         </table>
 
         <.live_component
-          module={FinincialAgentWeb.Helps.PaginationComponent}
+          module={FinancialAgentWeb.Helps.PaginationComponent}
           id="PaginationComponent"
           params={@params}
           pagination_data={@data}
@@ -213,7 +213,7 @@
 <%= if @live_action in [:new, :edit] do %>
   <.modal class="max-w-4xl p-2" return_to={Routes.user_index_path(@socket, :index)}>
     <.live_component
-      module={FinincialAgentWeb.UserLive.FormComponent}
+      module={FinancialAgentWeb.UserLive.FormComponent}
       id={@user.id || :new}
       title={@page_title}
       action={@live_action}
@@ -272,7 +272,7 @@
 
 <%= if @show_modal do %>
   <.live_component
-    module={FinincialAgentWeb.UserLive.BlockedFilterComponent}
+    module={FinancialAgentWeb.UserLive.BlockedFilterComponent}
     id="modal-component"
     params={@params}
     roles={@roles}

@@ -1,8 +1,8 @@
-defmodule FinincialAgent.Workers.Integration.NapsaService do
+defmodule FinancialAgent.Workers.Integration.NapsaService do
   use PipeTo.Override
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Logs.ServiceLogs
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Logs.ServiceLogs
 
 
   @base_url "http://127.0.0.1:7000"

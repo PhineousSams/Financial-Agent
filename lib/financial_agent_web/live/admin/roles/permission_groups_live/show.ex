@@ -1,7 +1,7 @@
-# defmodule FinincialAgentWeb.PermissionGroupsLive.Show do
-#   use FinincialAgentWeb, :live_component
+# defmodule FinancialAgentWeb.PermissionGroupsLive.Show do
+#   use FinancialAgentWeb, :live_component
 
-#   alias FinincialAgent.Roles
+#   alias FinancialAgent.Roles
 
 #   @impl true
 #   def mount(_params, _session, socket) do
@@ -20,11 +20,11 @@
 #   defp page_title(:edit), do: "Edit Permission groups"
 # end
 
-defmodule FinincialAgentWeb.PermissionGroupsLive.Show do
+defmodule FinancialAgentWeb.PermissionGroupsLive.Show do
   @moduledoc false
-  use FinincialAgentWeb, :live_component
+  use FinancialAgentWeb, :live_component
 
-  alias FinincialAgent.Roles
+  alias FinancialAgent.Roles
 
   @impl true
 

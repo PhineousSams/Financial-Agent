@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Workers.Helpers.PermissionsCheck do
+defmodule FinancialAgent.Workers.Helpers.PermissionsCheck do
   @moduledoc false
   def page_access(page, permissions), do: Enum.member?(permissions, page)
 end

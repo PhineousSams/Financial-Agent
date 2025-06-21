@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Repo.Migrations.CreateTblPasswordMaintenance do
+defmodule FinancialAgent.Repo.Migrations.CreateTblPasswordMaintenance do
   use Ecto.Migration
 
   def change do

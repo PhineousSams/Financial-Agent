@@ -1,3 +1,3 @@
-defmodule FinincialAgent.Token do
+defmodule FinancialAgent.Token do
   use Joken.Config
 end

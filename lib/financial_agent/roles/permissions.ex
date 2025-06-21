@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Roles.Permissions do
+defmodule FinancialAgent.Roles.Permissions do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -7,9 +7,9 @@ defmodule FinincialAgent.Roles.Permissions do
     field :description, :string
     field :status, :string
     field :type, :string
-    belongs_to :group, FinincialAgent.Roles.PermissionGroups, foreign_key: :group_id, type: :id
-    belongs_to :updater, FinincialAgent.Accounts.User, foreign_key: :updated_by, type: :id
-    belongs_to :maker, FinincialAgent.Accounts.User, foreign_key: :created_by, type: :id
+    belongs_to :group, FinancialAgent.Roles.PermissionGroups, foreign_key: :group_id, type: :id
+    belongs_to :updater, FinancialAgent.Accounts.User, foreign_key: :updated_by, type: :id
+    belongs_to :maker, FinancialAgent.Accounts.User, foreign_key: :created_by, type: :id
 
     timestamps()
   end

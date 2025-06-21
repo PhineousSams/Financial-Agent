@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Workers.Util.HtmlTagRemover do
+defmodule FinancialAgent.Workers.Util.HtmlTagRemover do
   # Loans.Workers.Util.HtmlTagRemover.remove_html_tags(<a><strong>Investor Guide</strong></a>)
   def remove_html_tags(html) do
     # Regular expression to match HTML tags

@@ -1,10 +1,10 @@
-defmodule FinincialAgentWeb.ForgotPasswordLive.Index do
-  use FinincialAgentWeb, :live_view
-  alias FinincialAgent.Accounts
-  alias FinincialAgent.Accounts.User
-  alias FinincialAgent.Accounts.UserToken
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Notifications.Email
+defmodule FinancialAgentWeb.ForgotPasswordLive.Index do
+  use FinancialAgentWeb, :live_view
+  alias FinancialAgent.Accounts
+  alias FinancialAgent.Accounts.User
+  alias FinancialAgent.Accounts.UserToken
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Notifications.Email
 
   @impl true
   def mount(_params, _session, socket) do

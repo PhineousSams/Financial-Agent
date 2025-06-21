@@ -1,4 +1,4 @@
-defmodule FinincialAgentWeb.Endpoint do
+defmodule FinancialAgentWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :financial_agent
 
   # The session will be stored in the cookie and signed,
@@ -21,7 +21,7 @@ defmodule FinincialAgentWeb.Endpoint do
     at: "/",
     from: :financial_agent,
     gzip: false,
-    only: FinincialAgentWeb.static_paths()
+    only: FinancialAgentWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
@@ -47,5 +47,5 @@ defmodule FinincialAgentWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug FinincialAgentWeb.Router
+  plug FinancialAgentWeb.Router
 end

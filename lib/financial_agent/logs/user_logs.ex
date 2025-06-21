@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Logs.UserLogs do
+defmodule FinancialAgent.Logs.UserLogs do
   use Ecto.Schema
   import Ecto.Changeset
 
@@ -7,7 +7,7 @@ defmodule FinincialAgent.Logs.UserLogs do
     field :pre_data, :map
     field :post_data, :map
     field :action, :string
-    belongs_to :user, FinincialAgent.Accounts.User, foreign_key: :user_id, type: :id
+    belongs_to :user, FinancialAgent.Accounts.User, foreign_key: :user_id, type: :id
 
     timestamps(type: :utc_datetime)
   end

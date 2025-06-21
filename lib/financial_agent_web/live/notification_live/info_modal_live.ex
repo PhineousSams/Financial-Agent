@@ -1,6 +1,6 @@
-defmodule FinincialAgentWeb.NotificationLive.InfoModalLive do
+defmodule FinancialAgentWeb.NotificationLive.InfoModalLive do
   @moduledoc false
-  use FinincialAgentWeb, :live_component
+  use FinancialAgentWeb, :live_component
 
   def mount(socket) do
     {:ok, socket}

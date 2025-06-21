@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Workers.Helpers.ZraEncoder do
+defmodule FinancialAgent.Workers.Helpers.ZraEncoder do
   require Logger
 
   @prov_id "NTSV"

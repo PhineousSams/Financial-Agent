@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Settings.DashboardStats do
+defmodule FinancialAgent.Settings.DashboardStats do
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -1,8 +1,8 @@
-defmodule FinincialAgent.Auth.OAuthToken do
+defmodule FinancialAgent.Auth.OAuthToken do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialAgent.Accounts.User
+  alias FinancialAgent.Accounts.User
 
   schema "oauth_tokens" do
     field :provider, :string

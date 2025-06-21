@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Notifications.Email do
+defmodule FinancialAgent.Notifications.Email do
   use Ecto.Schema
   import Ecto.Changeset
 

@@ -1,8 +1,8 @@
-defmodule FinincialAgentWeb.AlertsPanelLive.Index do
+defmodule FinancialAgentWeb.AlertsPanelLive.Index do
 
-  use FinincialAgentWeb, :live_view
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Notifications
+  alias FinancialAgent.Notifications
 
 
   @impl true

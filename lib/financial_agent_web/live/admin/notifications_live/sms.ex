@@ -1,8 +1,8 @@
-defmodule FinincialAgentWeb.NotificationsLive.Sms do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.NotificationsLive.Sms do
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Notifications
-  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
+  alias FinancialAgent.Notifications
+  alias FinancialAgentWeb.Helps.PaginationControl, as: Control
 
   @impl true
   def mount(_params, _session, socket) do

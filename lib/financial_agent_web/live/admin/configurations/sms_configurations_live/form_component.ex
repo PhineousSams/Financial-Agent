@@ -1,9 +1,9 @@
-defmodule FinincialAgentWeb.SmsConfigurationsLive.FormComponent do
+defmodule FinancialAgentWeb.SmsConfigurationsLive.FormComponent do
   @moduledoc false
-  use FinincialAgentWeb, :live_component
+  use FinancialAgentWeb, :live_component
 
-  alias FinincialAgent.Settings
-  alias FinincialAgent.Settings.SmsConfigs
+  alias FinancialAgent.Settings
+  alias FinancialAgent.Settings.SmsConfigs
 
   @impl true
   def update(%{sms_config: sms_config} = assigns, socket) do

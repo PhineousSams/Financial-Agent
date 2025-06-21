@@ -1,7 +1,7 @@
-defmodule FinincialAgentWeb.AuthController do
-  use FinincialAgentWeb, :controller
+defmodule FinancialAgentWeb.AuthController do
+  use FinancialAgentWeb, :controller
 
-  alias FinincialAgent.Workers.Helpers.ApiAuth
+  alias FinancialAgent.Workers.Helpers.ApiAuth
 
   def sign_in(conn, _params) do
     params = conn.assigns.auth

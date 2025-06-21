@@ -1,13 +1,13 @@
-alias FinincialAgent.Accounts
-alias FinincialAgent.Roles.UserRole
-alias FinincialAgent.Roles.PermissionGroups
-alias FinincialAgent.Settings.ConfigSettings
-alias FinincialAgent.SetUps.SetUpConfigs
-alias FinincialAgent.SetUps.SetUpDirectory
-alias FinincialAgent.SetUps.SetUpLocations
-alias FinincialAgent.SetUps.SetUpPassword
-alias FinincialAgent.SetUps.SetUpPermissions
-alias FinincialAgent.SetUps.SetUpProvincialCentres
+alias FinancialAgent.Accounts
+alias FinancialAgent.Roles.UserRole
+alias FinancialAgent.Roles.PermissionGroups
+alias FinancialAgent.Settings.ConfigSettings
+alias FinancialAgent.SetUps.SetUpConfigs
+alias FinancialAgent.SetUps.SetUpDirectory
+alias FinancialAgent.SetUps.SetUpLocations
+alias FinancialAgent.SetUps.SetUpPassword
+alias FinancialAgent.SetUps.SetUpPermissions
+alias FinancialAgent.SetUps.SetUpProvincialCentres
 # mix run priv/repo/seeds.exs
 
 encode_data = fn data -> data |> Poison.encode!() end
@@ -15,7 +15,7 @@ encode_data = fn data -> data |> Poison.encode!() end
 multiple = Ecto.Multi.new()
 
 post_send = fn query, text ->
-  FinincialAgent.Repo.transaction(query)
+  FinancialAgent.Repo.transaction(query)
   |> case do
     {:ok, _} ->
       IO.inspect(":ok", label: text)
@@ -26,7 +26,7 @@ post_send = fn query, text ->
   end
 end
 
-FinincialAgent.Repo.insert!(%UserRole{
+FinancialAgent.Repo.insert!(%UserRole{
   name: "SUPER_USER",
   description: "Super user",
   editable: true,

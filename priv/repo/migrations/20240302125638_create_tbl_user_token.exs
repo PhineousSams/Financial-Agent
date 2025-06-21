@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Repo.Migrations.CreateTblUserToken do
+defmodule FinancialAgent.Repo.Migrations.CreateTblUserToken do
   use Ecto.Migration
 
   def change do

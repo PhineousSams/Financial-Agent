@@ -1,8 +1,8 @@
-defmodule FinincialAgent.Configs do
+defmodule FinancialAgent.Configs do
   import Ecto.Query, warn: false
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Configs.PasswordConfig
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Configs.PasswordConfig
 
   # ========= password configs context ============
 

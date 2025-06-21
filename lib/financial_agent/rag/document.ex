@@ -1,9 +1,9 @@
-defmodule FinincialAgent.RAG.Document do
+defmodule FinancialAgent.RAG.Document do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialAgent.Accounts.User
-  alias FinincialAgent.RAG.Embedding
+  alias FinancialAgent.Accounts.User
+  alias FinancialAgent.RAG.Embedding
 
   schema "documents" do
     field :source, :string

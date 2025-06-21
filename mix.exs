@@ -1,4 +1,4 @@
-defmodule FinincialAgent.MixProject do
+defmodule FinancialAgent.MixProject do
   use Mix.Project
 
   def project do
@@ -18,7 +18,7 @@ defmodule FinincialAgent.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {FinincialAgent.Application, []},
+      mod: {FinancialAgent.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

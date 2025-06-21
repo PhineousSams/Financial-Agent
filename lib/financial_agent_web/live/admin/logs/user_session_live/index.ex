@@ -1,8 +1,8 @@
-defmodule FinincialAgentWeb.UserSessionLive.Index do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.UserSessionLive.Index do
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Logs
-  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
+  alias FinancialAgent.Logs
+  alias FinancialAgentWeb.Helps.PaginationControl, as: Control
 
   @impl true
   def mount(%{"user_id" => _user_id}, _session, %{assigns: _assigns} = socket) do

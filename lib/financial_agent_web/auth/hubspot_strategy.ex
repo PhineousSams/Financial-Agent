@@ -1,4 +1,4 @@
-defmodule FinincialAgentWeb.Auth.HubSpotStrategy do
+defmodule FinancialAgentWeb.Auth.HubSpotStrategy do
   @moduledoc """
   Custom Ueberauth strategy for HubSpot OAuth2 integration.
   """

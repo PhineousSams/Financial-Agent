@@ -1,12 +1,12 @@
-defmodule FinincialAgent.Roles.UserRole do
+defmodule FinancialAgent.Roles.UserRole do
   use Ecto.Schema
   import Ecto.Changeset
 
   use Endon
 
-  alias FinincialAgent.Roles
-  alias FinincialAgent.Roles.UserRole
-  alias FinincialAgent.Workers.Util.Helpers
+  alias FinancialAgent.Roles
+  alias FinancialAgent.Roles.UserRole
+  alias FinancialAgent.Workers.Util.Helpers
 
   @columns ~w(id name description permissions editable status
   created_by updated_by inserted_at updated_at)a
@@ -36,7 +36,7 @@ defmodule FinincialAgent.Roles.UserRole do
     |> validate_role_id()
     |> validate_length(:name, min: 3, max: 50)
     |> validate_length(:description, min: 3, max: 150)
-    |> unsafe_validate_unique([:name], FinincialAgent.Repo)
+    |> unsafe_validate_unique([:name], FinancialAgent.Repo)
     |> unique_constraint([:name])
   end
 

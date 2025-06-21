@@ -1,10 +1,10 @@
-defmodule FinincialAgent.Integrations.Gmail do
+defmodule FinancialAgent.Integrations.Gmail do
   @moduledoc """
   Gmail API integration for sending emails and fetching messages.
   """
 
-  alias FinincialAgent.Auth
-  alias FinincialAgent.RAG
+  alias FinancialAgent.Auth
+  alias FinancialAgent.RAG
 
   @gmail_api_base "https://gmail.googleapis.com/gmail/v1"
 

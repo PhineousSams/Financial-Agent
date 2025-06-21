@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Workers.Util.Tables do
+defmodule FinancialAgent.Workers.Util.Tables do
   def titles(), do: ["Mr", "Mrs", "Ms", "Dr", "Prof"]
   def genders(), do: [%{name: "Male", key: "M"}, %{name: "Female", key: "F"}]
 

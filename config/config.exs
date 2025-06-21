@@ -8,7 +8,7 @@
 import Config
 
 config :financial_agent,
-  ecto_repos: [FinincialAgent.Repo]
+  ecto_repos: [FinancialAgent.Repo]
 
 config :financial_agent, :base_url, "http://localhost:9000"
 
@@ -23,7 +23,7 @@ config :ueberauth, Ueberauth,
     google: {Ueberauth.Strategy.Google, [
       default_scope: "email profile https://www.googleapis.com/auth/gmail.modify https://www.googleapis.com/auth/calendar"
     ]},
-    hubspot: {FinincialAgentWeb.Auth.HubSpotStrategy, [
+    hubspot: {FinancialAgentWeb.Auth.HubSpotStrategy, [
       site: "https://api.hubapi.com",
       authorize_url: "https://app.hubspot.com/oauth/authorize",
       token_url: "https://api.hubapi.com/oauth/v1/token",
@@ -39,7 +39,7 @@ config :ueberauth, Ueberauth.Strategy.Google.OAuth,
 
 # Oban Configuration for background jobs
 config :financial_agent, Oban,
-  repo: FinincialAgent.Repo,
+  repo: FinancialAgent.Repo,
   plugins: [Oban.Plugins.Pruner],
   queues: [
     default: 10,
@@ -50,18 +50,18 @@ config :financial_agent, Oban,
   ]
 
 # Guardian Configuration for JWT
-config :financial_agent, FinincialAgent.Guardian,
+config :financial_agent, FinancialAgent.Guardian,
   issuer: "financial_agent",
   secret_key: System.get_env("GUARDIAN_SECRET_KEY") || "your-secret-key-here"
 
 # Configures the endpoint
-config :financial_agent, FinincialAgentWeb.Endpoint,
+config :financial_agent, FinancialAgentWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [
-    formats: [html: FinincialAgentWeb.ErrorHTML, json: FinincialAgentWeb.ErrorJSON],
+    formats: [html: FinancialAgentWeb.ErrorHTML, json: FinancialAgentWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: FinincialAgent.PubSub,
+  pubsub_server: FinancialAgent.PubSub,
   live_view: [signing_salt: "X0N15SJP"]
 
 # Configures the mailer
@@ -71,7 +71,7 @@ config :financial_agent, FinincialAgentWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :financial_agent, FinincialAgent.Mailer, adapter: Swoosh.Adapters.Local
+config :financial_agent, FinancialAgent.Mailer, adapter: Swoosh.Adapters.Local
 
 config :joken, default_signer: "Jdvt/1XbL1ecis+x3e+lebqF4NFT9HH+yr7pWGQGbsx7TbOzVXZRgbwaauR8mLjh"
 

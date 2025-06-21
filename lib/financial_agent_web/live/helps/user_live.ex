@@ -1,9 +1,9 @@
-defmodule FinincialAgentWeb.UserLiveAuth do
+defmodule FinancialAgentWeb.UserLiveAuth do
   @moduledoc false
-  use FinincialAgentWeb, :live_view
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Accounts
-  alias FinincialAgent.Notifications
+  alias FinancialAgent.Accounts
+  alias FinancialAgent.Notifications
 
   def mount(_params, %{"user_token" => user_token} = session, socket) do
     socket1 = assign(socket, :browser_id, session["uuid_browser"])

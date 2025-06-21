@@ -1,12 +1,12 @@
-defmodule FinincialAgentWeb.Plugs.UserAuth do
+defmodule FinancialAgentWeb.Plugs.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
-  alias FinincialAgent.Accounts
-  alias FinincialAgent.Logs
+  alias FinancialAgent.Accounts
+  alias FinancialAgent.Logs
 
   @max_age 60 * 60 * 24 * 60
-  @remember_me_cookie "_FinincialAgent_web_user_remember_me"
+  @remember_me_cookie "_FinancialAgent_web_user_remember_me"
   @remember_me_options [sign: true, max_age: @max_age, same_site: "Lax"]
 
   def log_in_user(conn, user, params \\ %{}) do
@@ -63,7 +63,7 @@ defmodule FinincialAgentWeb.Plugs.UserAuth do
     user_token && Accounts.delete_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
-      FinincialAgentWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+      FinancialAgentWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
     conn
@@ -150,7 +150,7 @@ defmodule FinincialAgentWeb.Plugs.UserAuth do
     user_token && Accounts.delete_session_token(user_token)
 
     if live_socket_id = get_session(conn, :live_socket_id) do
-      FinincialAgentWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
+      FinancialAgentWeb.Endpoint.broadcast(live_socket_id, "disconnect", %{})
     end
 
     conn

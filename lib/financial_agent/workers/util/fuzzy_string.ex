@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Workers.Util.FuzzyString do
+defmodule FinancialAgent.Workers.Util.FuzzyString do
   def sort_names(names, search_criteria) do
     Enum.sort_by(names, fn name -> search_criteria.(name) end)
   end

@@ -1,7 +1,7 @@
-defmodule FinincialAgent.Workers.Util.Helpers do
+defmodule FinancialAgent.Workers.Util.Helpers do
 
-  alias FinincialAgent.Notifications.Sms
-  alias FinincialAgent.Workers.Util.SMS
+  alias FinancialAgent.Notifications.Sms
+  alias FinancialAgent.Workers.Util.SMS
 
   # ===================== log User sms =============================
   def log_user_sms(user, pwd) do

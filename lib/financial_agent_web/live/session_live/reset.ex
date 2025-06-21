@@ -1,12 +1,12 @@
-defmodule FinincialAgentWeb.SessionLive.Reset do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.SessionLive.Reset do
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Configs
-  alias FinincialAgent.Accounts
-  alias FinincialAgent.Accounts.User
-  alias FinincialAgent.Workers.Util.Utils
-  alias FinincialAgent.Workers.Helpers.PwdValidator
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Configs
+  alias FinancialAgent.Accounts
+  alias FinancialAgent.Accounts.User
+  alias FinancialAgent.Workers.Util.Utils
+  alias FinancialAgent.Workers.Helpers.PwdValidator
 
   @impl true
   def mount(_params, _session, %{assigns: assigns} = socket) do

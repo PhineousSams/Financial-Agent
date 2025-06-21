@@ -1,8 +1,8 @@
-defmodule FinincialAgentWeb.OAuthController do
-  use FinincialAgentWeb, :controller
+defmodule FinancialAgentWeb.OAuthController do
+  use FinancialAgentWeb, :controller
 
-  alias FinincialAgent.Auth
-  alias FinincialAgent.Auth.OAuthToken
+  alias FinancialAgent.Auth
+  alias FinancialAgent.Auth.OAuthToken
 
   plug Ueberauth
 
@@ -17,7 +17,7 @@ defmodule FinincialAgentWeb.OAuthController do
       {:ok, user} ->
         conn
         |> put_flash(:info, "Successfully signed in with Google!")
-        |> FinincialAgentWeb.Plugs.UserAuth.log_in_user(user, %{})
+        |> FinancialAgentWeb.Plugs.UserAuth.log_in_user(user, %{})
 
       {:error, reason} ->
         conn
@@ -154,8 +154,8 @@ defmodule FinincialAgentWeb.OAuthController do
   end
 
   defp find_or_create_google_user(email, first_name, last_name, name) do
-    alias FinincialAgent.Accounts
-    alias FinincialAgent.Accounts.User
+    alias FinancialAgent.Accounts
+    alias FinancialAgent.Accounts.User
 
     # Try to find existing user by email
     case Accounts.get_user_by_email(email) do

@@ -1,10 +1,10 @@
-defmodule FinincialAgent.Accounts.UserToken do
+defmodule FinancialAgent.Accounts.UserToken do
   use Ecto.Schema
   import Ecto.Query
 
-  alias FinincialAgent.Settings
-  alias FinincialAgent.Accounts.{User, UserToken}
-  alias FinincialAgent.Utils.NumberFunctions
+  alias FinancialAgent.Settings
+  alias FinancialAgent.Accounts.{User, UserToken}
+  alias FinancialAgent.Utils.NumberFunctions
 
   @hash_algorithm :sha256
   @rand_size 32

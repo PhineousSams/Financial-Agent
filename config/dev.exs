@@ -1,7 +1,7 @@
 import Config
 
 # Configure your database - PostgreSQL for AI features
-config :financial_agent, FinincialAgent.Repo,
+config :financial_agent, FinancialAgent.Repo,
   username: "postgres",
   password: "qwerty",
   hostname: "localhost",
@@ -16,7 +16,7 @@ config :financial_agent, FinincialAgent.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with esbuild to bundle .js and .css sources.
-config :financial_agent, FinincialAgentWeb.Endpoint,
+config :financial_agent, FinancialAgentWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 9000],
@@ -53,7 +53,7 @@ config :financial_agent, FinincialAgentWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :financial_agent, FinincialAgentWeb.Endpoint,
+config :financial_agent, FinancialAgentWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
@@ -105,6 +105,6 @@ config :openai,
   organization_key: System.get_env("OPENAI_ORGANIZATION_KEY")
 
 # Configure Guardian for development
-config :financial_agent, FinincialAgent.Guardian,
+config :financial_agent, FinancialAgent.Guardian,
   issuer: "financial_agent",
   secret_key: System.get_env("GUARDIAN_SECRET_KEY")

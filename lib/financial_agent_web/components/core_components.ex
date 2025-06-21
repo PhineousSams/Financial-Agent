@@ -1,4 +1,4 @@
-defmodule FinincialAgentWeb.CoreComponents do
+defmodule FinancialAgentWeb.CoreComponents do
   @moduledoc """
   Provides core UI components.
 
@@ -12,7 +12,7 @@ defmodule FinincialAgentWeb.CoreComponents do
   use Phoenix.Component
 
   alias Phoenix.LiveView.JS
-  import FinincialAgentWeb.Gettext
+  import FinancialAgentWeb.Gettext
 
   @doc """
   Renders a modal.
@@ -811,9 +811,9 @@ end
     # should be written to the errors.po file. The :count option is
     # set by Ecto and indicates we should also apply plural rules.
     if count = opts[:count] do
-      Gettext.dngettext(FinincialAgentWeb.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(FinancialAgentWeb.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(FinincialAgentWeb.Gettext, "errors", msg, opts)
+      Gettext.dgettext(FinancialAgentWeb.Gettext, "errors", msg, opts)
     end
   end
 

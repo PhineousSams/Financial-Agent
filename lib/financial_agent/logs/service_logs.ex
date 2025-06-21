@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Logs.ServiceLogs do
+defmodule FinancialAgent.Logs.ServiceLogs do
   use Ecto.Schema
   import Ecto.Changeset
 

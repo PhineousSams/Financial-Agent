@@ -1,5 +1,5 @@
-defmodule FinincialAgentWeb.PermissionsLive.PermissionsLiveFilterComponent do
-  use FinincialAgentWeb, :live_component
+defmodule FinancialAgentWeb.PermissionsLive.PermissionsLiveFilterComponent do
+  use FinancialAgentWeb, :live_component
 
   def render(assigns) do
     ~H"""

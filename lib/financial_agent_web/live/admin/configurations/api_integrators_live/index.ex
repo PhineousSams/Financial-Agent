@@ -1,16 +1,16 @@
-defmodule FinincialAgentWeb.ApiIntegratorsLive.Index do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.ApiIntegratorsLive.Index do
+  use FinancialAgentWeb, :live_view
 
-  alias FinincialAgent.Repo
-  alias FinincialAgent.Logs
-  alias FinincialAgent.Settings
-  alias FinincialAgent.Settings.ApiIntegrator
-  alias FinincialAgent.Workers.Util.Utils
-  alias FinincialAgent.Workers.Helpers.UserLog
-  alias FinincialAgentWeb.Components.Custom.Table
-  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
+  alias FinancialAgent.Repo
+  alias FinancialAgent.Logs
+  alias FinancialAgent.Settings
+  alias FinancialAgent.Settings.ApiIntegrator
+  alias FinancialAgent.Workers.Util.Utils
+  alias FinancialAgent.Workers.Helpers.UserLog
+  alias FinancialAgentWeb.Components.Custom.Table
+  alias FinancialAgentWeb.Helps.PaginationControl, as: Control
 
-  alias FinincialAgentWeb.NotificationLive.{
+  alias FinancialAgentWeb.NotificationLive.{
     ErrorModalLive,
     InfoModalLive,
     SuccessModalLive

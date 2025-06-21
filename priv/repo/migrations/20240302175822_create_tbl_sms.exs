@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Repo.Migrations.CreateTblSms do
+defmodule FinancialAgent.Repo.Migrations.CreateTblSms do
   use Ecto.Migration
 
   def change do

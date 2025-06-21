@@ -1,9 +1,9 @@
-defmodule FinincialAgent.Settings.ApiIntegrator do
+defmodule FinancialAgent.Settings.ApiIntegrator do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FinincialAgent.Accounts.User
-  alias FinincialAgent.Settings.ApiIntegrator
+  alias FinancialAgent.Accounts.User
+  alias FinancialAgent.Settings.ApiIntegrator
 
   @columns ~w(id name status integrator_id callback_url endpoint auth_token expires_at revoked_at password password_hash attempt_count contact_email
     maker_id checker_id inserted_at updated_at ip_address port

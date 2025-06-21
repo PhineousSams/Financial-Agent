@@ -1,5 +1,5 @@
-defmodule FinincialAgentWeb.ErrorHTML do
-  use FinincialAgentWeb, :html
+defmodule FinancialAgentWeb.ErrorHTML do
+  use FinancialAgentWeb, :html
 
   # If you want to customize your error pages,
   # uncomment the embed_templates/1 call below

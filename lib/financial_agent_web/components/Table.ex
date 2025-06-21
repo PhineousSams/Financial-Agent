@@ -1,4 +1,4 @@
-defmodule FinincialAgentWeb.Components.Custom.Table do
+defmodule FinancialAgentWeb.Components.Custom.Table do
   use Phoenix.Component
   alias Phoenix.LiveView.JS
 

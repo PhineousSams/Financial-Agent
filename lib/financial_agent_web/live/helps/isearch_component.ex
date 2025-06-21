@@ -1,6 +1,6 @@
-defmodule FinincialAgentWeb.Helps.ISearchComponent do
+defmodule FinancialAgentWeb.Helps.ISearchComponent do
   @moduledoc false
-  use FinincialAgentWeb, :live_component
+  use FinancialAgentWeb, :live_component
 
   def render(assigns) do
     ~H"""

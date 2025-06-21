@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Settings.SmsConfigs do
+defmodule FinancialAgent.Settings.SmsConfigs do
   use Endon
   use Ecto.Schema
   import Ecto.Changeset

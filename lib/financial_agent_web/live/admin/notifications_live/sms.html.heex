@@ -12,7 +12,7 @@
   <div class="panel-container show p-4">
     <div class="panel-content rounded-xl my-overflow-div">
       <.live_component
-        module={FinincialAgentWeb.Helps.ISearchComponent}
+        module={FinancialAgentWeb.Helps.ISearchComponent}
         id="ISearchComponent"
         params={@params}
       />
@@ -55,7 +55,7 @@
               <td class="px-4 py-3 text-left text-xs  whitespace-nowrap"><%= phin.mobile %></td>
 
               <td class="px-4 py-3 text-left text-xs  whitespace-nowrap">
-                <%= FinincialAgent.Workers.Util.Utils.td_status(phin.status) %>
+                <%= FinancialAgent.Workers.Util.Utils.td_status(phin.status) %>
               </td>
 
               <td class="px-4 py-3 text-left text-xs  whitespace-nowrap"><%= phin.sms %></td>
@@ -91,7 +91,7 @@
       </table>
 
       <.live_component
-        module={FinincialAgentWeb.Helps.PaginationComponent}
+        module={FinancialAgentWeb.Helps.PaginationComponent}
         id="PaginationComponent"
         params={@params}
         pagination_data={@data}

@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Utils.NumberFunctions do
+defmodule FinancialAgent.Utils.NumberFunctions do
   def convert_to_int(alpha) do
     {nun, _} = Integer.parse(alpha)
     nun

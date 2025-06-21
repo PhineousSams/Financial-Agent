@@ -1,28 +1,28 @@
-defmodule FinincialAgentWeb.Router do
-  use FinincialAgentWeb, :router
-  import FinincialAgentWeb.Plugs.{AddToConn, UserAuth}
+defmodule FinancialAgentWeb.Router do
+  use FinancialAgentWeb, :router
+  import FinancialAgentWeb.Plugs.{AddToConn, UserAuth}
 
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug FinincialAgentWeb.Plugs.BrowserCookie
+    plug FinancialAgentWeb.Plugs.BrowserCookie
     plug :put_secure_browser_headers
     plug :put_client_ip
     plug :fetch_current_user
   end
 
   pipeline :root do
-    plug :put_root_layout, html: {FinincialAgentWeb.Layouts, :root}
+    plug :put_root_layout, html: {FinancialAgentWeb.Layouts, :root}
   end
 
   pipeline :login do
-    plug :put_root_layout, html: {FinincialAgentWeb.Layouts, :login}
+    plug :put_root_layout, html: {FinancialAgentWeb.Layouts, :login}
   end
 
   pipeline :auth do
-    plug FinincialAgentWeb.Plugs.RequireAuth
-    plug FinincialAgentWeb.Plugs.EnforcePasswordPolicy
+    plug FinancialAgentWeb.Plugs.RequireAuth
+    plug FinancialAgentWeb.Plugs.EnforcePasswordPolicy
   end
 
   pipeline :no_layout do
@@ -34,12 +34,12 @@ defmodule FinincialAgentWeb.Router do
   end
 
   pipeline :basic_auth do
-    plug FinincialAgentWeb.Plugs.BasicAuth
+    plug FinancialAgentWeb.Plugs.BasicAuth
   end
 
 
   pipeline :authenticated_api do
-    plug FinincialAgentWeb.Plugs.AuthPlug
+    plug FinancialAgentWeb.Plugs.AuthPlug
   end
 
 
@@ -50,7 +50,7 @@ defmodule FinincialAgentWeb.Router do
 
   # ================ WEB ROUTES ==============================
 
-  scope "/", FinincialAgentWeb do
+  scope "/", FinancialAgentWeb do
     pipe_through([:browser, :csrf, :login])
 
     get "/", SessionController, :new
@@ -66,14 +66,14 @@ defmodule FinincialAgentWeb.Router do
       live "/login", Index, :index
       live "/", Index, :new
 
-      live_session :resets, on_mount: FinincialAgentWeb.UserLiveAuth do
+      live_session :resets, on_mount: FinancialAgentWeb.UserLiveAuth do
         live "/change/password", Reset, :index
       end
     end
   end
 
   # =================== AI CHAT ROUTES ==================
-  # scope "/", FinincialAgentWeb do
+  # scope "/", FinancialAgentWeb do
   #   pipe_through([:browser, :csrf, :root, :auth])
 
   #   live "/chat", ChatLive, :index
@@ -81,16 +81,16 @@ defmodule FinincialAgentWeb.Router do
   # end
 
   # =================== OAUTH ROUTES ==================
-  scope "/auth", FinincialAgentWeb do
+  scope "/auth", FinancialAgentWeb do
     pipe_through [:browser]
 
     get "/:provider", OAuthController, :request
     get "/:provider/callback", OAuthController, :callback
   end
 
-  live_session :admins, on_mount: [FinincialAgentWeb.UserLiveAuth, FinincialAgentWeb.Plugs.Authorizer] do
+  live_session :admins, on_mount: [FinancialAgentWeb.UserLiveAuth, FinancialAgentWeb.Plugs.Authorizer] do
     # =================== ADMIN ==================
-    scope "/Admin", FinincialAgentWeb do
+    scope "/Admin", FinancialAgentWeb do
       pipe_through([:browser, :csrf, :root, :auth])
 
       live "/dashboard", DashboardLive.Index, :index
@@ -181,7 +181,7 @@ defmodule FinincialAgentWeb.Router do
   end
 
 
-  scope "/", FinincialAgentWeb do
+  scope "/", FinancialAgentWeb do
 
     # ------------------------WRONG ROUTES ------------
     get "/*any", ErrorController, :invalid_endpoint

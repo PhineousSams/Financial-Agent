@@ -1,4 +1,4 @@
-defmodule FinincialAgent.Utility.Randomizer do
+defmodule FinancialAgent.Utility.Randomizer do
   @moduledoc """
   Random string generator module.
   """

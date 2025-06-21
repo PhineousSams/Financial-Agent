@@ -1,7 +1,7 @@
-defmodule FinincialAgentWeb.ReportController do
-  use FinincialAgentWeb, :controller
+defmodule FinancialAgentWeb.ReportController do
+  use FinancialAgentWeb, :controller
 
-  alias FinincialAgent.Settings
+  alias FinancialAgent.Settings
 
   def dash_stats(conn, _params) do
     raw_data = Settings.get_dashboard_data()

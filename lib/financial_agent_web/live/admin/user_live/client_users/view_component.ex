@@ -1,9 +1,9 @@
-defmodule FinincialAgentWeb.ClientUserLive.ViewComponent do
+defmodule FinancialAgentWeb.ClientUserLive.ViewComponent do
   @moduledoc false
-  use FinincialAgentWeb, :live_component
+  use FinancialAgentWeb, :live_component
 
-  alias FinincialAgent.Roles
-  alias FinincialAgent.Accounts
+  alias FinancialAgent.Roles
+  alias FinancialAgent.Accounts
 
   @impl true
 

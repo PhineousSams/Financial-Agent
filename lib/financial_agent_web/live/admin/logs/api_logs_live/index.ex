@@ -1,9 +1,9 @@
-defmodule FinincialAgentWeb.ApiLogsLive.Index do
-  use FinincialAgentWeb, :live_view
+defmodule FinancialAgentWeb.ApiLogsLive.Index do
+  use FinancialAgentWeb, :live_view
 
   alias Phoenix.LiveView.JS
-  alias FinincialAgent.Logs
-  alias FinincialAgentWeb.Helps.PaginationControl, as: Control
+  alias FinancialAgent.Logs
+  alias FinancialAgentWeb.Helps.PaginationControl, as: Control
 
   @impl true
   def mount(_params, _session, socket) do
