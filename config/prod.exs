@@ -28,7 +28,7 @@ config :finch, FinancialAgent.Finch,
 # Configure Ecto for production
 config :financial_agent, FinancialAgent.Repo,
   # Enable SSL for database connections
-  ssl: true,
+  # ssl: false,
   # Configure connection pool
   pool_size: 10,
   # Set timeouts

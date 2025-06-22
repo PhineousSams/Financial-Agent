@@ -158,26 +158,34 @@ if config_env() == :prod do
     ]
 
   # Configure additional production database settings
+  maybe_ssl = if System.get_env("DATABASE_URL") && String.contains?(System.get_env("DATABASE_URL"), "sslmode=require") do
+    [
+      # ssl: true,
+      # ssl_opts: [
+      #   verify: :verify_none,
+      #   versions: [:"tlsv1.2", :"tlsv1.3"]
+      # ]
+    ]
+  else
+    []
+  end
+
   config :financial_agent, FinancialAgent.Repo,
-    url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    socket_options: maybe_ipv6,
-    # Enable SSL for production
-    ssl: true,
-    ssl_opts: [
-      verify: :verify_none,
-      versions: [:"tlsv1.2", :"tlsv1.3"]
-    ],
-    # Connection timeouts
-    timeout: 15_000,
-    ownership_timeout: 20_000,
-    # Queue settings
-    queue_target: 5_000,
-    queue_interval: 10_000,
-    # Enable prepared statements
-    prepare: :named,
-    # Log slow queries
-    log: String.to_atom(System.get_env("DB_LOG_LEVEL") || "false")
+    [
+      url: database_url,
+      pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+      socket_options: maybe_ipv6,
+      # Connection timeouts
+      timeout: 15_000,
+      ownership_timeout: 20_000,
+      # Queue settings
+      queue_target: 5_000,
+      queue_interval: 10_000,
+      # Enable prepared statements
+      prepare: :named,
+      # Log slow queries
+      log: String.to_atom(System.get_env("DB_LOG_LEVEL") || "false")
+    ] ++ maybe_ssl
 
   # Configure production logging
   if System.get_env("LOG_LEVEL") do
