@@ -160,7 +160,7 @@
 
   <!-- Logo -->
   <a href="javascript:void(0)" class="grid justify-center mb-4">
-    <img src={~p"/images/pbs/logo-1.png"} alt="logo" class='w-20 h-20' />
+    <img src={~p"/images/pbs/logo.png"} alt="logo" class='w-20 h-20' />
   </a>
 
   <!-- Main Links -->
@@ -182,8 +182,8 @@
       </a>
       <ul x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform -translate-y-4" class="pl-8 mt-2 space-y-2">
         <li>
-          <.link rel="noopener" navigate={~p"/Admin/admin/users/management"} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">
-            Admin Users
+          <.link rel="noopener" navigate={~p"/Admin/users/management"} class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md">
+             Users
           </.link>
         </li> 
         <li>

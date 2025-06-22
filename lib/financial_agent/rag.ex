@@ -136,8 +136,8 @@ defmodule FinancialAgent.RAG do
               content_chunk: chunk,
               embedding: Jason.encode!(embedding),  # Store as JSON string
               chunk_index: index,
-              inserted_at: DateTime.utc_now() |> DateTime.truncate(:second),
-              updated_at: DateTime.utc_now() |> DateTime.truncate(:second)
+              inserted_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second),
+              updated_at: NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
             }
           {:error, _reason} ->
             nil

@@ -131,7 +131,7 @@ defmodule FinancialAgentWeb.Router do
 
       # =========== USER MANAGEMENT =========
 
-      scope "/admin/users", UserLive do
+      scope "/users", UserLive do
         live "/management", Index, :index
         live "/blocked", Blocked, :index
         live "/new", Index, :new

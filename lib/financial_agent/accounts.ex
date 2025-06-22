@@ -186,10 +186,10 @@ defmodule FinancialAgent.Accounts do
     |> Scrivener.paginate(Scrivener.Config.new(Repo, @pagination, search_params))
   end
 
-  def list_system_users(search_params, user_type) do
+  def list_system_users(search_params, _user_type) do
     User
     |> join(:left, [u], r in "tbl_user_role", on: u.role_id == r.id)
-    |> where([u], u.status != "DELETED" and u.user_type == ^user_type and u.blocked == false)
+    |> where([u], u.status != "DELETED" and u.blocked == false)
     |> handle_user_filter(search_params)
     |> order_by(desc: :inserted_at)
     |> compose_user_select()

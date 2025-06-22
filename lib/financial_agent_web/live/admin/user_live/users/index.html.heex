@@ -1,19 +1,19 @@
 <div class="p-6">
   <h1 class="text-2xl font-semibold text-gray-800 flex items-center space-x-2">
     <i class="subheader-icon fal fa-users text-blue-500"></i>
-    <h2 class="font-bold text-xl">Clients</h2>
+    <h2 class="font-bold text-xl">Users</h2>
 
     <h3 class="block text-gray-600 text-sm mt-1">
-      A list of clients
+      A list of all Users
     </h3>
   </h1>
 
   <%= if Enum.member?(@permits, "create_users") do %>
     <.link
-      patch={~p"/Admin/Client/registration"}
+      patch={~p"/Admin/users/new"}
       class="mt-4 inline-flex items-center tracking-wider px-4 py-2 gradient-bg text-white text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
     >
-      Add client
+      Add user
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div class="mt-6 relative my-overflow-div">
+    <div class="mt-6 my-overflow-div">
       <input
         type="hidden"
         name="_csrf_token"
@@ -116,10 +116,12 @@
               Phone
             </th>
 
-            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider">Sex</th>
+            <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
+              Sex
+            </th>
 
             <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
-              User Type
+              Role
             </th>
 
             <th class="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider whitespace-nowrap">
@@ -147,7 +149,12 @@
 
               <td class="px-4 py-4 whitespace-nowrap"><%= phin.sex %></td>
 
-              <td class="px-4 py-4 whitespace-nowrap"><%= phin.user_type %></td>
+              <td class="px-4 py-4 whitespace-nowrap">
+                <%= if(phin.user_role == nil,
+                  do: "",
+                  else: String.replace(phin.user_role, "_", " ")
+                ) %>
+              </td>
 
               <td class="px-4 py-4 whitespace-nowrap">
                 <%= raw(FinancialAgent.Workers.Util.Utils.td_status(phin.status)) %>
@@ -168,7 +175,7 @@
                       @click.away="open = false"
                       class="absolute grid right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10"
                     >
-                      <%= live_patch  to: ~p"/Admin/Client/users/#{phin.id}/edit", class: "inline-flex px-4 py-1 text-sm text-gray-700 hover:bg-gray-100" do %>
+                      <%= live_patch  to: ~p"/Admin/users/#{phin.id}/edit", class: "inline-flex px-4 py-1 text-sm text-gray-700 hover:bg-gray-100" do %>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -186,7 +193,7 @@
                         Edit Details
                       <% end %>
 
-                      <%= live_patch  to: ~p"/Admin/Client/users/#{phin.id}/view", class: "inline-flex px-4 py-1 text-sm text-gray-700 hover:bg-gray-100" do %>
+                      <%= live_patch  to: ~p"/Admin/users/#{phin.id}/view", class: "inline-flex px-4 py-1 text-sm text-gray-700 hover:bg-gray-100" do %>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -372,44 +379,42 @@
   </div>
 </div>
 
-<%= if @live_action in [:new, :edit] do %>
-  <.modal
-    class="max-w-4xl p-2"
-    id="client-modal"
-    show
-    on_cancel={JS.patch(~p"/Admin/Client/users/management")}
-  >
-    <.live_component
-      module={FinancialAgentWeb.ClientUserLive.FormComponent}
-      id={@user.id || :new}
-      title={@page_title}
-      action={@live_action}
-      user={@user}
-      user_type={@user_type}
-      patch={~p"/Admin/Client/users//management"}
-    />
-  </.modal>
-<% end %>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  class="w-full  max-w-6xl p-3 sm:p-6 lg:py-8"
+  id="user-reg-modal"
+  show
+  on_cancel={JS.patch(~p"/Admin/users/management")}
+>
+  <.live_component
+    module={FinancialAgentWeb.UserLive.FormComponent}
+    id={@user.id || :new}
+    title={@page_title}
+    action={@live_action}
+    user={@user}
+    user_type={@user_type}
+    patch={~p"/Admin/users/management"}
+  />
+</.modal>
 
-<%= if @live_action in [:view] do %>
-  <.modal
-    class="max-w-4xl p-2"
-    id="client-view-modal"
-    show
-    on_cancel={JS.patch(~p"/Admin/Client/users/management")}
-  >
-    <.live_component
-      module={FinancialAgentWeb.ClientUserLive.ViewComponent}
-      id={@user.id || :new}
-      title={@page_title}
-      action={@live_action}
-      user={@user}
-      tbl_user={@tbl_user}
-      user_type={@user_type}
-      patch={~p"/Admin/Client/users//management"}
-    />
-  </.modal>
-<% end %>
+<.modal
+  :if={@live_action in [:view]}
+  class="w-full  max-w-6xl p-3 sm:p-6 lg:py-8"
+  id="user-view-modal"
+  show
+  on_cancel={JS.patch(~p"/Admin/users/management")}
+>
+  <.live_component
+    module={FinancialAgentWeb.UserLive.ViewComponent}
+    id={@user.id || :new}
+    title={@page_title}
+    action={@live_action}
+    user={@user}
+    tbl_user={@tbl_user}
+    user_type={@user_type}
+    patch={~p"/Admin/users/management"}
+  />
+</.modal>
 
 <%= if @info_modal do %>
   <.live_component
@@ -459,9 +464,10 @@
 
 <%= if @show_modal do %>
   <.live_component
-    module={FinancialAgentWeb.ClientUserLive.ClientUserLiveFilterComponent}
+    module={FinancialAgentWeb.UserLive.UserLiveFilterComponent}
     id="modal-component"
     params={@params}
+    roles={@roles}
     page={@page}
   />
 <% end %>

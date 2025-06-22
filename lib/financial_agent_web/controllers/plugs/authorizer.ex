@@ -79,7 +79,6 @@ defmodule FinancialAgentWeb.Plugs.Authorizer do
       FinancialAgentWeb.Admin.UserLive.Index -> "access_users"
       FinancialAgentWeb.Admin.AccessLive.Index -> "access_user_roles"
       FinancialAgentWeb.Admin.UserLive.Blocked -> "access_users"
-      FinancialAgentWeb.Admin.ClientUserLive.Index -> "access_users"
       FinancialAgentWeb.Admin.AccessLive.Index -> "assign_user_roles"
       FinancialAgentWeb.Admin.RoleLive.Index -> "access_user_roles"
       FinancialAgentWeb.Admin.PermissionsLive.Index -> "access_permissions"
@@ -92,7 +91,6 @@ defmodule FinancialAgentWeb.Plugs.Authorizer do
       FinancialAgentWeb.Admin.NotificationsLive.Emails -> "access_email_logs"
 
       FinancialAgentWeb.Admin.UserLive.Blocked -> "access_blocked_users"
-      FinancialAgentWeb.Admin.ClientUserLive.Index -> "access_client_users"
       FinancialAgentWeb.Admin.UserLive.Index -> "access_admin_users"
 
       FinancialAgentWeb.Admin.ChatLive.Index -> "access_chats"
@@ -144,8 +142,7 @@ defmodule FinancialAgentWeb.Plugs.Authorizer do
       FinancialAgentWeb.Admin.ServiceLogsLive.Index-> "Service Logs Page"
 
       FinancialAgentWeb.Admin.UserLive.Index -> "Admin User Management Page"
-      FinancialAgentWeb.Admin.UserLive.Blocked -> "Blocked Users Management Page"
-      FinancialAgentWeb.Admin.ClientUserLive.Index -> "Client Users Management Page"
+      FinancialAgentWeb.Admin.UserLive.Blocked -> "Blocked Users Management Page" 
       FinancialAgentWeb.Admin.RoleLive.Index -> "Roles Management Page"
       FinancialAgentWeb.Admin.PermissionsLive.Index -> "Permissions Management Page"
       FinancialAgentWeb.Admin.PermissionGroupsLive.Index -> "Permission Groups Management Page"

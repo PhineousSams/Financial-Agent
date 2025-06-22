@@ -4,20 +4,20 @@ let Hooks = {}
 // Chart Hook - API Usage by Integrator
 Hooks.Chart = {
   mounted() {
-    // Bar Chart Options
+    // Bar Chart Options for User Data
     let barOptions = {
       series: [{
-        name: 'ZRA',
-        data: [1850, 1920, 2100, 2050, 2200, 2150, 2300, 2250, 2400]
+        name: 'Sarah Mwanza',
+        data: [125, 132, 145, 138, 152, 148, 165, 159, 172]
       }, {
-        name: 'NAPSA',
-        data: [1200, 1300, 1450, 1400, 1500, 1550, 1600, 1650, 1700]
+        name: 'James Banda',
+        data: [89, 95, 102, 98, 108, 112, 118, 124, 130]
       }, {
-        name: 'WCFCB',
-        data: [800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200]
+        name: 'Mary Phiri',
+        data: [45, 52, 58, 61, 67, 72, 78, 84, 90]
       }, {
-        name: 'NHIMA',
-        data: [0, 0, 0, 0, 0, 0, 350, 450, 550]
+        name: 'David Tembo',
+        data: [0, 0, 0, 0, 0, 0, 15, 28, 42]
       }],
       chart: {
         type: 'bar',
@@ -47,7 +47,7 @@ Hooks.Chart = {
       },
       yaxis: {
         title: {
-          text: 'API Calls'
+          text: 'Active Users'
         }
       },
       fill: {
@@ -57,7 +57,7 @@ Hooks.Chart = {
       tooltip: {
         y: {
           formatter: function (val) {
-            return val + " calls"
+            return val + " users"
           }
         }
       }
@@ -74,16 +74,16 @@ Hooks.ResponseTime = {
   mounted() {
     let options = {
       series: [{
-        name: 'ZRA',
+        name: 'Sarah Mwanza',
         data: [120, 115, 130, 125, 110, 105, 100, 95, 90]
       }, {
-        name: 'NAPSA',
+        name: 'James Banda',
         data: [90, 85, 95, 100, 90, 85, 80, 75, 70]
       }, {
-        name: 'WCFCB',
+        name: 'Mary Phiri',
         data: [150, 145, 155, 160, 150, 145, 140, 135, 130]
       }, {
-        name: 'NHIMA',
+        name: 'David Tembo',
         data: [0, 0, 0, 0, 0, 0, 110, 105, 100]
       }],
       chart: {
@@ -132,7 +132,7 @@ Hooks.ResponseTime = {
   }
 };
 
-// Pie Chart Hook - Transaction Distribution
+// Pie Chart Hook - User Distribution
 Hooks.Pie = {
   mounted() {
     // Donut Chart Options
@@ -145,7 +145,7 @@ Hooks.Pie = {
           show: false
         }
       },
-      labels: ['ZRA', 'NAPSA', 'WCFCB', 'NHIMA'],
+      labels: ['Sarah Mwanza', 'James Banda', 'Mary Phiri', 'David Tembo'],
       colors: ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd'],
       dataLabels: {
         enabled: true
@@ -208,7 +208,7 @@ Hooks.ErrorRate = {
         offsetX: 30
       },
       xaxis: {
-        categories: ['ZRA', 'NAPSA', 'WCFCB', 'NHIMA'],
+        categories: ['Sarah Mwanza', 'James Banda', 'Mary Phiri', 'David Tembo'],
         labels: {
           formatter: function (val) {
             return val + "%";
@@ -217,7 +217,7 @@ Hooks.ErrorRate = {
       },
       yaxis: {
         title: {
-          text: 'Integrator'
+          text: 'User'
         }
       }
     };
