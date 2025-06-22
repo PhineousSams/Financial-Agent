@@ -36,7 +36,8 @@ defmodule FinancialAgentWeb.Endpoint do
     param_key: "request_logger",
     cookie_key: "request_logger"
 
-  plug Plug.SSL, rewrite_on: [:x_forwarded_proto]
+  # plug Plug.SSL, rewrite_on: [:x_forwarded_proto]
+  # plug Plug.SSL, rewrite_on: [:x_forwarded_host, :x_forwarded_port, :x_forwarded_proto]
 
 
   plug Plug.RequestId

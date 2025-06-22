@@ -96,4 +96,5 @@ COPY --from=builder --chown=appuser:appuser /app/_build/prod/rel/financial_agent
 # Entrypoint: start the release
 # CMD ["/app/bin/financial_agent", "start"]
 
+
 CMD ["/app/bin/server"]

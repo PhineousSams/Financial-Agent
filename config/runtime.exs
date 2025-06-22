@@ -122,10 +122,14 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
+  host = System.get_env("PHX_HOST") || "example.com"
+  port = String.to_integer(System.get_env("PORT") || "8080")
+
   # config :financial_agent, FinancialAgentWeb.Endpoint,
   #   url: [host: host, port: 443, scheme: "https"],
+  #   force_ssl: false,
   #   http: [
-  #     ip: {0, 0, 0, 0},
+  #     ip: {0, 0, 0, 0, 0, 0, 0, 0},
   #     port: port,
   #     compress: true,
   #     protocol_options: [
@@ -133,23 +137,18 @@ if config_env() == :prod do
   #       request_timeout: 30_000
   #     ]
   #   ],
+  #   secret_key_base: secret_key_base,
 
   config :financial_agent, FinancialAgentWeb.Endpoint,
-    url: [host: "financial-agent-io.fly.dev", port: 443, scheme: "https"],
+    url: [host: "financial-ai-agent.fly.dev", scheme: "https", port: 443],
     http: [
-      ip: {0, 0, 0, 0},
+      # Fly uses IPv6, so use this
+      ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "8080")
     ],
-    check_origin: false,
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
-    secret_key_base: System.fetch_env!("SECRET_KEY_BASE")
-
-    # secret_key_base: secret_key_base,
-    # LiveView signing salt for security
-    live_view: [
-      signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT") || secret_key_base
-    ],
-    # Session configuration
+    check_origin: false,
+    secret_key_base: secret_key_base,
     session: [
       store: :cookie,
       key: "_financial_agent_key",
@@ -157,8 +156,9 @@ if config_env() == :prod do
       same_site: "Lax",
       secure: true,
       http_only: true,
-      max_age: 86400 * 30  # 30 days
+      max_age: 86400 * 30
     ]
+
 
   # Configure additional production database settings
   maybe_ssl = if System.get_env("DATABASE_URL") && String.contains?(System.get_env("DATABASE_URL"), "sslmode=require") do
