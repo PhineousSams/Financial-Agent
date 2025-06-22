@@ -10,13 +10,69 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :financial_agent, FinancialAgentWeb.Endpoint,
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  # Force SSL in production
+  force_ssl: [hsts: true],
+  # Enable gzip compression
+  http: [compress: true]
 
 # Configures Swoosh API Client
 config :swoosh, api_client: Swoosh.ApiClient.Finch, finch_name: FinancialAgent.Finch
 
-# Do not print debug messages in production
-config :logger, level: :info
+# Configure Finch HTTP client for better performance
+config :finch, FinancialAgent.Finch,
+  pools: %{
+    :default => [size: 32, count: 8]
+  }
+
+# Configure Ecto for production
+config :financial_agent, FinancialAgent.Repo,
+  # Enable SSL for database connections
+  ssl: true,
+  # Configure connection pool
+  pool_size: 10,
+  # Set timeouts
+  timeout: 15_000,
+  ownership_timeout: 20_000,
+  # Enable prepared statements
+  prepare: :named,
+  # Configure SSL options
+  ssl_opts: [
+    verify: :verify_none
+  ]
+
+# Configure logging for production
+config :logger,
+  level: :info,
+  backends: [:console],
+  compile_time_purge_matching: [
+    [level_lower_than: :info]
+  ]
+
+# Configure console logger format
+config :logger, :console,
+  format: "$time $metadata[$level] $message\n",
+  metadata: [:request_id, :user_id, :remote_ip]
+
+# Configure Phoenix to use structured logging
+config :phoenix, :logger, false
+
+# Configure LiveView for production
+config :phoenix, :json_library, Jason
+
+# Configure session security
+config :financial_agent, FinancialAgentWeb.Endpoint,
+  live_view: [signing_salt: "your-signing-salt-here"]
+
+# Configure CORS if needed
+# config :cors_plug,
+#   origin: ["https://yourdomain.com"],
+#   max_age: 86400,
+#   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+
+# Configure rate limiting
+# config :hammer,
+#   backend: {Hammer.Backend.ETS, [expiry_ms: 60_000 * 60 * 4, cleanup_interval_ms: 60_000 * 10]}
 
 # Runtime production configuration, including reading
 # of environment variables, is done on config/runtime.exs.

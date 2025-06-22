@@ -30,18 +30,55 @@ if System.get_env("GOOGLE_CLIENT_ID") do
     client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
 end
 
+# Configure HubSpot OAuth
+if System.get_env("HUBSPOT_CLIENT_ID") do
+  config :ueberauth, Ueberauth.Strategy.HubSpot.OAuth,
+    client_id: System.get_env("HUBSPOT_CLIENT_ID"),
+    client_secret: System.get_env("HUBSPOT_CLIENT_SECRET")
+end
+
 # Configure OpenAI for all environments
 if System.get_env("OPENAI_API_KEY") do
   config :openai,
     api_key: System.get_env("OPENAI_API_KEY"),
-    organization_key: System.get_env("OPENAI_ORGANIZATION_KEY")
+    organization_key: System.get_env("OPENAI_ORGANIZATION_KEY"),
+    http_options: [recv_timeout: 60_000]
 end
 
 # Configure Guardian for all environments
 if System.get_env("GUARDIAN_SECRET_KEY") do
   config :financial_agent, FinancialAgent.Guardian,
     issuer: "financial_agent",
-    secret_key: System.get_env("GUARDIAN_SECRET_KEY")
+    secret_key: System.get_env("GUARDIAN_SECRET_KEY"),
+    ttl: {30, :days}
+end
+
+# Configure email settings
+if System.get_env("SMTP_HOST") do
+  config :financial_agent, FinancialAgent.Mailer,
+    adapter: Swoosh.Adapters.SMTP,
+    relay: System.get_env("SMTP_HOST"),
+    port: String.to_integer(System.get_env("SMTP_PORT") || "587"),
+    username: System.get_env("SMTP_USERNAME"),
+    password: System.get_env("SMTP_PASSWORD"),
+    tls: :always,
+    auth: :always,
+    retries: 2
+end
+
+# Configure Mailgun if preferred
+if System.get_env("MAILGUN_API_KEY") do
+  config :financial_agent, FinancialAgent.Mailer,
+    adapter: Swoosh.Adapters.Mailgun,
+    api_key: System.get_env("MAILGUN_API_KEY"),
+    domain: System.get_env("MAILGUN_DOMAIN")
+end
+
+# Configure SendGrid if preferred
+if System.get_env("SENDGRID_API_KEY") do
+  config :financial_agent, FinancialAgent.Mailer,
+    adapter: Swoosh.Adapters.Sendgrid,
+    api_key: System.get_env("SENDGRID_API_KEY")
 end
 
 # ## Using releases
@@ -86,7 +123,7 @@ if config_env() == :prod do
       """
 
   host = System.get_env("PHX_HOST") || "example.com"
-  port = String.to_integer(System.get_env("PORT") || "4000")
+  port = String.to_integer(System.get_env("PORT") || "9000")
 
   config :financial_agent, FinancialAgentWeb.Endpoint,
     url: [host: host, port: 443, scheme: "https"],
@@ -96,9 +133,88 @@ if config_env() == :prod do
       # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
       # for details about using IPv6 vs IPv4 and loopback vs public addresses.
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
-      port: port
+      port: port,
+      # Production HTTP settings
+      compress: true,
+      protocol_options: [
+        idle_timeout: 60_000,
+        request_timeout: 30_000
+      ]
     ],
-    secret_key_base: secret_key_base
+    secret_key_base: secret_key_base,
+    # LiveView signing salt for security
+    live_view: [
+      signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT") || secret_key_base
+    ],
+    # Session configuration
+    session: [
+      store: :cookie,
+      key: "_financial_agent_key",
+      signing_salt: System.get_env("SESSION_SIGNING_SALT") || secret_key_base,
+      same_site: "Lax",
+      secure: true,
+      http_only: true,
+      max_age: 86400 * 30  # 30 days
+    ]
+
+  # Configure additional production database settings
+  config :financial_agent, FinancialAgent.Repo,
+    url: database_url,
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    socket_options: maybe_ipv6,
+    # Enable SSL for production
+    ssl: true,
+    ssl_opts: [
+      verify: :verify_none,
+      versions: [:"tlsv1.2", :"tlsv1.3"]
+    ],
+    # Connection timeouts
+    timeout: 15_000,
+    ownership_timeout: 20_000,
+    # Queue settings
+    queue_target: 5_000,
+    queue_interval: 10_000,
+    # Enable prepared statements
+    prepare: :named,
+    # Log slow queries
+    log: String.to_atom(System.get_env("DB_LOG_LEVEL") || "false")
+
+  # Configure production logging
+  if System.get_env("LOG_LEVEL") do
+    config :logger, level: String.to_atom(System.get_env("LOG_LEVEL"))
+  end
+
+  # Configure Sentry for error tracking (if using)
+  if System.get_env("SENTRY_DSN") do
+    config :sentry,
+      dsn: System.get_env("SENTRY_DSN"),
+      environment_name: System.get_env("SENTRY_ENV") || "production",
+      enable_source_code_context: true,
+      root_source_code_paths: [File.cwd!()],
+      tags: %{
+        env: "production"
+      },
+      included_environments: ["production"]
+  end
+
+  # Configure Redis for caching (if using)
+  if System.get_env("REDIS_URL") do
+    config :financial_agent, FinancialAgent.Cache,
+      adapter: Nebulex.Adapters.Redis,
+      url: System.get_env("REDIS_URL")
+  end
+
+  # Configure rate limiting
+  if System.get_env("ENABLE_RATE_LIMITING") == "true" do
+    config :hammer,
+      backend: {
+        Hammer.Backend.Redis,
+        [
+          expiry_ms: 60_000 * 60 * 2,
+          redis_url: System.get_env("REDIS_URL") || "redis://localhost:6379/1"
+        ]
+      }
+  end
 
   # ## SSL Support
   #
