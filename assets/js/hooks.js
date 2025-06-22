@@ -1,8 +1,5 @@
 // assets/js/hooks.js
-let Hooks = {}
-
-
-const doc = new jsPDF();
+let Hooks = {} 
 
 // Chart Hook - API Usage by Integrator
 Hooks.Chart = {
