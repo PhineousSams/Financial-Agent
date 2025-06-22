@@ -59,8 +59,7 @@ defmodule FinancialAgent.MixProject do
       # JSON Web Tokens
       {:guardian, "~> 2.3"},
 
-      # Existing dependencies
-      {:pdf_generator, "~> 0.6.2"},
+      # Existing dependencies 
       {:sneeze, "~> 1.1"},
       {:phoenix_html, "~> 3.3"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
