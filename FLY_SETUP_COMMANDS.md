@@ -12,13 +12,13 @@ fly secrets set SESSION_SIGNING_SALT="$(mix phx.gen.secret)"
 fly secrets set GUARDIAN_SECRET_KEY="$(mix phx.gen.secret)"
 
 # Set your OpenAI API key (required for AI features)
-fly secrets set OPENAI_API_KEY="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"
+fly secrets set OPENAI_API_KEY="your-openai-api-key-here"
 
 # Set OAuth credentials (required for integrations)
-fly secrets set GOOGLE_CLIENT_ID="1093437761188-0om6ph00t3075c1tji8peaktj9ln0t6b.apps.googleusercontent.com"
-fly secrets set GOOGLE_CLIENT_SECRET="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"
-fly secrets set HUBSPOT_CLIENT_ID="acce6ab8-c4b0-4a07-849f-5f4fa78afb08"
-fly secrets set HUBSPOT_CLIENT_SECRET="e606a8c3-d0d6-42e4-82c2-3a30111338d3"
+fly secrets set GOOGLE_CLIENT_ID="your-google-client-id"
+fly secrets set GOOGLE_CLIENT_SECRET="your-google-client-secret"
+fly secrets set HUBSPOT_CLIENT_ID="your-hubspot-client-id"
+fly secrets set HUBSPOT_CLIENT_SECRET="your-hubspot-client-secret"
 
 # Optional: Set your domain
 fly secrets set PHX_HOST="your-app-name.fly.dev"
@@ -102,6 +102,3 @@ fly ssh console
 ✅ **No errors in logs**
 ✅ **Can access the app via browser**
 ✅ **Database queries work**
-✅ **OAuth redirects work properly**
-
-Your Financial Agent should now be fully deployed and functional on Fly.io!
