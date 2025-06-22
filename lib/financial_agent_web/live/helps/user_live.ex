@@ -40,8 +40,7 @@ defmodule FinancialAgentWeb.UserLiveAuth do
     end
   end
 
-  def on_mount(:default, _params, %{"user_token" => user_token} = session, socket) do
-    IO.inspect to_string(socket.view), label: "=======to_string(socket.view)"
+  def on_mount(:default, _params, %{"user_token" => user_token} = session, socket) do 
     phin =
       String.replace(to_string(socket.view), ".", ",")
       |> String.split(",")

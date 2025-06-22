@@ -27,9 +27,10 @@ config :ueberauth, Ueberauth,
       site: "https://api.hubapi.com",
       authorize_url: "https://app.hubspot.com/oauth/authorize",
       token_url: "https://api.hubapi.com/oauth/v1/token",
-      default_scope: "oauth",
       request_path: "/auth/hubspot",
-      callback_path: "/auth/hubspot/callback"
+      callback_path: "/auth/hubspot/callback",
+      # default_scope: "oauth marketing-email sales-email-read transactional-email crm.objects.appointments.read crm.objects.appointments.write crm.objects.contacts.read crm.objects.contacts.write",
+      default_scope: "oauth crm.objects.contacts.write crm.objects.appointments.read crm.objects.appointments.write marketing-email sales-email-read transactional-email crm.objects.contacts.read",
     ]}
   ]
 

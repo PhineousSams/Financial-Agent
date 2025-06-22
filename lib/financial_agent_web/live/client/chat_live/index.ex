@@ -18,6 +18,7 @@ defmodule FinancialAgentWeb.Client.ChatLive.Index do
         |> assign(:message_input, "")
         |> assign(:loading, false)
         |> assign(:connected_services, get_connected_services(user.id))
+        |> assign(:hubspot_token_expired, false)
 
       {:ok, socket}
     else
@@ -96,6 +97,11 @@ defmodule FinancialAgentWeb.Client.ChatLive.Index do
     {:noreply, redirect(socket, external: "/auth/hubspot")}
   end
 
+  def handle_event("reconnect_hubspot", _params, socket) do
+    # Redirect to HubSpot OAuth for reconnection
+    {:noreply, redirect(socket, external: "/auth/hubspot")}
+  end
+
   def handle_event("update_message", %{"message" => message}, socket) do
     {:noreply, assign(socket, :message_input, message)}
   end
@@ -109,12 +115,17 @@ defmodule FinancialAgentWeb.Client.ChatLive.Index do
         messages = AI.list_messages(conversation.id)
         conversations = AI.list_conversations(user_id) # Refresh to get updated titles
 
+        # Check if the assistant message indicates HubSpot token expiration
+        hubspot_expired = String.contains?(assistant_message.content, "HubSpot connection has expired") or
+                         String.contains?(assistant_message.content, "OAuth token used to make this call expired")
+
         socket =
           socket
           |> assign(:current_conversation, conversation)
           |> assign(:messages, messages)
           |> assign(:conversations, conversations) # Update conversations list
           |> assign(:loading, false)
+          |> assign(:hubspot_token_expired, hubspot_expired)
 
         {:noreply, socket}
 

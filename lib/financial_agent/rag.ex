@@ -173,11 +173,27 @@ defmodule FinancialAgent.RAG do
       model: "text-embedding-ada-002",
       input: text
     ) do
+      # Handle old string-keyed response format
       {:ok, %{"data" => [%{"embedding" => embedding} | _]}} ->
         {:ok, embedding}
 
+      # Handle new atom-keyed response format
+      {:ok, %{data: [%{"embedding" => embedding} | _]}} ->
+        {:ok, embedding}
+
+      # Handle mixed format (atoms at top level, strings in data)
+      {:ok, response} when is_map(response) ->
+        case get_in(response, [:data]) || get_in(response, ["data"]) do
+          [%{"embedding" => embedding} | _] -> {:ok, embedding}
+          _ -> {:error, "Invalid embedding response format"}
+        end
+
       {:error, reason} ->
         {:error, reason}
+
+      # Fallback for any other unexpected format
+      other ->
+        {:error, "Unexpected response format: #{inspect(other)}"}
     end
   end
 

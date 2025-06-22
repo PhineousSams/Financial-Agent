@@ -23,6 +23,15 @@ defmodule FinancialAgent.AI.Agent do
 
   Always be helpful, professional, and accurate. When you're unsure about something, ask for clarification.
   If you need to perform actions that might have significant consequences, confirm with the user first.
+
+  When scheduling appointments or meetings:
+  1. If HubSpot integration has permission issues, ask the user to provide the contact's email address directly
+  2. You can still create calendar events even without HubSpot access
+  3. Always confirm meeting details (date, time, duration) before scheduling
+  4. Be flexible and work around integration limitations to help the user accomplish their goals
+
+  If a user asks to schedule a meeting with someone and you can't find them in HubSpot due to permissions,
+  politely explain the limitation and ask for the person's email address so you can still help schedule the meeting.
   """
 
   @doc """
@@ -144,6 +153,45 @@ defmodule FinancialAgent.AI.Agent do
     end
   end
 
+  # Handle the new OpenAI response format
+  defp handle_openai_response(%{choices: [choice | _]} = response, user_id) do
+    message = choice["message"]
+
+    case message do
+      %{"function_call" => function_call} ->
+        # Handle function calling
+        handle_function_call(function_call, user_id, response)
+
+      %{"content" => content} ->
+        # Regular text response
+        {:ok, %{
+          content: content,
+          tokens_used: get_in(response, [:usage, "total_tokens"]) || get_in(response, ["usage", "total_tokens"]),
+          function_calls: nil
+        }}
+    end
+  end
+
+  # Fallback for any other response format
+  defp handle_openai_response(response, _user_id) do
+    # Try to extract content from various possible response formats
+    content = case response do
+      %{choices: [%{"message" => %{"content" => content}} | _]} -> content
+      %{"choices" => [%{"message" => %{"content" => content}} | _]} -> content
+      _ -> "I apologize, but I encountered an issue processing the response. Please try again."
+    end
+
+    tokens_used = get_in(response, [:usage, "total_tokens"]) ||
+                  get_in(response, ["usage", "total_tokens"]) ||
+                  get_in(response, [:usage, :total_tokens]) || 0
+
+    {:ok, %{
+      content: content,
+      tokens_used: tokens_used,
+      function_calls: nil
+    }}
+  end
+
   defp handle_function_call(function_call, user_id, response) do
     function_name = function_call["name"]
     arguments = Jason.decode!(function_call["arguments"])
@@ -179,7 +227,28 @@ defmodule FinancialAgent.AI.Agent do
   end
 
   defp execute_function("create_hubspot_contact", args, user_id) do
-    HubSpot.create_contact(user_id, args)
+    case HubSpot.create_contact(user_id, args) do
+      {:ok, contact} -> {:ok, contact}
+      {:error, error_message} ->
+        cond do
+          # Check if it's a permissions error
+          String.contains?(error_message, "403") and String.contains?(error_message, "scopes") ->
+            {:ok, %{
+              error: "hubspot_permissions",
+              message: "I don't have sufficient permissions to create HubSpot contacts. Please ask your administrator to grant the required scopes for the HubSpot integration."
+            }}
+
+          # Check if it's an expired token error
+          String.contains?(error_message, "401") and String.contains?(error_message, "expired") ->
+            {:ok, %{
+              error: "hubspot_expired_token",
+              message: "Your HubSpot connection has expired. Please reconnect your HubSpot account to continue using this feature."
+            }}
+
+          true ->
+            {:error, error_message}
+        end
+    end
   end
 
   defp execute_function("update_hubspot_contact", args, user_id) do
@@ -187,7 +256,29 @@ defmodule FinancialAgent.AI.Agent do
   end
 
   defp execute_function("search_hubspot_contacts", %{"query" => query}, user_id) do
-    HubSpot.search_contacts(user_id, query)
+    case HubSpot.search_contacts(user_id, query) do
+      {:ok, contacts} -> {:ok, contacts}
+      {:error, error_message} ->
+        IO.inspect error_message, label: "============= HubSpot Error =============="
+        cond do
+          # Check if it's a permissions error
+          String.contains?(error_message, "403") and String.contains?(error_message, "scopes") ->
+            {:ok, %{
+              error: "hubspot_permissions",
+              message: "I don't have sufficient permissions to search HubSpot contacts. Please ask your administrator to grant the required scopes for the HubSpot integration, or provide me with the contact details directly so I can help you schedule the appointment."
+            }}
+
+          # Check if it's an expired token error
+          String.contains?(error_message, "401") and String.contains?(error_message, "expired") ->
+            {:ok, %{
+              error: "hubspot_expired_token",
+              message: "Your HubSpot connection has expired. Please reconnect your HubSpot account to continue using this feature."
+            }}
+
+          true ->
+            {:error, error_message}
+        end
+    end
   end
 
   defp execute_function("disambiguate_contact", args, user_id) do
@@ -218,8 +309,36 @@ defmodule FinancialAgent.AI.Agent do
     "Meeting scheduled: #{result.summary} on #{result.start_time}"
   end
 
+  defp format_function_result("create_hubspot_contact", %{error: "hubspot_permissions", message: message}) do
+    message
+  end
+
+  defp format_function_result("create_hubspot_contact", %{error: "hubspot_expired_token", message: message}) do
+    message
+  end
+
   defp format_function_result("create_hubspot_contact", result) do
     "Created new contact: #{result.first_name} #{result.last_name}"
+  end
+
+  defp format_function_result("search_hubspot_contacts", %{error: "hubspot_permissions", message: message}) do
+    message
+  end
+
+  defp format_function_result("search_hubspot_contacts", %{error: "hubspot_expired_token", message: message}) do
+    message
+  end
+
+  defp format_function_result("search_hubspot_contacts", contacts) when is_list(contacts) do
+    case contacts do
+      [] -> "I couldn't find any contacts matching that search in HubSpot."
+      contacts ->
+        "I found #{length(contacts)} contacts in HubSpot:\n\n" <>
+        Enum.map_join(contacts, "\n", fn contact ->
+          "• #{contact.first_name} #{contact.last_name} (#{contact.email})" <>
+          if contact.company, do: " - #{contact.company}", else: ""
+        end)
+    end
   end
 
   defp format_function_result(_function_name, result) do
