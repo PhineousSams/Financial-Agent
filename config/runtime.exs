@@ -122,26 +122,29 @@ if config_env() == :prod do
       You can generate one by calling: mix phx.gen.secret
       """
 
-  host = System.get_env("PHX_HOST") || "example.com"
-  port = String.to_integer(System.get_env("PORT") || "9000")
+  # config :financial_agent, FinancialAgentWeb.Endpoint,
+  #   url: [host: host, port: 443, scheme: "https"],
+  #   http: [
+  #     ip: {0, 0, 0, 0},
+  #     port: port,
+  #     compress: true,
+  #     protocol_options: [
+  #       idle_timeout: 60_000,
+  #       request_timeout: 30_000
+  #     ]
+  #   ],
 
   config :financial_agent, FinancialAgentWeb.Endpoint,
-    url: [host: host, port: 443, scheme: "https"],
+    url: [host: "financial-agent-io.fly.dev", port: 443, scheme: "https"],
     http: [
-      # Enable IPv6 and bind on all interfaces.
-      # Set it to  {0, 0, 0, 0, 0, 0, 0, 1} for local network only access.
-      # See the documentation on https://hexdocs.pm/plug_cowboy/Plug.Cowboy.html
-      # for details about using IPv6 vs IPv4 and loopback vs public addresses.
       ip: {0, 0, 0, 0},
-      port: port,
-      # Production HTTP settings
-      compress: true,
-      protocol_options: [
-        idle_timeout: 60_000,
-        request_timeout: 30_000
-      ]
+      port: String.to_integer(System.get_env("PORT") || "8080")
     ],
-    secret_key_base: secret_key_base,
+    check_origin: false,
+    force_ssl: [rewrite_on: [:x_forwarded_proto]],
+    secret_key_base: System.fetch_env!("SECRET_KEY_BASE")
+
+    # secret_key_base: secret_key_base,
     # LiveView signing salt for security
     live_view: [
       signing_salt: System.get_env("LIVE_VIEW_SIGNING_SALT") || secret_key_base
@@ -160,11 +163,11 @@ if config_env() == :prod do
   # Configure additional production database settings
   maybe_ssl = if System.get_env("DATABASE_URL") && String.contains?(System.get_env("DATABASE_URL"), "sslmode=require") do
     [
-      # ssl: true,
-      # ssl_opts: [
-      #   verify: :verify_none,
-      #   versions: [:"tlsv1.2", :"tlsv1.3"]
-      # ]
+      ssl: true,
+      ssl_opts: [
+        verify: :verify_none,
+        versions: [:"tlsv1.2", :"tlsv1.3"]
+      ]
     ]
   else
     []
