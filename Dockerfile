@@ -20,46 +20,56 @@ RUN apt-get update -y && \
 # Set build dir
 WORKDIR /app
 
-# Install hex + rebar
+# Install Hex & Rebar (Elixir build tools)
 RUN mix local.hex --force && \
     mix local.rebar --force
 
 # Set build environment
 ENV MIX_ENV="prod"
 
-# Install Elixir deps
+# -----------------------------
+# ✅ Install Elixir dependencies early for caching
+# -----------------------------
+
+# Copy only mix files first for efficient Docker layer caching
 COPY mix.exs mix.lock ./
+
+# This line ensures `mix deps.get` runs for the specified MIX_ENV
 RUN mix deps.get --only $MIX_ENV
+
+# Ensure config dir exists so `deps.compile` won't fail
 RUN mkdir config
 
-# Copy config files before compiling deps
+# Copy only the relevant config files for compilation
 COPY config/config.exs config/${MIX_ENV}.exs config/
+
+# Compile dependencies
 RUN mix deps.compile
+
+# -----------------------------
+# ✅ Copy source code & assets
+# -----------------------------
 
 # Copy BEAM source
 COPY lib lib
 COPY priv priv
 
-###############################################################################
-# Proper asset build step
-###############################################################################
-
-# -- 1) Copy package.json for caching
+# Copy assets manifest and lockfile first to cache Node modules
 COPY assets/package.json assets/package-lock.json ./assets/
 
-# -- 2) Install node modules
+# Install node modules
 RUN cd assets && npm install
 
-# -- 3) Copy remaining assets
+# Copy remaining static assets
 COPY assets assets
 
-# -- 4) Compile static assets with esbuild/tailwind
+# Build static assets
 RUN mix assets.deploy
 
-# -- 5) Compile the rest of the app
+# Compile the app
 RUN mix compile
 
-# Copy runtime and rel configs
+# Copy runtime config and release files
 COPY config/runtime.exs config/
 COPY rel rel
 
@@ -86,15 +96,12 @@ ENV LC_ALL en_US.UTF-8
 
 WORKDIR "/app"
 
-# Use least privileged user
+# Use a least privileged user
 RUN useradd -ms /bin/bash appuser
 USER appuser
 
-# Copy the built release from the builder stage
+# Copy built release from builder
 COPY --from=builder --chown=appuser:appuser /app/_build/prod/rel/financial_agent ./
 
-# Entrypoint: start the release
-# CMD ["/app/bin/financial_agent", "start"]
-
-
+# Entrypoint for release
 CMD ["/app/bin/server"]
