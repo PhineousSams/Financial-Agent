@@ -67,8 +67,17 @@ if config_env() == :prod do
 
   config :financial_agent, FinancialAgent.Repo,
     url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-    ssl: true
+    ssl: true,
+    pool_size: 10,
+    # Set timeouts
+    timeout: 15_000,
+    ownership_timeout: 20_000,
+    # Enable prepared statements
+    prepare: :named,
+    # Configure SSL options
+    ssl_opts: [
+      verify: :verify_none
+    ]
 
   # Secret Key Base
   secret_key_base =
@@ -87,7 +96,7 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    secret_key_base: secret_key_base, 
+    secret_key_base: secret_key_base,
     check_origin: false
 
 
