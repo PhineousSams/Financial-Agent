@@ -78,19 +78,19 @@ if config_env() == :prod do
       """
 
   # Host and port — ✅ Render best practice: use PHX_HOST env var
-  host = System.get_env("PHX_HOST") || "financial-agent-xstq.onrender.com"
-  port = String.to_integer(System.get_env("PORT") || "10000")
+  host = System.get_env("PHX_HOST") || "financial-agent-kvwj.onrender.com"
+  port = String.to_integer(System.get_env("PORT") || "4000")
 
   config :financial_agent, FinancialAgentWeb.Endpoint,
-    url: [host: host, port: 443, scheme: "https"], # ✅ ensures HTTPS urls & correct redirects
+    url: [host: host, scheme: "https", port: 443],
     http: [
-      # ✅ IPv6 for Render, fallback to IPv4 compatible
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
     secret_key_base: secret_key_base,
-    # force_ssl: [rewrite_on: [:x_forwarded_proto]],
+    force_ssl: [rewrite_on: [:x_forwarded_proto]],
     check_origin: false
+
 
   # Logging level override
   if System.get_env("LOG_LEVEL") do
