@@ -10,7 +10,7 @@ import Config
 config :financial_agent,
   ecto_repos: [FinancialAgent.Repo]
 
-config :financial_agent, :base_url, "http://localhost:9000"
+config :financial_agent, :base_url, "https://financial-agent-kvwj.onrender.com/"
 
 # OpenAI Configuration
 config :openai,
@@ -108,4 +108,4 @@ config :phoenix, :json_library, Jason
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{config_env()}.exs" 
+import_config "#{config_env()}.exs"
