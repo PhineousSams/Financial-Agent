@@ -78,12 +78,10 @@ if config_env() == :prod do
       environment variable SECRET_KEY_BASE is missing.
       """
 
-  # Host and port
-  host = System.get_env("PHX_HOST") || "your-app-name.onrender.com"
+  # Host and port 
   port = String.to_integer(System.get_env("PORT") || "10000")
 
   config :financial_agent, FinancialAgentWeb.Endpoint,
-    url: [host: host, scheme: "https", port: 443],
     http: [
       ip: {0, 0, 0, 0},
       port: port
@@ -97,5 +95,5 @@ if config_env() == :prod do
   # Logging
   if System.get_env("LOG_LEVEL") do
     config :logger, level: String.to_atom(System.get_env("LOG_LEVEL"))
-  end 
+  end
 end
