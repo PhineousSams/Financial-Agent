@@ -47,7 +47,6 @@ if System.get_env("GUARDIAN_SECRET_KEY") do
     ttl: {30, :days}
 end
 
-
 # ──────────────────────────────
 # ✅ Only for releases: ensure server runs
 # ──────────────────────────────
@@ -78,21 +77,22 @@ if config_env() == :prod do
       environment variable SECRET_KEY_BASE is missing.
       """
 
-  # Host and port 
+  # Host and port — ✅ Render best practice: use PHX_HOST env var
+  host = System.get_env("PHX_HOST") || "financial-agent-xstq.onrender.com"
   port = String.to_integer(System.get_env("PORT") || "10000")
 
   config :financial_agent, FinancialAgentWeb.Endpoint,
+    url: [host: host, port: 443, scheme: "https"], # ✅ ensures HTTPS urls & correct redirects
     http: [
-      ip: {0, 0, 0, 0},
+      # ✅ IPv6 for Render, fallback to IPv4 compatible
+      ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
     secret_key_base: secret_key_base,
     force_ssl: [rewrite_on: [:x_forwarded_proto]],
     check_origin: false
 
-  # Oban uses the Repo config above; no extra setup needed.
-
-  # Logging
+  # Logging level override
   if System.get_env("LOG_LEVEL") do
     config :logger, level: String.to_atom(System.get_env("LOG_LEVEL"))
   end
